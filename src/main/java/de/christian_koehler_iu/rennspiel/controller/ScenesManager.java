@@ -1,15 +1,13 @@
-package de.rennspiel_01.rennspiel_01.controller;
+package de.christian_koehler_iu.rennspiel.controller;
 
-import de.rennspiel_01.rennspiel_01.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.Stack;
 
 public class ScenesManager {

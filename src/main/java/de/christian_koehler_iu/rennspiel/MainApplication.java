@@ -1,11 +1,7 @@
-package de.rennspiel_01.rennspiel_01;
+package de.christian_koehler_iu.rennspiel;
 
-import de.rennspiel_01.rennspiel_01.controller.ScenesManager;
-import de.rennspiel_01.rennspiel_01.controller.StreckeGroesseWaehlenController;
+import de.christian_koehler_iu.rennspiel.controller.ScenesManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;

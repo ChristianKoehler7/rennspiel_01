@@ -1,6 +1,6 @@
-package de.rennspiel_01.rennspiel_01.controller;
+package de.christian_koehler_iu.rennspiel.controller;
 
-import de.rennspiel_01.rennspiel_01.datasets.Linie;
+import de.christian_koehler_iu.rennspiel.datasets.Linie;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,24 +9,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
-import de.rennspiel_01.rennspiel_01.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 public class StreckeErstellenController {
 
 
-    public static final String PATH_TO_FXML = "/de/rennspiel_01/rennspiel_01/strecke_erstellen_view.fxml";
+    public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml";
     public static final String SCENE_NAME = "StreckeErstellen";
 
-    public final double RAND_X_GRID = 1.0; // anzahl kästchen rand links und rechts
-    public final double RAND_Y_GRID = 1.0; // anzahl kästchen rand oben und unten
-
-    public final double CLICK_TOLERANZ_GRID = 0.25; // abweichung click zu kästchenkreuz, sodass der click noch zählt
-
-    private Scene lastScene;
     private Rennstrecke rennstrecke;
 
-    private final int MAX_BREITE_GROUP = 896;
-    private final int MAX_HOEHE_GROUP = 560;
+    private final double B_MAX_PIXEL = 896.0-20.0;
+    private final double H_MAX_PIXEL = 560.0-20.0;
+
+    private Umrechnung_grid_pixel umrechnung_grid_pixel;
+    private int anz_elemente_gitterlinien_und_hintergrund = 0;
 
 
 //    private Line aktMouseLine;
@@ -34,10 +35,7 @@ public class StreckeErstellenController {
 //    private int posPressdGridY_round = -1;
 //    private int posReleasedGridX_round = -1;
 //    private int posReleasedGridY_round = -1;
-//
-//    private final ArrayList<Line> gitterLininen = new ArrayList<>();
-//    private final ArrayList<Line> streckenlinien = new ArrayList<>();
-//    private final ArrayList<Line> fahrLinien = new ArrayList<>();
+
 
 
     @FXML
@@ -74,17 +72,58 @@ public class StreckeErstellenController {
         System.out.println("this.streckeErstellen_group_strecke.getParent().getLayoutX() = " +this.streckeErstellen_group_strecke.getParent().getLayoutX());
         System.out.println("this.streckeErstellen_group_strecke.getLayoutBounds().getWidth()"+this.streckeErstellen_group_strecke.getLayoutBounds().getWidth());
 
-        // Erzwingt das Layout nach dem Initialisieren der Szene
-        Platform.runLater(() -> {
-            // layout() erzwingen, um die Größen zu berechnen
-            streckeErstellen_grid_root.layout();
+        // umrechnungs_grid_pixel objekt erstellen
+        this.umrechnung_grid_pixel = new Umrechnung_grid_pixel(this.B_MAX_PIXEL, this.H_MAX_PIXEL, this.rennstrecke.getBreite(), this.rennstrecke.getHoehe());
 
-            // Jetzt können wir die Größen der Zelle abfragen
-            double width = streckeErstellen_group_strecke.getLayoutBounds().getWidth();
-            double height = streckeErstellen_group_strecke.getLayoutBounds().getHeight();
+        // streckenfläche zeichen
+        // Erstelle ein Rechteck
+        Rectangle rechteck_hintergrund = new Rectangle();
+        rechteck_hintergrund.setX(0.0); // X-Position des Rechtecks
+        rechteck_hintergrund.setY(0.0); // Y-Position des Rechtecks
+        rechteck_hintergrund.setWidth(umrechnung_grid_pixel.get_b_strecke_pixel_mit_rand()); // Breite des Rechtecks
+        rechteck_hintergrund.setHeight(umrechnung_grid_pixel.get_h_strecke_pixel_mit_rand()); // Höhe des Rechtecks
+        // Setze die Füllfarbe auf Weiß
+        rechteck_hintergrund.setFill(Color.WHITE);
+        // Setze die Randfarbe auf Schwarz
+        rechteck_hintergrund.setStroke(Color.BLACK);
+        // rechteck dem group-element hinzufügen
+        streckeErstellen_group_strecke.getChildren().add(rechteck_hintergrund);
 
-            System.out.println("Width: " + width + ", Height: " + height);
-        });
+        // gitter zeichen
+        int strecken_breite = this.rennstrecke.getBreite();
+        int strecken_hoehe = this.rennstrecke.getHoehe();
+        // vertikale gitterlinien zeichen
+        for(int i=0 ; i<strecken_breite+1 ; i++){
+            int x0 = i;
+            int y0 = 0;
+            int x1 = i;
+            int y1 = strecken_hoehe;
+            Line aktLine = new Line(umrechnung_grid_pixel.posXGrid_to_posXPixel(x0),
+                    umrechnung_grid_pixel.posYGrid_to_posYPixel(y0),
+                    umrechnung_grid_pixel.posXGrid_to_posXPixel(x1),
+                    umrechnung_grid_pixel.posYGrid_to_posYPixel(y1));
+            aktLine.setStroke(Color.LIGHTGRAY);
+            aktLine.setStrokeWidth(0.5);
+            // linie dem group-element hinzufügen
+            streckeErstellen_group_strecke.getChildren().add(aktLine);
+        }
+        // horizontale gitterlinien zeichen
+        for(int i=0 ; i<strecken_hoehe+1 ; i++){
+            int x0 = 0;
+            int y0 = i;
+            int x1 = strecken_breite;
+            int y1 = i;
+            Line aktLine = new Line(umrechnung_grid_pixel.posXGrid_to_posXPixel(x0),
+                    umrechnung_grid_pixel.posYGrid_to_posYPixel(y0),
+                    umrechnung_grid_pixel.posXGrid_to_posXPixel(x1),
+                    umrechnung_grid_pixel.posYGrid_to_posYPixel(y1));
+            aktLine.setStroke(Color.LIGHTGRAY);
+            aktLine.setStrokeWidth(0.5);
+            // linie dem group-element hinzufügen
+            streckeErstellen_group_strecke.getChildren().add(aktLine);
+        }
+        // anzGitterlinien speichern
+        this.anz_elemente_gitterlinien_und_hintergrund = streckeErstellen_group_strecke.getChildren().size();
     }
 
     public void streckeErstellen_bn_zurueck(ActionEvent actionEvent) {
@@ -92,70 +131,7 @@ public class StreckeErstellenController {
     }
 
 
-//    private double posGridX_to_posCanvasX(int posGridX){
-//        double pixel_breite = this.streckeErstellen_group_strecke.getParent().;
-//        int strecken_breite = this.rennstrecke.getBreite();
-//
-//        return this.RAND_X + posGridX / ((double)strecken_breite) * (pixel_breite - 2*this.RAND_X);
-//    }
-//
-//    private double posGridY_to_posCanvasY(int posGridY){
-//        double pixel_hoehe = this.nopixel_pane_strecke.getHeight();
-//        int strecken_hoehe = this.rennstrecke.getHoehe();
-//
-//        return this.RAND_Y + posGridY / ((double)strecken_hoehe) * (pixel_hoehe - 2*this.RAND_Y);
-//    }
-//
-//    private double posPixelX_to_posGridX(double posPixelX){
-//        double pixel_breite = this.nopixel_pane_strecke.getWidth();
-//        int grid_breite = this.rennstrecke.getBreite();
-//
-//        return (posPixelX - this.RAND_X) * grid_breite / (pixel_breite - 2*this.RAND_X);
-//    }
-//
-//    private double posPixelY_to_posGridY(double posPixelY){
-//        double pixel_hoehe = this.nopixel_pane_strecke.getHeight();
-//        int grid_hoehe = this.rennstrecke.getHoehe();
-//
-//        return (posPixelY - this.RAND_Y) * grid_hoehe / (pixel_hoehe - 2*this.RAND_Y);
-//    }
-//
-//    private int posPixelX_to_posGridX_round(double posPixelX){
-//        double posGridX_double = this.posPixelX_to_posGridX(posPixelX);
-//
-//        int posGridX_int;
-//        if(posGridX_double <= 0.2 && posGridX_double >= -0.2){
-//            posGridX_int = 0;
-//        }else if(posGridX_double-(double) ((int)posGridX_double) <= 0.2){
-//            posGridX_int = (int)posGridX_double;
-//        }else if(posGridX_double-(double) ((int)posGridX_double) >= 0.8) {
-//            posGridX_int = ((int) posGridX_double) + 1;
-//        }else {
-//            posGridX_int = -1;
-//        }
-//
-//        return posGridX_int;
-//    }
-//
-//    private int posPixelY_to_posGridY_round(double posPixelY){
-//        double pixel_breite = this.nopixel_pane_strecke.getWidth();
-//        int grid_breite = this.rennstrecke.getBreite();
-//
-//        double posGridY_double = this.posPixelY_to_posGridY(posPixelY);
-//
-//        int posGridY_int;
-//        if(posGridY_double <= 0.2 && posGridY_double >= -0.2){
-//            posGridY_int = 0;
-//        }else if(posGridY_double-(double) ((int)posGridY_double) <= 0.2){
-//            posGridY_int = (int)posGridY_double;
-//        }else if(posGridY_double-(double) ((int)posGridY_double) >= 0.8) {
-//            posGridY_int = ((int) posGridY_double) + 1;
-//        }else {
-//            posGridY_int = -1;
-//        }
-//
-//        return posGridY_int;
-//    }
+
 
 
 }

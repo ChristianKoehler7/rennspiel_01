@@ -1,4 +1,4 @@
-package de.rennspiel_01.rennspiel_01.controller;
+package de.christian_koehler_iu.rennspiel.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

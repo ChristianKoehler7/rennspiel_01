@@ -1,4 +1,4 @@
-package de.rennspiel_01.rennspiel_01.datasets;
+package de.christian_koehler_iu.rennspiel.datasets;
 
 public class Linie {
     private Punkt p1;

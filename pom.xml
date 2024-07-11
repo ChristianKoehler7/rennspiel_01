@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.rennspiel_01</groupId>
-    <artifactId>rennspiel_01</artifactId>
+    <groupId>de.christian_koehler_iu</groupId>
+    <artifactId>rennspiel</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>rennspiel_01</name>
+    <name>rennspiel</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,6 +38,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -60,7 +66,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>de.rennspiel_01.rennspiel_01/de.rennspiel_01.rennspiel_01.MainApplication
+                            <mainClass>/de.christian_koehler_iu.rennspiel.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

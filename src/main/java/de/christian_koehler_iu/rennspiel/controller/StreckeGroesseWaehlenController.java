@@ -1,23 +1,17 @@
-package de.rennspiel_01.rennspiel_01.controller;
+package de.christian_koehler_iu.rennspiel.controller;
 
-import de.rennspiel_01.rennspiel_01.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class StreckeGroesseWaehlenController {
 
 
-    public static final String PATH_TO_FXML = "/de/rennspiel_01/rennspiel_01/strecke_groesse_waehlen_view.fxml";
+    public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/strecke_groesse_waehlen_view.fxml";
     public static final String SCENE_NAME = "StreckeGroesseWaehlen";
 
     public final double RAND_X_GRID = 1.0; // anzahl kästchen rand links und rechts

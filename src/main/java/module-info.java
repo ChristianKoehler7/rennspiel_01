@@ -1,16 +1,17 @@
-module de.rennspiel_01.rennspiel_01 {
+module de.christian_koehler_iu.rennspiel {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.jetbrains.annotations;
 
 
-    opens de.rennspiel_01.rennspiel_01 to javafx.fxml;
-    exports de.rennspiel_01.rennspiel_01;
+    opens de.christian_koehler_iu.rennspiel to javafx.fxml;
+    exports de.christian_koehler_iu.rennspiel;
 
 
-    opens de.rennspiel_01.rennspiel_01.controller to javafx.fxml;
-    exports de.rennspiel_01.rennspiel_01.controller;
+    opens de.christian_koehler_iu.rennspiel.controller to javafx.fxml;
+    exports de.christian_koehler_iu.rennspiel.controller;
 
-    exports de.rennspiel_01.rennspiel_01.datasets;
+    exports de.christian_koehler_iu.rennspiel.datasets;
 
 
 }
