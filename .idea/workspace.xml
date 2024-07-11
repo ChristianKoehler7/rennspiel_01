@@ -4,29 +4,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/HelloApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01/hello-view.fxml" afterDir="false" />
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Empty Project">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/controller/ScenesManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/controller/StreckeErstellenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/controller/StreckeGroesseWaehlenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets/Linie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets/Punkt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets/Rennstrecke.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets/Richtung.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01/strecke_erstellen_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01/strecke_groesse_waehlen_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/controller/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ChristianKoehler7&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ChristianKoehler7/rennspiel_01.git&quot;,
+    &quot;accountId&quot;: &quot;0eeee017-f078-437c-9020-353993a35fa5&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -34,22 +58,61 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2j14ziKUlATb9sOxtYte8itf4BT" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.MainApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel_01/src/main/java/de/rennspiel_01/rennspiel_01",
+    "last_opened_file_path": "/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel_01/src/main/resources/de/rennspiel_01/rennspiel_01",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01" />
+      <recent name="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="de.rennspiel_01.rennspiel_01.controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.rennspiel_01.rennspiel_01.MainApplication" />
+      <module name="rennspiel_01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.rennspiel_01.rennspiel_01.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -59,6 +122,19 @@
       <option name="presentableId" value="Default" />
       <updated>1720541515870</updated>
     </task>
+    <task id="LOCAL-00001" summary="Empty Project">
+      <option name="closed" value="true" />
+      <created>1720543025991</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1720543025991</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Empty Project" />
+    <option name="LAST_COMMIT_MESSAGE" value="Empty Project" />
   </component>
 </project>

@@ -1,4 +1,4 @@
-package de.rennspiel_01.rennspiel_01;
+package de.rennspiel_01.rennspiel_01.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
