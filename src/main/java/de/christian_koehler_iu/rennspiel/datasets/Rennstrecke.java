@@ -1,13 +1,15 @@
 package de.christian_koehler_iu.rennspiel.datasets;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 public class Rennstrecke {
     private final String name;
     private final int breite;
     private final int hoehe;
-    private ArrayList<Linie> streckenlinien;
-    private Linie startlinie;
+    private final ArrayList<Linie> streckenlinien = new ArrayList<>();
+    private Linie startlinie = null;
     private Richtung startrichtung;
     private int anz_runden;
     private float strecken_bestzeit;
@@ -37,16 +39,33 @@ public class Rennstrecke {
         return streckenlinien;
     }
 
-    public void setStreckenlinien(ArrayList<Linie> streckenlinien) {
-        this.streckenlinien = streckenlinien;
+    public void addStreckenlinie(Linie linie) {
+        this.streckenlinien.add(linie);
     }
 
+    public void addStreckenlinie(int x0, int y0, int x1, int y1) {
+        Linie linie = new Linie(x0, y0, x1, y1);
+        this.streckenlinien.add(linie);
+    }
+
+    public void removeStreckenlinie(Linie linie) {
+        this.streckenlinien.remove(linie);
+    }
+
+    public void removeLastStreckenlinie() {
+        this.streckenlinien.removeLast();    }
+
+    @Nullable
     public Linie getStartlinie() {
         return startlinie;
     }
 
     public void setStartlinie(Linie startlinie) {
         this.startlinie = startlinie;
+    }
+
+    public void setStartlinie(int x0, int y0, int x1, int y1) {
+        this.startlinie = new Linie(x0, y0, x1, y1);
     }
 
     public Richtung getStartrichtung() {
@@ -76,31 +95,25 @@ public class Rennstrecke {
     public static Rennstrecke generate_strecke_01(){
         Rennstrecke rennstrecke_01 = new Rennstrecke("Rennstrecke 01", 26, 20);
         rennstrecke_01.setAnz_runden(1);
-        // streckenlinien erstellen
-        ArrayList<Linie> arrLinien = new ArrayList<Linie>();
+
         // äußerer rahmen
-        arrLinien.add(new Linie(0, 0, 26, 0));
-        arrLinien.add(new Linie(0, 0, 0, 20));
-        arrLinien.add(new Linie(0, 20, 26, 20));
-        arrLinien.add(new Linie(26, 0, 26, 20));
+        rennstrecke_01.addStreckenlinie(0, 0, 26, 0);
+        rennstrecke_01.addStreckenlinie(0, 0, 0, 20);
+        rennstrecke_01.addStreckenlinie(0, 20, 26, 20);
+        rennstrecke_01.addStreckenlinie(26, 0, 26, 20);
 
         // waagrechte linien
-        arrLinien.add(new Linie(3, 3, 22, 3));
-        arrLinien.add(new Linie(0, 10, 5, 10));
-        arrLinien.add(new Linie(10, 13, 26, 13));
-        arrLinien.add(new Linie(3, 17, 23, 17));
+        rennstrecke_01.addStreckenlinie(3, 3, 22, 3);
+        rennstrecke_01.addStreckenlinie(0, 10, 5, 10);
+        rennstrecke_01.addStreckenlinie(10, 13, 26, 13);
+        rennstrecke_01.addStreckenlinie(3, 17, 23, 17);
 
         // senkrechte linien
-        arrLinien.add(new Linie(7, 3, 7, 17));
-        arrLinien.add(new Linie(10, 5, 10, 13));
-        arrLinien.add(new Linie(14, 3, 14, 9));
-        arrLinien.add(new Linie(18, 6, 18, 13));
-        arrLinien.add(new Linie(22, 3, 22, 7));
-
-        // linien in rennstrecke speichern
-        rennstrecke_01.setStreckenlinien(arrLinien);
-
-
+        rennstrecke_01.addStreckenlinie(7, 3, 7, 17);
+        rennstrecke_01.addStreckenlinie(10, 5, 10, 13);
+        rennstrecke_01.addStreckenlinie(14, 3, 14, 9);
+        rennstrecke_01.addStreckenlinie(18, 6, 18, 13);
+        rennstrecke_01.addStreckenlinie(22, 3, 22, 7);
 
         return rennstrecke_01;
     }

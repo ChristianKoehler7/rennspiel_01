@@ -81,7 +81,10 @@ public class Umrechnung_grid_pixel {
         double posXGrid = this.posXPixel_to_posXGrid(posXPixel);
         // testen ob es eine gridposition gibt, die mit der clicktoleranz übereinstimmt
         Integer posGridX_Integer;
-        if(posXGrid >= -this.CLICK_TOLERANZ_GRID && posXGrid <= this.CLICK_TOLERANZ_GRID) {
+        if(posXGrid < -this.CLICK_TOLERANZ_GRID){
+            posGridX_Integer = null;
+        }
+        else if(posXGrid >= -this.CLICK_TOLERANZ_GRID && posXGrid <= this.CLICK_TOLERANZ_GRID) {
             posGridX_Integer = 0;
         }else if(posXGrid > this.B_STRECKE_GRID_OHNE_RAND+this.CLICK_TOLERANZ_GRID){
             // posXGrid geht über den rechten rand der strecke hinaus
@@ -106,9 +109,12 @@ public class Umrechnung_grid_pixel {
         double posYGrid = this.posYPixel_to_posYGrid(posYPixel);
         // testen ob es eine gridposition gibt, die mit der clicktoleranz übereinstimmt
         Integer posGridY_Integer;
-        if(posYGrid >= -this.CLICK_TOLERANZ_GRID && posYGrid <= this.CLICK_TOLERANZ_GRID) {
+        if(posYGrid < -this.CLICK_TOLERANZ_GRID){
+            posGridY_Integer = null;
+        }
+        else if(posYGrid >= -this.CLICK_TOLERANZ_GRID && posYGrid <= this.CLICK_TOLERANZ_GRID) {
             posGridY_Integer = 0;
-        }else if(posYGrid > this.B_STRECKE_GRID_OHNE_RAND+this.CLICK_TOLERANZ_GRID){
+        }else if(posYGrid > this.H_STRECKE_GRID_OHNE_RAND+this.CLICK_TOLERANZ_GRID){
             // posYGrid geht über den rechten rand der strecke hinaus
             posGridY_Integer = null;
         }else if(posYGrid - (double)((int)posYGrid)/*vorkommastellen abgeschnitten*/ <= this.CLICK_TOLERANZ_GRID){

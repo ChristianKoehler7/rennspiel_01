@@ -1,0 +1,6 @@
+.button:pressed {
+    -fx-background-color: #ADD8E6; /* Ein hellblauer Hintergrund, wenn gedrückt */
+    -fx-border-color: #0000FF;    /* Eine blaue Umrandung */
+    -fx-border-width: 2px;        /* Dickere Umrandung */
+    -fx-text-fill: #FFFFFF;       /* Weiße Schrift */
+}

@@ -24,4 +24,15 @@ public class Punkt{
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean is_equal = false;
+        if(obj instanceof Punkt){
+            if( ((Punkt)obj).getX() == this.getX() && ((Punkt)obj).getY() == this.getY()){
+                is_equal = true;
+            }
+        }
+        return is_equal;
+    }
 }
