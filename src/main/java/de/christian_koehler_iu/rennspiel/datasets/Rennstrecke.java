@@ -10,7 +10,7 @@ public class Rennstrecke {
     private final int hoehe;
     private final ArrayList<Linie> streckenlinien = new ArrayList<>();
     private Linie startlinie = null;
-    private Richtung startrichtung;
+    private boolean is_startrichtung_nach_unten_oder_rechts = true;
     private int anz_runden;
     private float strecken_bestzeit;
 
@@ -68,12 +68,12 @@ public class Rennstrecke {
         this.startlinie = new Linie(x0, y0, x1, y1);
     }
 
-    public Richtung getStartrichtung() {
-        return startrichtung;
+    public boolean get_is_startrichtung_nach_unten_oder_rechts() {
+        return is_startrichtung_nach_unten_oder_rechts;
     }
 
-    public void setStartrichtung(Richtung startrichtung) {
-        this.startrichtung = startrichtung;
+    public void set_is_startrichtung_nach_unten_oder_rechts(boolean is_startrichtung_nach_unten_oder_rechts) {
+        this.is_startrichtung_nach_unten_oder_rechts = is_startrichtung_nach_unten_oder_rechts;
     }
 
     public int getAnz_runden() {

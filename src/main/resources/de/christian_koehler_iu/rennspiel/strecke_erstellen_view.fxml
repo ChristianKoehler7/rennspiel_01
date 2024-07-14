@@ -68,6 +68,7 @@
          <children>
             <Button fx:id="streckeErstellen_bn_streckenLinieZeichnen" mnemonicParsing="false" onAction="#streckeErstellen_bn_streckenLinieZeichnen_action" text="Streckenlinie zeichnen" GridPane.halignment="CENTER" />
             <Button fx:id="streckeErstellen_bn_startLinieZeichnen" mnemonicParsing="false" onAction="#streckeErstellen_bn_startLinieZeichnen_action" text="Startlinie zeichnen" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="streckeErstellen_bn_startRichtungAendern" mnemonicParsing="false" onAction="#streckeErstellen_bn_startRichtungAendern_action" text="Startrichtung ändern" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

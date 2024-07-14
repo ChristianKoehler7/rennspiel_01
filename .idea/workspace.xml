@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="class Umrechnung_grid_pixel erstellt">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles.css" afterDir="false" />
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Linie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Linie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Punkt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Punkt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Rennstrecke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Umrechnung_grid_pixel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Umrechnung_grid_pixel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Link_StreckeErstellenController_Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Link_StreckeErstellenController_Rennstrecke.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +21,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -133,13 +131,22 @@
       <option name="project" value="LOCAL" />
       <updated>1720719799130</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt">
+      <option name="closed" value="true" />
+      <created>1720888550726</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1720888550726</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Empty Project" />
     <MESSAGE value="Anfänge gemacht" />
     <MESSAGE value="class Umrechnung_grid_pixel erstellt" />
-    <option name="LAST_COMMIT_MESSAGE" value="class Umrechnung_grid_pixel erstellt" />
+    <MESSAGE value="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt" />
+    <option name="LAST_COMMIT_MESSAGE" value="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt" />
   </component>
 </project>
