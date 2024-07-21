@@ -113,25 +113,6 @@ public class StreckeErstellenController {
 
             // weitergebenn an link_StreckeErstellenController_Rennstrecke
             this.link_StreckeErstellenController_Rennstrecke.listView_selected_changed(index_selected);
-
-//            // evtl ist bereits eine groupLine eingefärbt, dh alle einfärbungen rückgängig machen
-//            this.grouplines_farben_wiederherstellen();
-//
-//            // index der gewählten streckenlinie holen (wenn keins gewählt dann -1)
-//            int index_selected = this.streckeErstellen_listview_streckenlinien.getSelectionModel().getSelectedIndex();
-//            System.out.println("index_selected = " + index_selected);
-//
-//            if(index_selected >= 0){
-//                // gewählte linie grün färben
-//                // gew rennstrecke.streckenlinie holen
-//                Linie gewStreckenlinie = this.rennstrecke.getStreckenlinien().get(index_selected);
-//                // groupline holen
-//                Line gewGroupLine = this.get_groupLine_from_streckenLinie(gewStreckenlinie);
-//                System.out.println("gewGroupLine = " + gewGroupLine);
-//                if (gewGroupLine != null) {
-//                    gewGroupLine.setStroke(Color.GREEN);
-//                }
-//            }
         });
     }
 
@@ -147,61 +128,7 @@ public class StreckeErstellenController {
 
         // streckenline löschen
         link_StreckeErstellenController_Rennstrecke.delete_streckenlinie(index_selected_item);
-
-//        // index der gewählten linie holen (wenn nix selected dann -1)
-//        int index_selected_item = this.streckeErstellen_listview_streckenlinien.getSelectionModel().getSelectedIndex();
-//
-//        if(index_selected_item >=0){
-//            // rennstrecke.streckenlinie holen
-//            Linie gewStreckenLinie = this.rennstrecke.getStreckenlinien().get(index_selected_item);
-//            // grouplinie holen
-//            Line gewGroupLine = this.get_groupLine_from_streckenLinie(gewStreckenLinie);
-//            // groupline aus gui löschen
-//            this.streckeErstellen_group_strecke.getChildren().remove(gewGroupLine);
-//            // rennstrecke.streckenlinie holen löschen
-//            this.rennstrecke.getStreckenlinien().remove(gewStreckenLinie);
-//            // listview aktualisieren
-//            this.update_streckenLinien_listView();
-//        }
     }
-
-//    private void grouplines_farben_wiederherstellen(){
-//        for(Node aktNode : this.streckeErstellen_group_strecke.getChildren()){
-//            if(aktNode instanceof Line){
-//                // linienart herausfinden
-//                // pixel positionen der aktNode holen
-//                double x0_pixel_groupLine = ((Line) aktNode).getStartX();
-//                double y0_pixel_groupLine = ((Line) aktNode).getStartY();
-//                double x1_pixel_groupLine = ((Line) aktNode).getEndX();
-//                double y1_pixel_groupLine = ((Line) aktNode).getEndY();
-//
-//                // temp linien objekt erzeugen um auf gleichheit zu prüfen
-//                Integer x0_grid_groupLine = this.umrechnung_grid_pixel.posXPixel_to_posXGrid_round(x0_pixel_groupLine);
-//                Integer y0_grid_groupLine = this.umrechnung_grid_pixel.posYPixel_to_posYGrid_round(y0_pixel_groupLine);
-//                Integer x1_grid_groupLine = this.umrechnung_grid_pixel.posXPixel_to_posXGrid_round(x1_pixel_groupLine);
-//                Integer y1_grid_groupLine = this.umrechnung_grid_pixel.posYPixel_to_posYGrid_round(y1_pixel_groupLine);
-//                if(x0_grid_groupLine==null || y0_grid_groupLine==null || x1_grid_groupLine==null || y1_grid_groupLine==null){
-//                    throw new RuntimeException("Gridposition ist null, das kann hier eigentlich nicht sein!");
-//                }
-//                Linie tmpLinie = new Linie(x0_grid_groupLine, y0_grid_groupLine, x1_grid_groupLine, y1_grid_groupLine);
-//
-//                // prüfen ob aktNode eine streckenlinie ist
-//                for(Linie aktStreckenLinie : this.rennstrecke.getStreckenlinien()){
-//                    if(aktStreckenLinie.equals(tmpLinie)){
-//                        // aktNode ist eine streckenlinie => blau färben
-//                        ((Line) aktNode).setStroke(Color.BLUE);
-//                    }
-//                }
-//
-//                if(this.rennstrecke.getStartlinie() !=null
-//                        && this.rennstrecke.getStartlinie().equals(tmpLinie)){
-//                    // aktNode ist eine startlinie => rot färben
-//                    ((Line) aktNode).setStroke(Color.RED);
-//                }
-//            }
-//        }
-//    }
-
 
     public void streckeErstellen_bn_streckenLinieZeichnen_action(ActionEvent actionEvent) {
         if(this.zeichnungszustand != Zeichnungszustand.STRECKENLINIE_ZEICHNEN){
@@ -231,18 +158,6 @@ public class StreckeErstellenController {
 
     public void streckeErstellen_bn_letzteStrLinieLoeschen_action(ActionEvent actionEvent) {
         this.link_StreckeErstellenController_Rennstrecke.delete_last_streckenlinie();
-//        // letzte streckenlinie der rennstrecke holen
-//        if(!this.rennstrecke.getStreckenlinien().isEmpty()){
-//            Linie lastStreckenLine = this.rennstrecke.getStreckenlinien().getLast();
-//            // groupLine holen
-//            Line groupLine = this.get_groupLine_from_streckenLinie(lastStreckenLine);
-//            // groupLine aus gui entfernen
-//            this.streckeErstellen_group_strecke.getChildren().remove(groupLine);
-//            // streckenlinie aus rennstrecke löschen
-//            this.rennstrecke.getStreckenlinien().removeLast();
-//            // listview aktualisieren
-//            this.update_streckenLinien_listView();
-//        }
     }
 
     public void streckeErstellen_bn_startRichtungAendern_action(ActionEvent actionEvent) {
@@ -260,39 +175,4 @@ public class StreckeErstellenController {
     public void streckeErstellen_group_mReleased(MouseEvent mouseEvent){
         this.link_StreckeErstellenController_Rennstrecke.group_mReleased(mouseEvent);
     }
-
-//    @Nullable
-//    private Line get_groupLine_from_streckenLinie(Linie linie){
-//        // pixelpositionen der eingabeLinie holen
-//        double x0_pixel_streckenLinie = this.umrechnung_grid_pixel.posXGrid_to_posXPixel(linie.getP1().getX());
-//        double y0_pixel_streckenLinie = this.umrechnung_grid_pixel.posYGrid_to_posYPixel(linie.getP1().getY());
-//        double x1_pixel_streckenLinie = this.umrechnung_grid_pixel.posXGrid_to_posXPixel(linie.getP2().getX());
-//        double y1_pixel_streckenLinie = this.umrechnung_grid_pixel.posYGrid_to_posYPixel(linie.getP2().getY());
-//
-////        System.out.println("private Line get_groupLine_from_streckenLinie(Linie linie){");
-////        System.out.println("x0_pixel_streckenLinie = " +x0_pixel_streckenLinie);
-////        System.out.println("y0_pixel_streckenLinie = " +y0_pixel_streckenLinie);
-////        System.out.println("x1_pixel_streckenLinie = " +x1_pixel_streckenLinie);
-////        System.out.println("y1_pixel_streckenLinie = " +y1_pixel_streckenLinie);
-//
-//        int aktIndex = 0;
-//        while( aktIndex < this.streckeErstellen_group_strecke.getChildren().size() ){
-//            if(this.streckeErstellen_group_strecke.getChildren().get(aktIndex) instanceof Line){
-//                double x0_groupLine = ((Line) this.streckeErstellen_group_strecke.getChildren().get(aktIndex)).getStartX();
-//                double y0_groupLine = ((Line) this.streckeErstellen_group_strecke.getChildren().get(aktIndex)).getStartY();
-//                double x1_groupLine = ((Line) this.streckeErstellen_group_strecke.getChildren().get(aktIndex)).getEndX();
-//                double y1_groupLine = ((Line) this.streckeErstellen_group_strecke.getChildren().get(aktIndex)).getEndY();
-//                if(   x0_pixel_streckenLinie==x0_groupLine
-//                   && y0_pixel_streckenLinie==y0_groupLine
-//                   && x1_pixel_streckenLinie==x1_groupLine
-//                   && y1_pixel_streckenLinie==y1_groupLine ){
-//                    // linie gefunden
-//                    return ((Line) this.streckeErstellen_group_strecke.getChildren().get(aktIndex));
-//                }
-//            }
-//            aktIndex++;
-//        }
-//        // keine line gefunden
-//        return null;
-//    }
 }

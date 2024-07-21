@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt">
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="class Link_StreckeErstellenController_Rennstrecke erstellt, die sich um das zeichnen der rennstrecke kümmert. Es fehlt nur noch dass man die fertige rennstrecke persisten speichern kann">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Rennstrecke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Linie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/datasets/Linie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Link_StreckeErstellenController_Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Link_StreckeErstellenController_Rennstrecke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Umrechnung_grid_pixel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Umrechnung_grid_pixel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720888550726</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="class Link_StreckeErstellenController_Rennstrecke erstellt, die sich um das zeichnen der rennstrecke kümmert. Es fehlt nur noch dass man die fertige rennstrecke persisten speichern kann">
+      <option name="closed" value="true" />
+      <created>1720980327455</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720980327455</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -147,6 +155,7 @@
     <MESSAGE value="Anfänge gemacht" />
     <MESSAGE value="class Umrechnung_grid_pixel erstellt" />
     <MESSAGE value="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt" />
-    <option name="LAST_COMMIT_MESSAGE" value="class StreckeErstellenController fast fertig, als nächstes wird eine klasse erstellt, die die Rennstrecke mit dem StreckeErstellenController koppelt" />
+    <MESSAGE value="class Link_StreckeErstellenController_Rennstrecke erstellt, die sich um das zeichnen der rennstrecke kümmert. Es fehlt nur noch dass man die fertige rennstrecke persisten speichern kann" />
+    <option name="LAST_COMMIT_MESSAGE" value="class Link_StreckeErstellenController_Rennstrecke erstellt, die sich um das zeichnen der rennstrecke kümmert. Es fehlt nur noch dass man die fertige rennstrecke persisten speichern kann" />
   </component>
 </project>

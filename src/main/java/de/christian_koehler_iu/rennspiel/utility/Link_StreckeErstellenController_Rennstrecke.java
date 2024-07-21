@@ -2,13 +2,15 @@ package de.christian_koehler_iu.rennspiel.utility;
 
 import de.christian_koehler_iu.rennspiel.controller.StreckeErstellenController;
 import de.christian_koehler_iu.rennspiel.datasets.Linie;
+import de.christian_koehler_iu.rennspiel.datasets.Punkt;
 import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 import java.util.*;
@@ -24,6 +26,9 @@ public class Link_StreckeErstellenController_Rennstrecke {
                                                         + "-fx-stroke: lightgray;" // Randfarbe
                                                         + "-fx-stroke-width: 1px;"; // Randbreite
 
+    private final String css_style_gitterlinie = "-fx-stroke: lightgray;"
+                                                +"-fx-stroke-width: 0.5px;";
+
     private final String css_style_streckenlinie_notSelected = "-fx-stroke: blue;"
                                                               +"-fx-stroke-width: 2px;";
 
@@ -36,14 +41,18 @@ public class Link_StreckeErstellenController_Rennstrecke {
     private final String css_style_startrichtungslinien = "-fx-stroke: violet;"
                                                          +"-fx-stroke-width: 4px;";
 
-    private final String css_style_gitterlinie = "-fx-stroke: lightgray;"
-                                                +"-fx-stroke-width: 1px;";
+    private final String css_style_dreieck_startrichung = "-fx-fill: red;"      /* Füllfarbe */
+                                                         +"-fx-stroke: black;"   /* Randfarbe */
+                                                        +"-fx-stroke-width: 0px;"; /* Randbreite */
+
+    private final String css_style_dreieck_rand_durchgang = "-fx-fill: green;"      /* Füllfarbe */
+                                                           +"-fx-stroke: black;"   /* Randfarbe */
+                                                           +"-fx-stroke-width: 0px;"; /* Randbreite */
+
 
     //------------------------------------------------------------------------------------------------------------------
     // sonstige attribute
 
-    private final double b_max_pixel;
-    private final double h_max_pixel;
     private final Umrechnung_grid_pixel umrechnung_grid_pixel;
     // akt linie die gerade mit der maus gezeichnet wird
     private Line aktMouseLine;
@@ -55,14 +64,13 @@ public class Link_StreckeErstellenController_Rennstrecke {
     private final HashMap<Linie, Line> streckenLinien_fxLines_map = new HashMap<>();
     private Line startFxLine = null;
     private Line selceted_streckenFxLine = null;
-    private final ArrayList<Line> startrichtung_fxLines = new ArrayList<>();
+    private final ArrayList<Polygon> startrichtung_fxNodes = new ArrayList<>();
+    private final ArrayList<Polygon> rand_durchgangs_fxNodes = new ArrayList<>();
 
     //------------------------------------------------------------------------------------------------------------------
     // constructor
 
     public Link_StreckeErstellenController_Rennstrecke(double b_max_pixel, double h_max_pixel, I_Link_StrErstController_Rennstrecke i_linkStrErstControllerRennstrecke) {
-        this.b_max_pixel = b_max_pixel;
-        this.h_max_pixel = h_max_pixel;
         this.umrechnung_grid_pixel = new Umrechnung_grid_pixel(
                 b_max_pixel,
                 h_max_pixel,
@@ -70,6 +78,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
                 i_linkStrErstControllerRennstrecke.get_rennstrecke().getHoehe());
         this.i_linkStrErstControllerRennstrecke = i_linkStrErstControllerRennstrecke;
         this.init_gitter_und_hintergrund();
+        this.update_rand_durchgangs_elemente();
     }
 
 
@@ -101,8 +110,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
                     umrechnung_grid_pixel.posYGrid_to_posYPixel(y0),
                     umrechnung_grid_pixel.posXGrid_to_posXPixel(x1),
                     umrechnung_grid_pixel.posYGrid_to_posYPixel(y1));
-            aktLine.setStroke(Color.LIGHTGRAY);
-            aktLine.setStrokeWidth(0.5);
+            aktLine.setStyle(this.css_style_gitterlinie);
             // linie dem group-element hinzufügen
             this.i_linkStrErstControllerRennstrecke.get_group().getChildren().add(aktLine);
         }
@@ -116,8 +124,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
                     umrechnung_grid_pixel.posYGrid_to_posYPixel(y0),
                     umrechnung_grid_pixel.posXGrid_to_posXPixel(x1),
                     umrechnung_grid_pixel.posYGrid_to_posYPixel(y1));
-            aktLine.setStroke(Color.LIGHTGRAY);
-            aktLine.setStrokeWidth(0.5);
+            aktLine.setStyle(this.css_style_gitterlinie);
             // linie dem group-element hinzufügen
             this.i_linkStrErstControllerRennstrecke.get_group().getChildren().add(aktLine);
         }
@@ -134,6 +141,161 @@ public class Link_StreckeErstellenController_Rennstrecke {
 
     private void init_startrichtung(){
 
+    }
+
+    private void update_rand_durchgangs_elemente(){
+        // alte duchgangs-nodes löschen
+        // nodes aus group löschen
+        for(Node aktNode : this.rand_durchgangs_fxNodes){
+            this.i_linkStrErstControllerRennstrecke.get_group().getChildren().remove(aktNode);
+        }
+        // nodes aus arrayList löschen
+        this.rand_durchgangs_fxNodes.clear();
+
+        Rennstrecke rennstrecke = this.i_linkStrErstControllerRennstrecke.get_rennstrecke();
+        int strecken_breite = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getBreite();
+        int strecken_hoehe = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getHoehe();
+
+        // vertikale ränder durchlaufen
+        for(int akt_y_grid=0 ; akt_y_grid<strecken_hoehe ; akt_y_grid++){
+            // links und rechts werden punkte erzeugt, die in der y-mitte der kästchen liegen
+            double x_linker_randpunkt = 0;
+            double y_linker_randpunkt = akt_y_grid+0.5;
+            double x_rechter_randpunkt = (double)strecken_breite;
+            double y_rechter_randpunkt = akt_y_grid+0.5;
+
+            // flag, ob durchgang vorhanden
+            boolean is_rand_durchgang_vorhanden = true;
+
+            // alle streckenlinien durchgehen und testen, ob eine der linien auf einem der akt randpunkte liegt
+            for(Linie akt_strecken_linie : rennstrecke.getStreckenlinien()){
+                if(akt_strecken_linie.liegt_punkt_auf_linie(x_linker_randpunkt, y_linker_randpunkt)
+                || akt_strecken_linie.liegt_punkt_auf_linie(x_rechter_randpunkt, y_rechter_randpunkt)){
+                    is_rand_durchgang_vorhanden = false;
+                    break;
+                }
+            }
+
+            if(is_rand_durchgang_vorhanden){
+                // durchgangselemente zeichnen
+                Polygon dreieck_links = this.create_dreieck(0, akt_y_grid,
+                        false, false,
+                        this.css_style_dreieck_rand_durchgang);
+                Polygon dreieck_rechts = this.create_dreieck(strecken_breite, akt_y_grid,
+                        false, true,
+                        this.css_style_dreieck_rand_durchgang);
+
+                // dreiecke dem group-element geben
+                this.i_linkStrErstControllerRennstrecke.get_group().getChildren().addAll(dreieck_links, dreieck_rechts);
+
+                // dreiecke in arraylist speichern
+                this.rand_durchgangs_fxNodes.add(dreieck_links);
+                this.rand_durchgangs_fxNodes.add(dreieck_rechts);
+            }
+        }
+
+        // horizontale ränder durchlaufen
+        for(int akt_x_grid=0 ; akt_x_grid<strecken_breite ; akt_x_grid++){
+            // oben und unten werden punkte erzeugt, die in der x-mitte der kästchen liegen
+            double x_oberer_randpunkt = akt_x_grid+0.5;
+            double y_oberer_randpunkt = 0;
+            double x_unterer_randpunkt = akt_x_grid+0.5;
+            double y_unterer_randpunkt = strecken_hoehe;
+
+            // flag, ob durchgang vorhanden
+            boolean is_rand_durchgang_vorhanden = true;
+
+            // alle streckenlinien durchgehen und testen, ob eine der linien auf einem der akt randpunkte liegt
+            for(Linie akt_strecken_linie : rennstrecke.getStreckenlinien()){
+                if(akt_strecken_linie.liegt_punkt_auf_linie(x_oberer_randpunkt, y_oberer_randpunkt)
+                        || akt_strecken_linie.liegt_punkt_auf_linie(x_unterer_randpunkt, y_unterer_randpunkt)){
+                    is_rand_durchgang_vorhanden = false;
+                    break;
+                }
+            }
+
+            if(is_rand_durchgang_vorhanden){
+                // durchgangselemente zeichnen
+                Polygon dreieck_oben = this.create_dreieck(akt_x_grid, 0,
+                        true, false,
+                        this.css_style_dreieck_rand_durchgang);
+                Polygon dreieck_unten = this.create_dreieck(akt_x_grid, strecken_hoehe,
+                        true, true,
+                        this.css_style_dreieck_rand_durchgang);
+
+                // dreiecke dem group-element geben
+                this.i_linkStrErstControllerRennstrecke.get_group().getChildren().addAll(dreieck_oben, dreieck_unten);
+
+                // dreiecke in arraylist speichern
+                this.rand_durchgangs_fxNodes.add(dreieck_oben);
+                this.rand_durchgangs_fxNodes.add(dreieck_unten);
+            }
+        }
+
+
+
+
+    }
+
+    private Polygon create_dreieck(int x_grid_baseline_left, int y_grid_baseline_up,
+                                   boolean is_baseline_horizontal, boolean is_richtung_unten_oder_rechts,
+                                   String css_style){
+        // erster punkt der baseline in parameter
+
+        // zweiten punkt der baseline berechnen
+        int x_grid_baseline_right;
+        int y_grid_baseline_down;
+        if(is_baseline_horizontal){
+            // baseline horizontal
+            x_grid_baseline_right = x_grid_baseline_left + 1;
+            y_grid_baseline_down = y_grid_baseline_up;
+        }else{ // baseline vertikal
+            x_grid_baseline_right = x_grid_baseline_left;
+            y_grid_baseline_down = y_grid_baseline_up + 1;
+        }
+
+        // punkt der dreieckspitze berechnen
+        double x_grid_spitze;
+        double y_grid_spitze;
+
+        if(is_baseline_horizontal && is_richtung_unten_oder_rechts){
+            // baseline horizontal
+            // richtung unten
+            x_grid_spitze = (double) x_grid_baseline_left + 0.5;
+            y_grid_spitze = (double) y_grid_baseline_up + 0.5;
+
+        }else if(is_baseline_horizontal && !is_richtung_unten_oder_rechts){
+            // baseline horizontal
+            // richtung oben
+            x_grid_spitze = (double) x_grid_baseline_left + 0.5;
+            y_grid_spitze = (double) y_grid_baseline_up - 0.5;
+        }else if(!is_baseline_horizontal && is_richtung_unten_oder_rechts){
+            // baseline vertikal
+            // richtung rechts
+            x_grid_spitze = (double) x_grid_baseline_left + 0.5;
+            y_grid_spitze = (double) y_grid_baseline_up + 0.5;
+        }else{
+            // baseline vertikal
+            // richtung links
+            x_grid_spitze = (double) x_grid_baseline_left - 0.5;
+            y_grid_spitze = (double) y_grid_baseline_up + 0.5;
+        }
+
+        // dreieck erstellen
+        Polygon dreieck = new Polygon(
+                this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_baseline_left), // x0
+                this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_baseline_up), // y0
+                this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_baseline_right), // x1
+                this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_baseline_down), // y1
+                this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_spitze), // x2
+                this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_spitze) // y2
+        );
+
+        // style setzen
+        dreieck.setStyle(css_style);
+
+        // dreicke ausgeben
+        return dreieck;
     }
 
     public ObservableList<String> get_observable_streckenlinien_for_listview() {
@@ -169,6 +331,9 @@ public class Link_StreckeErstellenController_Rennstrecke {
 
             // streckenline aus listview-datencontainer löschen
             this.observable_streckenlinien_for_listview.remove(index);
+
+            // randdurchgänge aktualisieren
+            this.update_rand_durchgangs_elemente();
         }
     }
 
@@ -230,6 +395,9 @@ public class Link_StreckeErstellenController_Rennstrecke {
 
                 // fxLine dem group hinzufügen
                 this.i_linkStrErstControllerRennstrecke.get_group().getChildren().add(newFxLine);
+
+                // randdurchgänge aktualisieren
+                this.update_rand_durchgangs_elemente();
             }
         }else{
             System.out.println("Mindestens eine Grid-Position ist null!");
@@ -237,10 +405,10 @@ public class Link_StreckeErstellenController_Rennstrecke {
     }
 
     private String linie_to_string(Linie linie){
-        return ("X0=" +linie.getP1().getX()
-                + " Y0=" +linie.getP1().getY()
-                + " X1=" +linie.getP2().getX()
-                + " Y1=" +linie.getP2().getY());
+        return ("X0=" +linie.getP0().getX()
+                + " Y0=" +linie.getP0().getY()
+                + " X1=" +linie.getP1().getX()
+                + " Y1=" +linie.getP1().getY());
     }
 
     public void add_or_change_startlinie(Line fxLine){
@@ -291,25 +459,21 @@ public class Link_StreckeErstellenController_Rennstrecke {
     }
 
     private void draw_start_richtung(){
-        // alte startrichtungslinien löschen
-        // groupLines löschen
-        for(Line aktLine : this.startrichtung_fxLines){
-            this.i_linkStrErstControllerRennstrecke.get_group().getChildren().remove(aktLine);
+        // alte startrichtungs-nodes löschen
+        // nodes aus group löschen
+        for(Node aktNode : this.startrichtung_fxNodes){
+            this.i_linkStrErstControllerRennstrecke.get_group().getChildren().remove(aktNode);
         }
-        // startrichtun_fxLines leeren
-        this.startrichtung_fxLines.clear();
+        // nodes aus arrayList löschen
+        this.startrichtung_fxNodes.clear();
 
         // neue startrichtungs linien erstellen
         if(this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie() != null){
-            // startpunkt ermitteln an dem der pfeil beginnt
-            int x0_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getX();
-            int y0_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getY();
-            int x1_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP2().getX();
-            int y1_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP2().getY();
-
-            // startposition des richtungspfeils ermitteln
-            int x_grid_pfeil_start = x0_grid_startLinie<x1_grid_startLinie ? x0_grid_startLinie : x1_grid_startLinie;
-            int y_grid_pfeil_start = y0_grid_startLinie<y1_grid_startLinie ? y0_grid_startLinie : y1_grid_startLinie;
+            // startpunkt ermitteln an dem startlinie beginnt
+            int x0_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP0().getX();
+            int y0_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP0().getY();
+            int x1_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getX();
+            int y1_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getY();
 
             // startlinie horizontal oder vertikal
             boolean is_startlinie_horizontal;
@@ -321,113 +485,36 @@ public class Link_StreckeErstellenController_Rennstrecke {
                 throw new RuntimeException("Unerwarteter Fehler beim Zeichnen der Startrichtung!");
             }
 
-            if (is_startlinie_horizontal) {
-                if(this.i_linkStrErstControllerRennstrecke.get_rennstrecke().get_is_startrichtung_nach_unten_oder_rechts()){
-                    // startlinie -> horizontal
-                    // startrichtung -> unten
-                    this.startrichtung_fxLines.add( new Line(
-                            this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                            this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                            this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                            this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +2)
-                            )
-                    );
-                    this.startrichtung_fxLines.add( new Line(
-                            this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                            this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +2),
-                            this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -1),
-                            this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +1)
-                            )
-                    );
-                    this.startrichtung_fxLines.add( new Line(
-                            this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                            this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +2),
-                            this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +1),
-                            this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +1)
-                            )
-                    );
-                }else{
-                    // startlinie -> horizontal
-                    // startrichtung -> oben
-                    this.startrichtung_fxLines.add( new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -2)
-                            )
-                    );
-                    this.startrichtung_fxLines.add( new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -2),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -1),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -1)
-                            )
-                    );
-                    this.startrichtung_fxLines.add( new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -2),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +1),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -1)
-                            )
+            // linker oberer punkt der startlinie ist der startpunkt
+            int x_min_grid_startLinie = x0_grid_startLinie<x1_grid_startLinie ? x0_grid_startLinie : x1_grid_startLinie;
+            int y_min_grid_startLinie = y0_grid_startLinie<y1_grid_startLinie ? y0_grid_startLinie : y1_grid_startLinie;
+            int x_max_grid_startLinie = x0_grid_startLinie>x1_grid_startLinie ? x0_grid_startLinie : x1_grid_startLinie;
+            int y_max_grid_startLinie = y0_grid_startLinie>y1_grid_startLinie ? y0_grid_startLinie : y1_grid_startLinie;
+
+            if(is_startlinie_horizontal){
+                for(int akt_x_grid=x_min_grid_startLinie ; akt_x_grid<x_max_grid_startLinie ; akt_x_grid++){
+                    this.startrichtung_fxNodes.add(
+                            this.create_dreieck(akt_x_grid,
+                                y_min_grid_startLinie,
+                                    is_startlinie_horizontal,
+                                this.i_linkStrErstControllerRennstrecke.get_rennstrecke().get_is_startrichtung_nach_unten_oder_rechts(),
+                                this.css_style_dreieck_startrichung)
                     );
                 }
-            }else {
-                if (this.i_linkStrErstControllerRennstrecke.get_rennstrecke().get_is_startrichtung_nach_unten_oder_rechts()) {
-                    // startlinie -> vertikal
-                    // startrichtung -> rechts
-                    this.startrichtung_fxLines.add(new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +2),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start)
-                            )
-                    );
-                    this.startrichtung_fxLines.add(new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +2),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +1),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -1)
-                            )
-                    );
-                    this.startrichtung_fxLines.add(new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +2),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start +1),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +1)
-                            )
-                    );
-                } else {
-                    // startlinie -> vertikal
-                    // startrichtung -> links
-                    this.startrichtung_fxLines.add(new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -2),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start)
-                            )
-                    );
-                    this.startrichtung_fxLines.add(new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -2),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -1),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start -1)
-                            )
-                    );
-                    this.startrichtung_fxLines.add(new Line(
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -2),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start),
-                                    this.umrechnung_grid_pixel.posXGrid_to_posXPixel(x_grid_pfeil_start -1),
-                                    this.umrechnung_grid_pixel.posYGrid_to_posYPixel(y_grid_pfeil_start +1)
-                            )
+            }else { // starlinie ist vertikal
+                for(int akt_y_grid=y_min_grid_startLinie ; akt_y_grid<y_max_grid_startLinie ; akt_y_grid++){
+                    this.startrichtung_fxNodes.add(
+                            this.create_dreieck(x_min_grid_startLinie,
+                                    akt_y_grid,
+                                    is_startlinie_horizontal,
+                                    this.i_linkStrErstControllerRennstrecke.get_rennstrecke().get_is_startrichtung_nach_unten_oder_rechts(),
+                                    this.css_style_dreieck_startrichung)
                     );
                 }
             }
-            // style der lines setzen
-            for(Line aktline : this.startrichtung_fxLines){
-                aktline.setStyle(this.css_style_startrichtungslinien);
-            }
+
             // lines der group hinzufügen
-            this.i_linkStrErstControllerRennstrecke.get_group().getChildren().addAll(this.startrichtung_fxLines);
+            this.i_linkStrErstControllerRennstrecke.get_group().getChildren().addAll(this.startrichtung_fxNodes);
         }
     }
 
@@ -583,8 +670,8 @@ public class Link_StreckeErstellenController_Rennstrecke {
         // listview neu initialisieren
         // rennstrecken.streckenlinien in ObservableList<String> einfügen
         for (Linie linie : this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStreckenlinien()) {
-            this.observable_streckenlinien_for_listview.add("x0=" + linie.getP1().getX() + ", y0=" + linie.getP1().getY() +
-                    ", x1=" + linie.getP2().getX() + ", y1=" + linie.getP2().getY());
+            this.observable_streckenlinien_for_listview.add("x0=" + linie.getP0().getX() + ", y0=" + linie.getP0().getY() +
+                    ", x1=" + linie.getP1().getX() + ", y1=" + linie.getP1().getY());
         }
         // observable_streckenlinien_for_listview mit listview verbinden
         // this.streckeErstellen_listview_streckenlinien.setItems(this.observable_streckenlinien_for_listview);

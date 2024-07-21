@@ -56,11 +56,19 @@ public class Umrechnung_grid_pixel {
         return h_strecke_pixel_mit_rand;
     }
 
-    public double posXGrid_to_posXPixel(int posXGrid){
+//    public double posXGrid_to_posXPixel(int posXGrid){
+//        return this.B_1GRID_IN_PIXEL * (this.B_RAND_GRID + (double) posXGrid);
+//    }
+
+    public double posXGrid_to_posXPixel(double posXGrid){
         return this.B_1GRID_IN_PIXEL * (this.B_RAND_GRID + posXGrid);
     }
 
-    public double posYGrid_to_posYPixel(int posYGrid){
+//    public double posYGrid_to_posYPixel(int posYGrid){
+//        return this.H_1GRID_IN_PIXEL * (this.H_RAND_GRID + (double) posYGrid);
+//    }
+
+    public double posYGrid_to_posYPixel(double posYGrid){
         return this.H_1GRID_IN_PIXEL * (this.H_RAND_GRID + posYGrid);
     }
 
