@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 
 public class StreckeErstellenController {
     @FXML

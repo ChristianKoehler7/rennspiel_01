@@ -1,6 +1,6 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
-import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,9 +1,8 @@
 package de.christian_koehler_iu.rennspiel.utility;
 
 import de.christian_koehler_iu.rennspiel.controller.StreckeErstellenController;
-import de.christian_koehler_iu.rennspiel.datasets.Linie;
-import de.christian_koehler_iu.rennspiel.datasets.Punkt;
-import de.christian_koehler_iu.rennspiel.datasets.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.data_classes.Linie;
+import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -33,7 +32,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
                                                               +"-fx-stroke-width: 2px;";
 
     private final String css_style_streckenlinie_selected = "-fx-stroke: green;"
-                                                           +"-fx-stroke-width: 2px;";
+                                                           +"-fx-stroke-width: 4px;";
 
     private final String css_style_startline = "-fx-stroke: red;"
                                               +"-fx-stroke-width: 2px;";
@@ -45,7 +44,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
                                                          +"-fx-stroke: black;"   /* Randfarbe */
                                                         +"-fx-stroke-width: 0px;"; /* Randbreite */
 
-    private final String css_style_dreieck_rand_durchgang = "-fx-fill: green;"      /* Füllfarbe */
+    private final String css_style_dreieck_rand_durchgang = "-fx-fill: lightgreen;"      /* Füllfarbe */
                                                            +"-fx-stroke: black;"   /* Randfarbe */
                                                            +"-fx-stroke-width: 0px;"; /* Randbreite */
 

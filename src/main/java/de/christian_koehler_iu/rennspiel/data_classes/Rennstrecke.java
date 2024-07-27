@@ -1,4 +1,4 @@
-package de.christian_koehler_iu.rennspiel.datasets;
+package de.christian_koehler_iu.rennspiel.data_classes;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 public class Rennstrecke {
     private final String name;
+    private boolean is_standartstrecke = false;
     private final int breite;
     private final int hoehe;
     private final ArrayList<Linie> streckenlinien = new ArrayList<>();
     private Linie startlinie = null;
     private boolean is_startrichtung_nach_unten_oder_rechts = true;
     private int anz_runden;
-    private float strecken_bestzeit;
+    private double strecken_bestzeit = -1; // -1 bedeutet, dass es noch keine bestzeit gibt
 
     public Rennstrecke(String streckenname, int streckenbreite, int streckenhoehe) {
         this.name = streckenname;
@@ -20,10 +21,32 @@ public class Rennstrecke {
         this.hoehe = streckenhoehe;
     }
 
+    public Rennstrecke(String streckenname,
+                       boolean is_standartstrecke,
+                       int streckenbreite,
+                       int streckenhoehe,
+                       Linie startlinie,
+                       ArrayList<Linie> streckenlinien,
+                       boolean is_startrichtung_nach_unten_oder_rechts) {
+        this.name = streckenname;
+        this.is_standartstrecke = is_standartstrecke;
+        this.breite = streckenbreite;
+        this.hoehe = streckenhoehe;
+        this.startlinie = startlinie;
+        this.set_streckenlinien(streckenlinien);
+    }
+
     public String getName() {
         return name;
     }
 
+    public boolean get_is_standartstrecke() {
+        return is_standartstrecke;
+    }
+
+    public void set_is_standartstrecke(boolean is_standartstrecke) {
+        this.is_standartstrecke = is_standartstrecke;
+    }
 
     public int getBreite() {
         return breite;
@@ -34,9 +57,17 @@ public class Rennstrecke {
         return hoehe;
     }
 
-
     public ArrayList<Linie> getStreckenlinien() {
         return streckenlinien;
+    }
+
+    public void set_streckenlinien(ArrayList<Linie> streckenlininen){
+        // streckenlinien-arraylist leeren
+        this.streckenlinien.clear();
+        // streckenlinien aus einagbe in attribut streckenlinien einfügen
+        for(Linie streckenlinie : streckenlininen){
+            this.streckenlinien.add(streckenlinie);
+        }
     }
 
     public void addStreckenlinie(Linie linie) {
@@ -84,7 +115,7 @@ public class Rennstrecke {
         this.anz_runden = anz_runden;
     }
 
-    public float getStrecken_bestzeit() {
+    public double getStrecken_bestzeit() {
         return strecken_bestzeit;
     }
 
