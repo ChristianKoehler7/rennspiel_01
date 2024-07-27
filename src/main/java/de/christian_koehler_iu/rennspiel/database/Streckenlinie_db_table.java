@@ -1,6 +1,7 @@
 package de.christian_koehler_iu.rennspiel.database;
 
 import de.christian_koehler_iu.rennspiel.data_classes.Linie;
+import de.christian_koehler_iu.rennspiel.data_classes.Punkt;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Streckenlinie_db_table {
 
     public String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (" +
-                SPALTENNAME_ID + " TEXT PRIMARY KEY," +
+                SPALTENNAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 SPALTENNAME_FK_RENNSTRECKE + " TEXT NOT NULL," +
                 SPALTENNAME_X0 + " INTEGER NOT NULL," +
                 SPALTENNAME_Y0 + " INTEGER NOT NULL," +
@@ -28,10 +29,13 @@ public class Streckenlinie_db_table {
     }
 
     public void saveStreckenlinie(Linie linie, String rennstreckeName) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String insertStreckenlinieSQL = "INSERT INTO Streckenlinie (fk_rennstrecke, x0, y0, x1, y1) VALUES (?, ?, ?, ?, ?)";
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
-        try (PreparedStatement pstmt = connection.prepareStatement(insertStreckenlinieSQL)) {
+        // streckenlinie in db speichern
+        String sql_expression = "INSERT INTO " + TABELLENNAME + " ("+SPALTENNAME_FK_RENNSTRECKE+", "+SPALTENNAME_X0+", "+SPALTENNAME_Y0+", "+SPALTENNAME_X1+", "+SPALTENNAME_Y1+")\n" +
+                "VALUES (?, ?, ?, ?, ?);";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.setString(1, rennstreckeName);
             pstmt.setInt(2, linie.getP0().getX());
             pstmt.setInt(3, linie.getP0().getY());
@@ -41,42 +45,41 @@ public class Streckenlinie_db_table {
         }
     }
 
-    public ArrayList<Linie> getStreckenlinien(String rennstreckeName) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String selectStreckenlinienSQL = "SELECT * FROM Streckenlinie WHERE fk_rennstrecke = ?";
+    public ArrayList<Linie> getStreckenlinien(String rennstrecke_name) throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+
+        String sql_expression = "SELECT * FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_FK_RENNSTRECKE + " = ?;";
         ArrayList<Linie> streckenlinien = new ArrayList<>();
 
-        try (PreparedStatement pstmt = connection.prepareStatement(selectStreckenlinienSQL)) {
-            pstmt.setString(1, rennstreckeName);
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setString(1, rennstrecke_name);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int x0 = rs.getInt("x0");
-                int y0 = rs.getInt("y0");
-                int x1 = rs.getInt("x1");
-                int y1 = rs.getInt("y1");
+                int x0 = rs.getInt(SPALTENNAME_X0);
+                int y0 = rs.getInt(SPALTENNAME_Y0);
+                int x1 = rs.getInt(SPALTENNAME_X1);
+                int y1 = rs.getInt(SPALTENNAME_Y1);
 
-                Punkt p0 = new Punkt();
-                p0.setX(x0);
-                p0.setY(y0);
-
-                Punkt p1 = new Punkt();
-                p1.setX(x1);
-                p1.setY(y1);
-
-                streckenlinien.add(new Linie(p0, p1));
+                // linie erzeugen und der arraylist hinzufügen
+                streckenlinien.add(new Linie(x0, y0, x1, y1));
             }
         }
+        // streckenlinen ausgeben
         return streckenlinien;
     }
 
-    public void delete_streckenlinien(String rennstrecke_name) throws SQLException {
+    public void delete_streckenlinien_der_rennstrecke(String rennstrecke_name) throws SQLException {
+        // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
-        String sql_delete_streckenlinien_der_rennstrecke = "DELETE FROM " + TABELLENNAME + "\n" +
+
+        // streckenlinien löschen
+        String sql_expression = "DELETE FROM " + TABELLENNAME + "\n" +
                 "WHERE " + SPALTENNAME_FK_RENNSTRECKE + " = '" + rennstrecke_name + "'\n" +
                 ";";
 
-        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_delete_streckenlinien_der_rennstrecke)) {
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.executeUpdate();
         }
     }

@@ -1,5 +1,8 @@
 package de.christian_koehler_iu.rennspiel.database;
 
+import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
+import org.jetbrains.annotations.Nullable;
+
 import java.sql.*;
 import java.util.HashMap;
 
@@ -14,69 +17,61 @@ public class Spieler_db_table {
                 ");";
     }
 
+    /**
+     * speicher neuen spieler in datenbank, aber nur den spielernamen und nicht die bestzeiten
+     * @param spieler
+     * @throws SQLException
+     */
+    public void save_new_spieler(Spieler spieler) throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
-    public void savePlayer(Player player) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String insertPlayerSQL = "INSERT INTO Spieler (name) VALUES (?)";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(insertPlayerSQL)) {
-            pstmt.setString(1, player.getName());
-            pstmt.executeUpdate();
-        }
-
-        // Save Bestzeiten
-        for (String rennstreckeName : player.getStreckenBestzeiten().keySet()) {
-            double bestzeit = player.getStreckenBestzeiten().get(rennstreckeName);
-            saveBestzeit(player.getName(), rennstreckeName, bestzeit);
-        }
-    }
-
-    public void saveBestzeit(String playerName, String rennstreckeName, double bestzeit) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String insertBestzeitSQL = "INSERT INTO Link_rennstrecke_spielerBestzeit (fk_spieler, fk_rennstrecke, bestzeit) VALUES (?, ?, ?)";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(insertBestzeitSQL)) {
-            pstmt.setString(1, playerName);
-            pstmt.setString(2, rennstreckeName);
-            pstmt.setDouble(3, bestzeit);
-            pstmt.executeUpdate();
-        }
-    }
-
-    public Player getPlayer(String name) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String selectPlayerSQL = "SELECT * FROM Spieler WHERE name = ?";
-        Player player = null;
-
-        try (PreparedStatement pstmt = connection.prepareStatement(selectPlayerSQL)) {
-            pstmt.setString(1, name);
+        // test ob spieler schon vorhanden
+        String sql_expression = "SELECT " + SPALTENNAME_NAME + " FROM " + TABELLENNAME + "\n" +
+                "WHERE " + SPALTENNAME_NAME + " = " + spieler.get_name() + ";";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                // spielername schon vorhanden
+                throw new SQLException("Fehler beim Speichern des neuen Spielers: Spieler mit dem Namen " + spieler.get_name() + " schon vorhanden!" );
+            }
+        }
+        // spieler noch nicht vorhanden
 
+        // spieler in db anlegen
+        sql_expression = "INSERT INTO " + TABELLENNAME + "(" + SPALTENNAME_NAME + ")\n" +
+                "VALUES ('" + spieler.get_name() + "')\n" +
+                ";";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.executeUpdate();
+        }
+    }
+
+    // fertig
+    @Nullable
+    public Spieler get_spieler(String spieler_name) throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+
+        // spieler variable erzeugen
+        Spieler spieler = null;
+
+        // spieler aus db holen
+        String sql_expression = "SELECT * FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?;";
+
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setString(1, spieler_name);
+            ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                player = new Player(name);
-                player.setStreckenBestzeiten(getBestzeiten(name));
+                // spieler ist vorhanden
+                // spieler objekt erstellen
+                spieler = new Spieler(spieler_name);
+                // bestzeiten laden und dem spieler übergeben
+                HashMap<String, Double> strecken_bestzeiten = new LinkRennstreckeSpielerBestzeit_db_table().get_spieler_bestzeiten(spieler_name);
+                spieler.set_strecken_bestzeiten(strecken_bestzeiten);
             }
         }
-        return player;
+        // spieler ausgeben, wenn spieler nicht in db vorhanden, dann wird null ausgegeben
+        return spieler;
     }
-
-    public HashMap<String, Double> getBestzeiten(String playerName) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String selectBestzeitenSQL = "SELECT * FROM Link_rennstrecke_spielerBestzeit WHERE fk_spieler = ?";
-        HashMap<String, Double> bestzeiten = new HashMap<>();
-
-        try (PreparedStatement pstmt = connection.prepareStatement(selectBestzeitenSQL)) {
-            pstmt.setString(1, playerName);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                String rennstreckeName = rs.getString("fk_rennstrecke");
-                double bestzeit = rs.getDouble("bestzeit");
-                bestzeiten.put(rennstreckeName, bestzeit);
-            }
-        }
-        return bestzeiten;
-    }
-
-    // Weitere CRUD-Operationen wie Update und Delete können hier hinzugefügt werden
 }

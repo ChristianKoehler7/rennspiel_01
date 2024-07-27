@@ -1,6 +1,7 @@
 package de.christian_koehler_iu.rennspiel.database;
 
 import de.christian_koehler_iu.rennspiel.data_classes.Linie;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 
@@ -16,7 +17,7 @@ public class Startlinie_db_table {
 
     public String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (" +
-                SPALTENNAME_ID + " TEXT PRIMARY KEY," +
+                SPALTENNAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 SPALTENNAME_FK_RENNSTRECKE + " TEXT NOT NULL," +
                 SPALTENNAME_X0 + " INTEGER NOT NULL," +
                 SPALTENNAME_Y0 + " INTEGER NOT NULL," +
@@ -28,12 +29,14 @@ public class Startlinie_db_table {
 
 
 
-    public void saveStartlinie(Linie startlinie, String rennstreckeName) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String insertStartlinieSQL = "INSERT INTO Startlinie (fk_rennstrecke, x0, y0, x1, y1) VALUES (?, ?, ?, ?, ?)";
+    public void saveStartlinie(Linie startlinie, String strecken_name) throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
-        try (PreparedStatement pstmt = connection.prepareStatement(insertStartlinieSQL)) {
-            pstmt.setString(1, rennstreckeName);
+        // statlinie in db speichern
+        String sql_expression = "INSERT INTO " + TABELLENNAME + " ("+SPALTENNAME_FK_RENNSTRECKE+", "+SPALTENNAME_X0+", "+SPALTENNAME_Y0+", "+SPALTENNAME_X1+", "+SPALTENNAME_Y1+") VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setString(1, strecken_name);
             pstmt.setInt(2, startlinie.getP0().getX());
             pstmt.setInt(3, startlinie.getP0().getY());
             pstmt.setInt(4, startlinie.getP1().getX());
@@ -42,32 +45,29 @@ public class Startlinie_db_table {
         }
     }
 
-    public Linie getStartlinie(String rennstreckeName) throws SQLException {
-        Connection connection = DatabaseConnection.getConnection();
-        String selectStartlinieSQL = "SELECT * FROM Startlinie WHERE fk_rennstrecke = ?";
+    @Nullable
+    public Linie get_startlinie(String strecken_name) throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+
+        // linien variable erzeugen
         Linie startlinie = null;
 
-        try (PreparedStatement pstmt = connection.prepareStatement(selectStartlinieSQL)) {
-            pstmt.setString(1, rennstreckeName);
+        // startlinie aus db laden
+        String sql_expression = "SELECT * FROM "+TABELLENNAME+" WHERE "+SPALTENNAME_FK_RENNSTRECKE+" = ?";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setString(1, strecken_name);
             ResultSet rs = pstmt.executeQuery();
-
             if (rs.next()) {
-                int x0 = rs.getInt("x0");
-                int y0 = rs.getInt("y0");
-                int x1 = rs.getInt("x1");
-                int y1 = rs.getInt("y1");
-
-                Punkt p0 = new Punkt();
-                p0.setX(x0);
-                p0.setY(y0);
-
-                Punkt p1 = new Punkt();
-                p1.setX(x1);
-                p1.setY(y1);
-
-                startlinie = new Linie(p0, p1);
+                int x0 = rs.getInt(SPALTENNAME_X0);
+                int y0 = rs.getInt(SPALTENNAME_Y0);
+                int x1 = rs.getInt(SPALTENNAME_X1);
+                int y1 = rs.getInt(SPALTENNAME_Y1);
+                startlinie = new Linie(x0, y0, x1, y1);
             }
         }
+
+        // startlinie ausgeben, wenn keine gefunden wurde, dann wird null ausgegeben
         return startlinie;
     }
 

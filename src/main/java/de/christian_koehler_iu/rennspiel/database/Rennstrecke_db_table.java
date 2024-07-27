@@ -29,8 +29,13 @@ public class Rennstrecke_db_table {
                 ");";
     }
 
-    // fertig
-    public void saveRennstrecke(Rennstrecke rennstrecke) throws SQLException {
+    /**
+     * speichert ein rennstrecken objekt mit allen daten und linien in die datenbank
+     *  falls die rennstrecke schon in der datenbank vorhanden ist, werden erst die rennstrecken-einträgen und alle linien-einträge gelöscht
+     * @param rennstrecke
+     * @throws SQLException
+     */
+    public void save_rennstrecke(Rennstrecke rennstrecke) throws SQLException {
         // test ob alle nötigen daten vorhanden
         if(rennstrecke.getStartlinie() == null){
             throw new SQLException("Fehler beim speichern der Rennstrecke " + rennstrecke.getName() + ": Rennstrecke muss eine Startlinie besitzen!");
@@ -40,8 +45,8 @@ public class Rennstrecke_db_table {
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
         // rennstrecke db-eintrag machen
-        String insertRennstreckeSQL = "INSERT INTO " + TABELLENNAME + " ("+SPALTENNAME_NAME+", " + SPALTENNAME_IS_STANDARTSTRECKE + ", " + SPALTENNAME_BREITE + ", " + SPALTENNAME_HOEHE + ", " + SPALTENNAME_IS_STARTRICHTUNG_NACH_UNTEN_ODER_RECHTS + ") VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(insertRennstreckeSQL)) {
+        String sql_expression = "INSERT INTO " + TABELLENNAME + " ("+SPALTENNAME_NAME+", " + SPALTENNAME_IS_STANDARTSTRECKE + ", " + SPALTENNAME_BREITE + ", " + SPALTENNAME_HOEHE + ", " + SPALTENNAME_IS_STARTRICHTUNG_NACH_UNTEN_ODER_RECHTS + ") VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.setString(1, rennstrecke.getName());
             pstmt.setBoolean(2, rennstrecke.get_is_standartstrecke());
             pstmt.setInt(3, rennstrecke.getBreite());
@@ -63,12 +68,14 @@ public class Rennstrecke_db_table {
 
     // fertig
     @Nullable
-    public Rennstrecke getRennstrecke(String name) throws SQLException {
+    public Rennstrecke get_rennstrecke(String name) throws SQLException {
+        // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
-        String selectRennstreckeSQL = "SELECT * FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?";
-        Rennstrecke rennstrecke = null;
 
-        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(selectRennstreckeSQL)) {
+        // rennstrecke aus db laden
+        String sql_expression = "SELECT * FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?";
+        Rennstrecke rennstrecke = null;
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
 
@@ -81,8 +88,8 @@ public class Rennstrecke_db_table {
                 Streckenlinie_db_table streckenlinie_db_table = new Streckenlinie_db_table();
                 ArrayList<Linie> streckenlinien = streckenlinie_db_table.getStreckenlinien(name);
 
-                Startlinie_db_table startlinieDAO = new Startlinie_db_table();
-                Linie startlinie = startlinieDAO.getStartlinie(name);
+                Startlinie_db_table startlinie_db_table = new Startlinie_db_table();
+                Linie startlinie = startlinie_db_table.get_startlinie(name);
 
                 rennstrecke = new Rennstrecke(name, is_standartstrecke, breite, hoehe, startlinie, streckenlinien, isStartrichtungNachUntenOderRechts);
             }
@@ -96,14 +103,14 @@ public class Rennstrecke_db_table {
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
         // testen ob es eine rennstrecke gibt, mit dem streckennamen
-        String selectRennstreckeNameSQL = "SELECT "+SPALTENNAME_NAME+" FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?";
-        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(selectRennstreckeNameSQL)) {
+        String sql_expression = "SELECT "+SPALTENNAME_NAME+" FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.setString(1, strecken_name);
             ResultSet rs = pstmt.executeQuery();
 
             if (!rs.next()) {
                 // name nicht vorhanden
-                throw new SQLException("Fehler beim löschen der Rennstrecke: Rennstrecke mit dem Namen " + strecken_name + " nicht vorhanden!" );
+                throw new SQLException("Fehler beim Löschen der Rennstrecke: Rennstrecke mit dem Namen " + strecken_name + " nicht vorhanden!" );
             }
         }
         // rennstrecke mit dem streckennamen aus eingabe vorhanden
@@ -112,11 +119,33 @@ public class Rennstrecke_db_table {
         new Startlinie_db_table().delete_startlinie(strecken_name);
 
         // streckenlinien löschen
-        new Streckenlinie_db_table().delete_streckenlinien(strecken_name);
+        new Streckenlinie_db_table().delete_streckenlinien_der_rennstrecke(strecken_name);
 
         // streckenrekorde aller spieler für diese rennstrecke löschen
         if(auch_streckenrekorde_loeschen){
-            //TODO
+            new LinkRennstreckeSpielerBestzeit_db_table().delete_alle_eintraege_der_rennstrecke(strecken_name);
         }
+    }
+
+    public ArrayList<String> get_strecken_namen() throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+
+        // ausgabe arraylist erstellen
+        ArrayList<String> strecken_namen = new ArrayList<>();
+
+        // streckennamen aus db holen
+        String sql_expression = "SELECT " + SPALTENNAME_NAME +  " FROM " + TABELLENNAME + ";";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String akt_strecken_name = rs.getString(SPALTENNAME_NAME);
+                // streckennamen in ausgabe-arraylist hinzufügen
+                strecken_namen.add(akt_strecken_name);
+            }
+        }
+
+        // streckennamen ausgeben
+        return strecken_namen;
     }
 }

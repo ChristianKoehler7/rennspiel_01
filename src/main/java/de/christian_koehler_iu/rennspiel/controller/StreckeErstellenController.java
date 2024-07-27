@@ -23,6 +23,8 @@ public class StreckeErstellenController {
     @FXML
     private Label streckeErstellen_lb_streckengroesse;
     @FXML
+    private Label streckeErstellen_lb_fehler;
+    @FXML
     private Button streckeErstellen_bn_streckenLinieZeichnen;
     @FXML
     private Button streckeErstellen_bn_startLinieZeichnen;
@@ -30,6 +32,8 @@ public class StreckeErstellenController {
     private Button streckeErstellen_bn_letzteStrLinieLoeschen;
     @FXML
     private Button streckeErstellen_bn_startRichtungAendern;
+    @FXML
+    private Button streckeErstellen_bn_streckeSpeichern;
 
     public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml";
     public static final String SCENE_NAME = "StreckeErstellen";
@@ -50,6 +54,10 @@ public class StreckeErstellenController {
     private final double H_MAX_PIXEL = 560.0-20.0;
 
     private Rennstrecke rennstrecke;
+
+    public void streckeErstellen_bn_streckeSpeichern_action(ActionEvent actionEvent) {
+        // TODO
+    }
 
 
     public enum Zeichnungszustand {

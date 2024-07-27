@@ -34,6 +34,7 @@ public class Rennstrecke {
         this.hoehe = streckenhoehe;
         this.startlinie = startlinie;
         this.set_streckenlinien(streckenlinien);
+        this.is_startrichtung_nach_unten_oder_rechts = is_startrichtung_nach_unten_oder_rechts;
     }
 
     public String getName() {
