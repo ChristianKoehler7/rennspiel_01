@@ -1,0 +1,165 @@
+/*----------------------------------------------------------------------------*/
+/* Grundlegende Einstellungen */
+/*----------------------------------------------------------------------------*/
+* {
+    -fx-font-family: "Arial";
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/*----------------------------------------------------------------------------*/
+/* GridPane */
+/*----------------------------------------------------------------------------*/
+.gridpane {
+    -fx-min-width: 1280;
+    -fx-min-height: 800;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-background-color: #FFFFFF /*#ECEFF1; /* Sanftes Grau */
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+
+    -fx-background-image: url("city-3029164_1280.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1280 800;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+
+/*----------------------------------------------------------------------------*/
+/* Buttons */
+/*----------------------------------------------------------------------------*/
+/* Allgemeine Einstellungen für Buttons */
+.button {
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-width: 3;
+}
+/* Weiter/Ok Button */
+.button-weiter-ok {
+    -fx-border-color: green;
+    -fx-text-fill: green;
+}
+.button-weiter-ok:hover {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+}
+.button-weiter-ok:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Zurück/Abbrechen Button */
+.button-zurueck-abbrechen {
+    -fx-border-color: orange;
+    -fx-text-fill: orange;
+}
+.button-zurueck-abbrechen:hover {
+    -fx-background-color: orange;
+    -fx-text-fill: white;
+}
+.button-zurueck-abbrechen:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Vorsicht/Beenden/Löschen Button */
+.button-vorsicht-beenden-loeschen {
+    -fx-border-color: red;
+    -fx-text-fill: red;
+}
+.button-vorsicht-beenden-loeschen:hover {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+.button-vorsicht-beenden-loeschen:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Neutral Button */
+.button-neutral {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+.button-neutral:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+.button-neutral:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Streckenlinie zeichnen Button */
+.button-streckenlinie {
+    -fx-background-color: blue;
+}
+.button-streckenlinie:hover {
+    -fx-background-color: lightblue;
+}
+.button-streckenlinie:pressed {
+    -fx-background-color: lightblue;
+    -fx-border-color: black;
+}
+/* Startlinie zeichnen Button */
+.button-startlinie {
+    -fx-background-color: red;
+}
+.button-startlinie:hover {
+    -fx-background-color: lightred;
+}
+.button-startlinie:pressed {
+    -fx-background-color: lightred;
+    -fx-border-color: black;
+}
+
+/*----------------------------------------------------------------------------*/
+/* Labels */
+/*----------------------------------------------------------------------------*/
+.label-superlarge {
+    -fx-font-size: 36px;
+    -fx-text-fill: #333;
+}
+.label-large {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+}
+.label-medium {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+}
+.label-small {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+.label-error {
+    -fx-font-size: 14px;
+    -fx-text-fill: #f44336; /* Rot */
+}
+
+/*----------------------------------------------------------------------------*/
+/* ListView */
+/*----------------------------------------------------------------------------*/
+.list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.list-view .list-cell {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #2196F3; /* Blau */
+    -fx-text-fill: white;
+}

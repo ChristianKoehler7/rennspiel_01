@@ -1,9 +1,12 @@
 package de.christian_koehler_iu.rennspiel.database;
 
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Array;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Spieler_db_table {
@@ -58,7 +61,6 @@ public class Spieler_db_table {
 
         // spieler aus db holen
         String sql_expression = "SELECT * FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?;";
-
         try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.setString(1, spieler_name);
             ResultSet rs = pstmt.executeQuery();
@@ -73,5 +75,27 @@ public class Spieler_db_table {
         }
         // spieler ausgeben, wenn spieler nicht in db vorhanden, dann wird null ausgegeben
         return spieler;
+    }
+
+    @NotNull
+    public ArrayList<String> get_spieler_namen() throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+
+        // spieler_namen variable erzeugen
+        ArrayList<String> spieler_namen = new ArrayList<>();
+
+        // spieler_namen aus db holen
+        String sql_expression = "SELECT "+SPALTENNAME_NAME+" FROM " + TABELLENNAME + ";";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                // akt_spieler_name in arraylist einfügen
+                String akt_spieler_name = rs.getString(SPALTENNAME_NAME);
+                spieler_namen.add(akt_spieler_name);
+            }
+        }
+        // spieler_namen ausgeben
+        return spieler_namen;
     }
 }

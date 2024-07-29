@@ -1,6 +1,5 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
-import de.christian_koehler_iu.rennspiel.utility.Link_StreckeErstellenController_Rennstrecke;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -57,6 +56,9 @@ public class StreckeErstellenController {
 
     public void streckeErstellen_bn_streckeSpeichern_action(ActionEvent actionEvent) {
         // TODO
+        //  test ob alle rennstreckenwerte vorhanden
+        //  wenn nein dann fehler in label streckeErstellen_lb_fehler ausgeben
+        //  wenn ja, dann strecke speichern und scene wechslen und toast anzeigen, dass es geklappt hat
     }
 
 

@@ -4,18 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="datenbankverbindungen angefangen">
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="datenbankverbindungen teil02">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/MitspielerWaehlenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/RennenBeendetController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/RennenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/SpielerErstellenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/SpielerWaehlenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeWaehlenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Spieler_database_connection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/city-3029164_1280.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/city-3029164_1920.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/mitspieler_waehlen_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_beendet_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/spieler_erstellen_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/spieler_waehlen_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_waehlen_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/style_test_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles_02_harmonisch_blau.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles_03_komplementär.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles_04.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/HelloController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Rennstrecke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Spieler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Spieler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/LinkRennstreckeSpielerBestzeit_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/LinkRennstreckeSpielerBestzeit_db_table.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_database_connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_database_connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_db_table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/SQLite_db_connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/SQLite_db_connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Spieler_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Spieler_db_table.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Startlinie_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Startlinie_db_table.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Streckenlinie_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Streckenlinie_db_table.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/utility/Link_StreckeErstellenController_Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/Link_StreckeErstellenController_Rennstrecke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_groesse_waehlen_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/strecke_groesse_waehlen_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +48,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -73,8 +96,8 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel_01/src/main/java/de/rennspiel_01/rennspiel_01&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/java/de/christian_koehler_iu/rennspiel&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/resources/de/christian_koehler_iu/rennspiel&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -83,10 +106,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel" />
       <recent name="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01" />
       <recent name="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="de.christian_koehler_iu.rennspiel.controller" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="de.christian_koehler_iu.rennspiel.database" />
       <recent name="de.rennspiel_01.rennspiel_01.controller" />
     </key>
   </component>
@@ -169,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722083978655</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="datenbankverbindungen teil02">
+      <option name="closed" value="true" />
+      <created>1722094912993</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1722094912993</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -180,6 +219,7 @@
     <MESSAGE value="class Link_StreckeErstellenController_Rennstrecke erstellt, die sich um das zeichnen der rennstrecke kümmert. Es fehlt nur noch dass man die fertige rennstrecke persisten speichern kann" />
     <MESSAGE value="class Linie erweitert mit Berechnung ob Schnittpunkt zu andere Linie und ob Punkt auf Linie liegt.&#10;class Link_StreckeErstellenController_Rennstrecke erweitert mit Randdurchgänge zeichnen" />
     <MESSAGE value="datenbankverbindungen angefangen" />
-    <option name="LAST_COMMIT_MESSAGE" value="datenbankverbindungen angefangen" />
+    <MESSAGE value="datenbankverbindungen teil02" />
+    <option name="LAST_COMMIT_MESSAGE" value="datenbankverbindungen teil02" />
   </component>
 </project>

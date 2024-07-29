@@ -1,8 +1,8 @@
-package de.christian_koehler_iu.rennspiel.utility;
+package de.christian_koehler_iu.rennspiel.controller;
 
-import de.christian_koehler_iu.rennspiel.controller.StreckeErstellenController;
 import de.christian_koehler_iu.rennspiel.data_classes.Linie;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -57,7 +57,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
     private Line aktMouseLine;
     I_Link_StrErstController_Rennstrecke i_linkStrErstControllerRennstrecke; // interface um zeichnungszustand aus controller zu holen
 
-        // speicher für streckenlinien, die im listview angezeigt werden
+    // speicher für streckenlinien, die im listview angezeigt werden
     private final ObservableList<String> observable_streckenlinien_for_listview = FXCollections.observableArrayList();
     // hashMap, die streckenlinien mit den fxLinies verbindet
     private final HashMap<Linie, Line> streckenLinien_fxLines_map = new HashMap<>();

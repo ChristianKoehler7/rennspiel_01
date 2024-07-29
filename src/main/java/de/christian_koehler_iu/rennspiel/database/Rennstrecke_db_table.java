@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Rennstrecke_db_table {
 
-    public final String TABELLENNAME = "Streckenlinie";
+    public final String TABELLENNAME = "Rennstrecke";
     public final String SPALTENNAME_NAME = "name";
     public final String SPALTENNAME_IS_STANDARTSTRECKE = "is_standartstrecke";
     public final String SPALTENNAME_BREITE = "breite";

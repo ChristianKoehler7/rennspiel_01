@@ -23,7 +23,7 @@ public class Startlinie_db_table {
                 SPALTENNAME_Y0 + " INTEGER NOT NULL," +
                 SPALTENNAME_X1 + " INTEGER NOT NULL," +
                 SPALTENNAME_Y1 + " INTEGER NOT NULL," +
-                "FOREIGN KEY ("+SPALTENNAME_FK_RENNSTRECKE+") REFERENCES " + new Rennstrecke_db_table().TABELLENNAME + "("+new Rennstrecke_db_table().SPALTENNAME_NAME+")," +
+                "FOREIGN KEY ("+SPALTENNAME_FK_RENNSTRECKE+") REFERENCES " + new Rennstrecke_db_table().TABELLENNAME + "("+new Rennstrecke_db_table().SPALTENNAME_NAME+")" +
                 ");";
     }
 

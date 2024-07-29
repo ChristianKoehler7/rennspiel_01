@@ -47,12 +47,18 @@ public class SQLite_db_connection {
     }
 
     private void createTables() throws SQLException {
-         try (Statement stmt = connection.createStatement()) {
+        try (Statement stmt = connection.createStatement()) {
+            System.out.println("Rennstrecke initialisieren");
             stmt.execute(new Rennstrecke_db_table().get_create_table_string());
+            System.out.println("Streckenlinie initialisieren");
             stmt.execute(new Streckenlinie_db_table().get_create_table_string());
+            System.out.println("Startlinie initialisieren");
             stmt.execute(new Startlinie_db_table().get_create_table_string());
+            System.out.println("Spieler initialisieren");
             stmt.execute(new Spieler_db_table().get_create_table_string());
+            System.out.println("LinkRennstreckeSpielerBestzeit initialisieren");
             stmt.execute(new LinkRennstreckeSpielerBestzeit_db_table().get_create_table_string());
+            System.out.println("Tabellen fertig initialisiert");
         }
     }
 }
