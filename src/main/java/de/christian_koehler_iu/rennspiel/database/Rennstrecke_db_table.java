@@ -17,7 +17,7 @@ public class Rennstrecke_db_table {
     public final String SPALTENNAME_ANZ_RUNDEN = "anz_runden";
     public final String SPALTENNAME_STRECKEN_BESTZEIT = "strecken_bestzeit";
 
-    public String get_create_table_string(){
+    protected String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (" +
                 SPALTENNAME_NAME + " TEXT PRIMARY KEY," +
                 SPALTENNAME_IS_STANDARTSTRECKE + " BOOLEAN NOT NULL," +
@@ -29,13 +29,18 @@ public class Rennstrecke_db_table {
                 ");";
     }
 
+    // constructor protected damit nur innerhabl des pakts zugriff möglich ist
+    // datenbankzugriffe von außen müssen über Rennstrecke_database_connection oder Spieler_database_connection erfolgen
+    protected Rennstrecke_db_table() {
+    }
+
     /**
      * speichert ein rennstrecken objekt mit allen daten und linien in die datenbank
      *  falls die rennstrecke schon in der datenbank vorhanden ist, werden erst die rennstrecken-einträgen und alle linien-einträge gelöscht
      * @param rennstrecke
      * @throws SQLException
      */
-    public void save_rennstrecke(Rennstrecke rennstrecke) throws SQLException {
+    protected void save_rennstrecke(Rennstrecke rennstrecke) throws SQLException {
         // test ob alle nötigen daten vorhanden
         if(rennstrecke.getStartlinie() == null){
             throw new SQLException("Fehler beim speichern der Rennstrecke " + rennstrecke.getName() + ": Rennstrecke muss eine Startlinie besitzen!");
@@ -68,7 +73,7 @@ public class Rennstrecke_db_table {
 
     // fertig
     @Nullable
-    public Rennstrecke get_rennstrecke(String name) throws SQLException {
+    protected Rennstrecke get_rennstrecke(String name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -98,7 +103,7 @@ public class Rennstrecke_db_table {
     }
 
     // fertig
-    public void delete_rennstrecke(String strecken_name, boolean auch_streckenrekorde_loeschen) throws SQLException {
+    protected void delete_rennstrecke(String strecken_name, boolean auch_streckenrekorde_loeschen) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -127,7 +132,7 @@ public class Rennstrecke_db_table {
         }
     }
 
-    public ArrayList<String> get_strecken_namen() throws SQLException {
+    protected ArrayList<String> get_strecken_namen() throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 

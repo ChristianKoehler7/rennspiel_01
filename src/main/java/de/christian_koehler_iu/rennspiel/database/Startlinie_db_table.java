@@ -7,15 +7,20 @@ import java.sql.*;
 
 public class Startlinie_db_table {
 
-    public final String TABELLENNAME = "Startlinie";
-    public final String SPALTENNAME_ID = "id";
-    public final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";
-    public final String SPALTENNAME_X0 = "x0";
-    public final String SPALTENNAME_Y0 = "y0";
-    public final String SPALTENNAME_X1 = "x1";
-    public final String SPALTENNAME_Y1 = "y1";
+    protected final String TABELLENNAME = "Startlinie";
+    protected final String SPALTENNAME_ID = "id";
+    protected final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";
+    protected final String SPALTENNAME_X0 = "x0";
+    protected final String SPALTENNAME_Y0 = "y0";
+    protected final String SPALTENNAME_X1 = "x1";
+    protected final String SPALTENNAME_Y1 = "y1";
 
-    public String get_create_table_string(){
+    // constructor protected damit nur innerhabl des pakts zugriff möglich ist
+    // datenbankzugriffe von außen müssen über Rennstrecke_database_connection oder Spieler_database_connection erfolgen
+    protected Startlinie_db_table() {
+    }
+
+    protected String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (" +
                 SPALTENNAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 SPALTENNAME_FK_RENNSTRECKE + " TEXT NOT NULL," +
@@ -27,9 +32,7 @@ public class Startlinie_db_table {
                 ");";
     }
 
-
-
-    public void saveStartlinie(Linie startlinie, String strecken_name) throws SQLException {
+    protected void saveStartlinie(Linie startlinie, String strecken_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -46,7 +49,7 @@ public class Startlinie_db_table {
     }
 
     @Nullable
-    public Linie get_startlinie(String strecken_name) throws SQLException {
+    protected Linie get_startlinie(String strecken_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -71,7 +74,7 @@ public class Startlinie_db_table {
         return startlinie;
     }
 
-    public void delete_startlinie(String rennstrecke_name) throws SQLException {
+    protected void delete_startlinie(String rennstrecke_name) throws SQLException {
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
         String sql_delete_startlinie_der_rennstrecke = "DELETE FROM " + TABELLENNAME + "\n" +
                 "WHERE " + SPALTENNAME_FK_RENNSTRECKE + " = '" + rennstrecke_name + "'\n" +

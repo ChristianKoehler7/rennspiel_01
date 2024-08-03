@@ -9,13 +9,18 @@ import java.util.HashMap;
 
 public class LinkRennstreckeSpielerBestzeit_db_table {
 
-    public final String TABELLENNAME = "Link_rennstrecke_spielerBestzeit";
-    public final String SPALTENNAME_ID = "id";
-    public final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";
-    public final String SPALTENNAME_FK_SPIELER = "fk_spieler";
-    public final String SPALTENNAME_BESTZEIT = "bestzeit";
+    protected final String TABELLENNAME = "Link_rennstrecke_spielerBestzeit";
+    protected final String SPALTENNAME_ID = "id";
+    protected final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";
+    protected final String SPALTENNAME_FK_SPIELER = "fk_spieler";
+    protected final String SPALTENNAME_BESTZEIT = "bestzeit";
 
-    public String get_create_table_string(){
+    // constructor protected damit nur innerhabl des pakts zugriff möglich ist
+    // datenbankzugriffe von außen müssen über Rennstrecke_database_connection oder Spieler_database_connection erfolgen
+    protected LinkRennstreckeSpielerBestzeit_db_table() {
+    }
+
+    protected String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (\n" +
                 SPALTENNAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 SPALTENNAME_FK_RENNSTRECKE + " TEXT NOT NULL,\n" +
@@ -26,7 +31,7 @@ public class LinkRennstreckeSpielerBestzeit_db_table {
                 ");";
     }
 
-    public void delete_alle_eintraege_der_rennstrecke(String rennstrecke_name) throws SQLException {
+    protected void delete_alle_eintraege_der_rennstrecke(String rennstrecke_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -39,7 +44,7 @@ public class LinkRennstreckeSpielerBestzeit_db_table {
         }
     }
 
-    public HashMap<String, Double> get_spieler_bestzeiten(String spieler_name) throws SQLException{
+    protected HashMap<String, Double> get_spieler_bestzeiten(String spieler_name) throws SQLException{
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 

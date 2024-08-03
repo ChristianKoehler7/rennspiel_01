@@ -12,31 +12,21 @@ import java.util.Stack;
 
 public class ScenesManager {
 
-    private final Stack<Scene> scene_stack;
-    private final Stack<String> scene_names_stack;
-    private final Stage STAGE;
+    // klassen attribute
     private static ScenesManager scenesManager;
+    private static final int FENSTER_BREITE = 1280;
+    private static final int FENSTER_HOEHE = 800;
 
+    // objekt attribute
+    private final Stage STAGE;
+
+    // privater constructor
     private ScenesManager(Stage stage) {
         this.STAGE = stage;
-        this.scene_stack = new Stack<>();
-        this.scene_names_stack = new Stack<>();
-        // mainScene laden
-        FXMLLoader fxmlLoader = new FXMLLoader(ScenesManager.class.getResource(StreckeGroesseWaehlenController.PATH_TO_FXML));
-        Scene scene = null;
-        try {
-            scene = new Scene(fxmlLoader.load());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        StreckeGroesseWaehlenController streckeGroesseWaehlenController = fxmlLoader.getController();
-
-        this.scene_stack.push(scene);
-        this.scene_names_stack.push(StreckeGroesseWaehlenController.SCENE_NAME);
         stage.setTitle("Rennspiel");
-        stage.setScene(scene);
-        stage.show();
+        stage.setWidth(ScenesManager.FENSTER_BREITE); // Breite des Fensters
+        stage.setHeight(ScenesManager.FENSTER_HOEHE); // Höhe des Fensters
+        stage.setResizable(false); // Fenstergröße fixieren
     }
 
     public static ScenesManager getInstance() {
@@ -49,26 +39,58 @@ public class ScenesManager {
     public static ScenesManager getInstance(Stage stage) {
         if(ScenesManager.scenesManager == null){
             if(stage == null){
-                throw new RuntimeException("Beim ersten Aufruf von getInstance darf stageOrNull nicht null sein!");
+                throw new RuntimeException("Beim ersten Aufruf von getInstance darf stage nicht null sein!");
             }
             ScenesManager.scenesManager = new ScenesManager(stage);
         }
         return ScenesManager.scenesManager;
     }
 
-    public void switch_to_streckeErstellen(Rennstrecke rennstrecke){
-        URL urlFxml = getClass().getResource(StreckeErstellenController.PATH_TO_FXML);
+    public void switch_to_spieler_wahlen(){
+        switch_scene(SpielerWaehlenController.PATH_TO_FXML);
+    }
+
+    public void switch_to_spieler_erstellen(){
+        switch_scene(SpielerErstellenController.PATH_TO_FXML);
+    }
+
+    public void switch_to_strecke_waehlen(){
+        switch_scene(StreckeWaehlenController.PATH_TO_FXML);
+    }
+
+    public void switch_to_mitspieler_waehlen(){
+        switch_scene(MitspielerWaehlenController.PATH_TO_FXML);
+    }
+
+    public void switch_to_strecke_groesse_wahlen(){
+        switch_scene(StreckeGroesseWaehlenController.PATH_TO_FXML);
+    }
+
+    public void switch_to_strecke_erstellen(Rennstrecke rennstrecke){
+        StreckeErstellenController streckeErstellenController = switch_scene(StreckeErstellenController.PATH_TO_FXML);
+        streckeErstellenController.initialize_rennstrecke(rennstrecke);
+
+    }
+
+    public void switch_to_rennen(){
+        switch_scene(RennenController.PATH_TO_FXML);
+    }
+
+    public void switch_to_rennen_beendet(Rennstrecke rennstrecke){
+        switch_scene(StreckeErstellenController.PATH_TO_FXML);
+    }
+
+    private <T> T switch_scene(String path_to_fxml){
+        URL urlFxml = getClass().getResource(path_to_fxml);
         Parent root = null;
+        T controller = null;
         if(urlFxml != null){
             System.out.println("urlFxml: " + urlFxml.toString());
             FXMLLoader loader = new FXMLLoader(urlFxml);
             try {
                 root = loader.load();
-                StreckeErstellenController streckeErstellenController = loader.getController();
-                streckeErstellenController.initialize_rennstrecke(rennstrecke);
+                controller = loader.getController();
                 Scene scene = new Scene(root);
-                this.scene_stack.push(scene);
-                this.scene_names_stack.push(StreckeErstellenController.SCENE_NAME);
                 this.STAGE.setScene(scene);
                 this.STAGE.show();
             } catch (IOException e) {
@@ -79,32 +101,6 @@ public class ScenesManager {
             System.out.println("FXML file not found.");
         }
 
-
-
-
-
+        return controller;
     }
-
-    public void goBack(){
-        // aktuelle scene entfernen
-        this.scene_stack.pop();
-        // neue oberste scene (letzte scene) verwenden
-        Scene lastScene = this.scene_stack.peek();
-        this.STAGE.setScene(lastScene);
-        this.scene_names_stack.pop();
-        this.STAGE.show();
-    }
-
-    public String generate_verlauf_string(){
-        StringBuilder verlauf = new StringBuilder();
-        for(int i=0 ; i<this.scene_names_stack.size() ; i++){
-            verlauf.append(" > ");
-            verlauf.append(this.scene_names_stack.elementAt(i));
-        }
-        return verlauf.toString();
-    }
-
-
-
-
 }

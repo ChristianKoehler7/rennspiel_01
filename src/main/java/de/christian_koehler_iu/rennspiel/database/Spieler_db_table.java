@@ -11,10 +11,15 @@ import java.util.HashMap;
 
 public class Spieler_db_table {
 
-    public final String TABELLENNAME = "Spieler";
-    public final String SPALTENNAME_NAME = "name";
+    protected final String TABELLENNAME = "Spieler";
+    protected final String SPALTENNAME_NAME = "name";
 
-    public String get_create_table_string(){
+    // constructor protected damit nur innerhabl des pakts zugriff möglich ist
+    // datenbankzugriffe von außen müssen über Rennstrecke_database_connection oder Spieler_database_connection erfolgen
+    protected Spieler_db_table() {
+    }
+
+    protected String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (" +
                 SPALTENNAME_NAME + " TEXT PRIMARY KEY" +
                 ");";
@@ -22,28 +27,28 @@ public class Spieler_db_table {
 
     /**
      * speicher neuen spieler in datenbank, aber nur den spielernamen und nicht die bestzeiten
-     * @param spieler
+     * @param spieler_name
      * @throws SQLException
      */
-    public void save_new_spieler(Spieler spieler) throws SQLException {
+    protected void save_new_spieler(String spieler_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
         // test ob spieler schon vorhanden
         String sql_expression = "SELECT " + SPALTENNAME_NAME + " FROM " + TABELLENNAME + "\n" +
-                "WHERE " + SPALTENNAME_NAME + " = " + spieler.get_name() + ";";
+                "WHERE " + SPALTENNAME_NAME + " = '" + spieler_name + "';";
         try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
                 // spielername schon vorhanden
-                throw new SQLException("Fehler beim Speichern des neuen Spielers: Spieler mit dem Namen " + spieler.get_name() + " schon vorhanden!" );
+                throw new SQLException("Fehler beim Speichern des neuen Spielers: Spieler mit dem Namen " + spieler_name + " schon vorhanden!" );
             }
         }
         // spieler noch nicht vorhanden
 
         // spieler in db anlegen
         sql_expression = "INSERT INTO " + TABELLENNAME + "(" + SPALTENNAME_NAME + ")\n" +
-                "VALUES ('" + spieler.get_name() + "')\n" +
+                "VALUES ('" + spieler_name + "')\n" +
                 ";";
         try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.executeUpdate();
@@ -52,7 +57,7 @@ public class Spieler_db_table {
 
     // fertig
     @Nullable
-    public Spieler get_spieler(String spieler_name) throws SQLException {
+    protected Spieler get_spieler(String spieler_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -78,7 +83,7 @@ public class Spieler_db_table {
     }
 
     @NotNull
-    public ArrayList<String> get_spieler_namen() throws SQLException {
+    protected ArrayList<String> get_spieler_namen() throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 

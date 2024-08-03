@@ -42,7 +42,7 @@ public class StreckeGroesseWaehlenController {
 
 
     public void streckeGroesse_bn_zurueck_action(ActionEvent actionEvent) {
-        ScenesManager.getInstance().goBack();
+        ScenesManager.getInstance().switch_to_strecke_waehlen();;
     }
 
     public void streckeGroesse_bn_weiter_action(ActionEvent actionEvent) {
@@ -70,7 +70,7 @@ public class StreckeGroesseWaehlenController {
             // rennstrecken-objekt erzeugen mit name und größe
             Rennstrecke rennstrecke = new Rennstrecke(streckenname, breite_int, hoehe_int);
             // zur scene strecke_erstellen wechseln
-            ScenesManager.getInstance().switch_to_streckeErstellen(rennstrecke);
+            ScenesManager.getInstance().switch_to_strecke_erstellen(rennstrecke);
         }
     }
 }

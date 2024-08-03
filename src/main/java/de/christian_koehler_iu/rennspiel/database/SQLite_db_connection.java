@@ -11,9 +11,9 @@ die Tabellen erstellt, falls sie noch nicht vorhanden sind
  */
 public class SQLite_db_connection {
 
-    private static SQLite_db_connection instance;
-    private static Connection connection;
-    private static final String URL = "jdbc:sqlite:rennspiel.db";
+    protected static SQLite_db_connection instance;
+    protected static Connection connection;
+    protected static final String URL = "jdbc:sqlite:rennspiel.db";
 
     // privater constructor
     private SQLite_db_connection() throws SQLException {
@@ -25,7 +25,7 @@ public class SQLite_db_connection {
         }
     }
 
-    public static SQLite_db_connection getInstance() throws SQLException {
+    protected static SQLite_db_connection getInstance() throws SQLException {
         if (instance == null) { // Erster Check (ohne Synchronisierung)
             /*
             Double-Checked Locking Pattern
@@ -42,7 +42,7 @@ public class SQLite_db_connection {
         return instance;
     }
 
-    public Connection getConnection() {
+    protected Connection getConnection() {
         return connection;
     }
 

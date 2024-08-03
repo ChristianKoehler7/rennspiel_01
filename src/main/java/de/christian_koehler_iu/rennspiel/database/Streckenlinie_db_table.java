@@ -8,15 +8,20 @@ import java.util.ArrayList;
 
 public class Streckenlinie_db_table {
 
-    public final String TABELLENNAME = "Streckenlinie";
-    public final String SPALTENNAME_ID = "id";
-    public final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";
-    public final String SPALTENNAME_X0 = "x0";
-    public final String SPALTENNAME_Y0 = "y0";
-    public final String SPALTENNAME_X1 = "x1";
-    public final String SPALTENNAME_Y1 = "y1";
+    protected final String TABELLENNAME = "Streckenlinie";
+    protected final String SPALTENNAME_ID = "id";
+    protected final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";
+    protected final String SPALTENNAME_X0 = "x0";
+    protected final String SPALTENNAME_Y0 = "y0";
+    protected final String SPALTENNAME_X1 = "x1";
+    protected final String SPALTENNAME_Y1 = "y1";
 
-    public String get_create_table_string(){
+    // constructor protected damit nur innerhabl des pakts zugriff möglich ist
+    // datenbankzugriffe von außen müssen über Rennstrecke_database_connection oder Spieler_database_connection erfolgen
+    protected Streckenlinie_db_table() {
+    }
+
+    protected String get_create_table_string(){
         return "CREATE TABLE IF NOT EXISTS " + TABELLENNAME + " (" +
                 SPALTENNAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 SPALTENNAME_FK_RENNSTRECKE + " TEXT NOT NULL," +
@@ -28,7 +33,7 @@ public class Streckenlinie_db_table {
                 ");";
     }
 
-    public void saveStreckenlinie(Linie linie, String rennstreckeName) throws SQLException {
+    protected void saveStreckenlinie(Linie linie, String rennstreckeName) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -45,7 +50,7 @@ public class Streckenlinie_db_table {
         }
     }
 
-    public ArrayList<Linie> getStreckenlinien(String rennstrecke_name) throws SQLException {
+    protected ArrayList<Linie> getStreckenlinien(String rennstrecke_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -70,7 +75,7 @@ public class Streckenlinie_db_table {
         return streckenlinien;
     }
 
-    public void delete_streckenlinien_der_rennstrecke(String rennstrecke_name) throws SQLException {
+    protected void delete_streckenlinien_der_rennstrecke(String rennstrecke_name) throws SQLException {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 

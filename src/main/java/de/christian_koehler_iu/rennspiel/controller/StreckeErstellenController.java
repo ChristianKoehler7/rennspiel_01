@@ -127,7 +127,7 @@ public class StreckeErstellenController {
     }
 
     public void streckeErstellen_bn_zurueck_action(ActionEvent actionEvent) {
-        ScenesManager.getInstance().goBack();
+        ScenesManager.getInstance().switch_to_strecke_groesse_wahlen();
     }
 
     public void streckeErstellen_bn_gewStrLinieLoeschen_action(ActionEvent actionEvent) {
