@@ -4,7 +4,6 @@ import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +34,9 @@ public class Spieler_db_table {
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
         // test ob spieler schon vorhanden
-        String sql_expression = "SELECT " + SPALTENNAME_NAME + " FROM " + TABELLENNAME + "\n" +
-                "WHERE " + SPALTENNAME_NAME + " = '" + spieler_name + "';";
+        String sql_expression = "SELECT " + SPALTENNAME_NAME + " FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?;";
         try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setString(1, spieler_name);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
                 // spielername schon vorhanden
@@ -47,17 +46,17 @@ public class Spieler_db_table {
         // spieler noch nicht vorhanden
 
         // spieler in db anlegen
-        sql_expression = "INSERT INTO " + TABELLENNAME + "(" + SPALTENNAME_NAME + ")\n" +
-                "VALUES ('" + spieler_name + "')\n" +
-                ";";
+        sql_expression = "INSERT INTO " + TABELLENNAME + " (" + SPALTENNAME_NAME + ") VALUES (?);";
         try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setString(1, spieler_name);
             pstmt.executeUpdate();
         }
     }
 
     // fertig
     @Nullable
-    protected Spieler get_spieler(String spieler_name) throws SQLException {
+    protected Spieler get_spieler_complete(String spieler_name) throws SQLException {
+        // TODO durch transaction ersetzen
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
@@ -103,4 +102,44 @@ public class Spieler_db_table {
         // spieler_namen ausgeben
         return spieler_namen;
     }
+
+    /**
+     * Löscht einen Spieler aus der DB zusammen mit allen Streckenbestzeiten.
+     * @param spieler_name Name des zu löschenden Spielers
+     * @throws SQLException Bei SQL-Fehlern
+     */
+    protected void delete_spieler_complete(String spieler_name) throws SQLException {
+        // Datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+        Connection connection = sqLiteDbConnection.getConnection();
+
+        // Beginne eine Transaktion, falls es beim löschen der Streckenrekorde des Spielers zu fehlern kommt
+        //  wird alles rückgängig gemacht um inkonsistenzen der db zu vermeiden
+        try (PreparedStatement beginStmt = connection.prepareStatement("BEGIN TRANSACTION")) {
+            beginStmt.execute();
+
+            // Spieler löschen
+            String sqlExpression = "DELETE FROM " + TABELLENNAME + " WHERE " + SPALTENNAME_NAME + " = ?";
+            try (PreparedStatement pstmt = connection.prepareStatement(sqlExpression)) {
+                pstmt.setString(1, spieler_name);
+                pstmt.executeUpdate();
+            }
+
+            // Dazugehörige Einträge in LinkRennstreckeSpielerBestzeit löschen
+            new LinkRennstreckeSpielerBestzeit_db_table().delete_alle_eintraege_des_spielers(spieler_name);
+
+            // Commit der Transaktion
+            try (PreparedStatement commitStmt = connection.prepareStatement("COMMIT")) {
+                commitStmt.execute();
+            }
+        } catch (SQLException e) {
+            // Rollback der Transaktion bei Fehler
+            try (PreparedStatement rollbackStmt = connection.prepareStatement("ROLLBACK")) {
+                rollbackStmt.execute();
+            }
+            throw e;
+        }
+    }
+
+
 }

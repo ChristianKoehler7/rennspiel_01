@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="streckeGroesse_grid_root" style="-fx-background-image: url('/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/resources/de/christian_koehler_iu/rennspiel/city-3029164_1280.jpg');" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.christian_koehler_iu.rennspiel.controller.StreckeGroesseWaehlenController">
+<GridPane fx:id="streckeGroesse_grid_root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="gridpane" stylesheets="@styles_04.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.christian_koehler_iu.rennspiel.controller.StreckeGroesseWaehlenController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
@@ -26,24 +26,24 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Neue Rennstrecke erstellen" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Label styleClass="label-superlarge" text="Neue Rennstrecke erstellen" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label text="Streckenname und Größe wählen" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Label styleClass="label-large" text="Streckenname und Größe wählen" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="streckeGroesse_tf_breite" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <TextField fx:id="streckeGroesse_tf_hoehe" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Label text="Breite (Anzahl Kästchen)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Höhe (Anzahl Kästchen)" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Button fx:id="streckeGroesse_bn_zurueck" mnemonicParsing="false" onAction="#streckeGroesse_bn_zurueck_action" text="zurück" GridPane.halignment="CENTER" />
-      <Button fx:id="streckeGroesse_bn_weiter" mnemonicParsing="false" onAction="#streckeGroesse_bn_weiter_action" text="weiter" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-      <Label fx:id="streckeGroesse_lb_fehler" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-      <Label text="Streckenname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField fx:id="streckeGroesse_tf_streckenname" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="streckeGroesse_tf_breite" promptText="Breite (Anzahl Kästchen)" styleClass="text-field-neutral" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="streckeGroesse_tf_hoehe" promptText="Höhe (Anzahl Kästchen)" styleClass="text-field-neutral" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label styleClass="label-medium" text="Breite (Anzahl Kästchen)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label styleClass="label-medium" text="Höhe (Anzahl Kästchen)" textFill="#0022ff" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button fx:id="streckeGroesse_bn_zurueck" alignment="CENTER" mnemonicParsing="false" onAction="#streckeGroesse_bn_zurueck_action" styleClass="button-zurueck-abbrechen" text="zurück" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+      <Button fx:id="streckeGroesse_bn_weiter" alignment="CENTER" mnemonicParsing="false" onAction="#streckeGroesse_bn_weiter_action" styleClass="button-weiter-ok" text="weiter" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+      <Label fx:id="streckeGroesse_lb_fehler" styleClass="label-error" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+      <Label styleClass="label-medium" text="Streckenname" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="streckeGroesse_tf_streckenname" promptText="Streckenname" styleClass="text-field-neutral" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    </children>
 </GridPane>

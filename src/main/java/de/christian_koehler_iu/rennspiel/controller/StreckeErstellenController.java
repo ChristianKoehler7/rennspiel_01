@@ -1,11 +1,16 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
+import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
+import de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection;
+import de.christian_koehler_iu.rennspiel.interfaces.I_rennstrecke_database;
+import de.christian_koehler_iu.rennspiel.utility.User_eingaben_pruefen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
@@ -33,6 +38,9 @@ public class StreckeErstellenController {
     private Button streckeErstellen_bn_startRichtungAendern;
     @FXML
     private Button streckeErstellen_bn_streckeSpeichern;
+    @FXML
+    private TextField streckeErstellen_tf_anzRunden;
+
 
     public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/strecke_erstellen_view.fxml";
     public static final String SCENE_NAME = "StreckeErstellen";
@@ -49,18 +57,12 @@ public class StreckeErstellenController {
 
     private Link_StreckeErstellenController_Rennstrecke link_StreckeErstellenController_Rennstrecke;
 
-    private final double B_MAX_PIXEL = 896.0-20.0;
-    private final double H_MAX_PIXEL = 560.0-20.0;
+    private final double B_MAX_PIXEL = 860.0;
+    private final double H_MAX_PIXEL = 530.0;
 
     private Rennstrecke rennstrecke;
 
-    public void streckeErstellen_bn_streckeSpeichern_action(ActionEvent actionEvent) {
-        // TODO
-        //  test ob alle rennstreckenwerte vorhanden
-        //  wenn nein dann fehler in label streckeErstellen_lb_fehler ausgeben
-        //  wenn ja, dann strecke speichern und scene wechslen und toast anzeigen, dass es geklappt hat
-    }
-
+    private Spieler spieler;
 
     public enum Zeichnungszustand {
         STRECKENLINIE_ZEICHNEN,
@@ -69,23 +71,23 @@ public class StreckeErstellenController {
     }
     private Zeichnungszustand zeichnungszustand = Zeichnungszustand.KEINS_GEWAEHLT;
 
-
     @FXML
     public void initialize() {
         System.out.println("#############################");
         System.out.println("initialize()");
     }
+    
+    public void initialize_spieler_rennstrecke(Spieler spieler, Rennstrecke rennstrecke){
+        // spieler in attribut speichern
+        this.spieler = spieler;
 
-    
-    
-    public void initialize_rennstrecke(Rennstrecke rennstrecke){
         // rennstrecke in attribut speichern
         this.rennstrecke = rennstrecke;
 
         // Link_StreckeErstellenController_Rennstrecke objekt erstellen
         this.link_StreckeErstellenController_Rennstrecke = new Link_StreckeErstellenController_Rennstrecke(
-                this.B_MAX_PIXEL,
-                this.H_MAX_PIXEL,
+                B_MAX_PIXEL,
+                H_MAX_PIXEL,
                 new Link_StreckeErstellenController_Rennstrecke.I_Link_StrErstController_Rennstrecke() {
                     @Override
                     public Zeichnungszustand get_zeichnungszustand() {
@@ -109,7 +111,6 @@ public class StreckeErstellenController {
 
         // speicher für listview initialisieren
         this.streckeErstellen_listview_streckenlinien.setItems(this.link_StreckeErstellenController_Rennstrecke.get_observable_streckenlinien_for_listview());
-        //this.update_streckenLinien_listView();
 
         // ChangeListener wenn sich ausgewähltes item der listview ändert erstellen
         this.init_create_listView_selected_changeListener();
@@ -121,13 +122,43 @@ public class StreckeErstellenController {
             // index der gewählten streckenlinie holen (wenn keins gewählt dann -1)
             int index_selected = this.streckeErstellen_listview_streckenlinien.getSelectionModel().getSelectedIndex();
 
-            // weitergebenn an link_StreckeErstellenController_Rennstrecke
+            // weitergeben an link_StreckeErstellenController_Rennstrecke
             this.link_StreckeErstellenController_Rennstrecke.listView_selected_changed(index_selected);
         });
     }
 
+    public void streckeErstellen_bn_streckeSpeichern_action(ActionEvent actionEvent) {
+        // test ob alle rennstreckenwerte vorhanden
+
+        String eingabe_anz_runden = streckeErstellen_tf_anzRunden.getText();
+        User_eingaben_pruefen user_eingaben_pruefen = new User_eingaben_pruefen(eingabe_anz_runden);
+
+        if(rennstrecke.getStartlinie() == null){
+            // startlinie fehlt
+            ScenesManager.getInstance().show_toast_warning("Es muss eine Startlinie geben!");
+        }else if(rennstrecke.getStartlinie().get_max_breite_oder_hoehe() < 3){
+            // startlinie nicht lang genug
+            ScenesManager.getInstance().show_toast_warning("Die Startlinie muss mindestens 3 Kästchen lang sein!");
+        }else if(user_eingaben_pruefen.get_parsed_integer() == null){
+            // falsche eingabe beim anzahl runden textfield
+            ScenesManager.getInstance().show_toast_warning("Bitte im Feld \"Anzahl Runden\" eine positive Ganzzahl zwichen 1 und 5 eingeben!");
+        }else if(user_eingaben_pruefen.get_parsed_integer() > 5){
+            // anz runden darf nicht größer als 5 sein, das es größer 0 ist wurde schon in User_eingaben_pruefen gerprüft
+            ScenesManager.getInstance().show_toast_warning("Anzahl Runden darf maximal 5 sein!");
+        }else{ // keine fehler aufgetreten
+            // anzahl runden der rennstrecke übergeben
+            rennstrecke.set_anz_runden(user_eingaben_pruefen.get_parsed_integer());
+            // rennstrecke in db speichern
+            I_rennstrecke_database i_rennstrecke_database = new Rennstrecke_database_connection();
+            i_rennstrecke_database.save_rennstrecke_complete(rennstrecke);
+            // wechseln zu strecke_waehlen
+            ScenesManager.getInstance().switch_to_strecke_waehlen(spieler);
+            ScenesManager.getInstance().show_toast_neutral("Strecke erfolgreich erstellt!");
+        }
+    }
+
     public void streckeErstellen_bn_zurueck_action(ActionEvent actionEvent) {
-        ScenesManager.getInstance().switch_to_strecke_groesse_wahlen();
+        ScenesManager.getInstance().switch_to_strecke_groesse_wahlen(spieler);
     }
 
     public void streckeErstellen_bn_gewStrLinieLoeschen_action(ActionEvent actionEvent) {

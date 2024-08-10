@@ -113,10 +113,10 @@
     -fx-background-color: red;
 }
 .button-startlinie:hover {
-    -fx-background-color: lightred;
+    -fx-background-color: orangered;
 }
 .button-startlinie:pressed {
-    -fx-background-color: lightred;
+    -fx-background-color: orangered;
     -fx-border-color: black;
 }
 
@@ -126,18 +126,47 @@
 .label-superlarge {
     -fx-font-size: 36px;
     -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-superlarge_with_background {
+    -fx-font-size: 36px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
 }
 .label-large {
     -fx-font-size: 24px;
     -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-large_with_background {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
 }
 .label-medium {
     -fx-font-size: 18px;
     -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-medium_with_background {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
+}
+.label-medium_with_background {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
 }
 .label-small {
     -fx-font-size: 14px;
     -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-small_with_background {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
 }
 .label-error {
     -fx-background-color: red;
@@ -145,26 +174,118 @@
     -fx-font-size: 18px;
     -fx-text-fill: white;
 }
+.label-error-large {
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: red;
+}
 
 /*----------------------------------------------------------------------------*/
 /* ListView */
 /*----------------------------------------------------------------------------*/
-.list-view {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+.list-view-modern {
+    -fx-background-color: #FFFFFF8F;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+    -fx-content-display:left;
 }
-.list-view .list-cell {
+.list-view-modern .list-cell { /* cell ohne inhalt*/
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell:filled:even {  /* gerader zellenindex mit inhalt*/
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000D0;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell:filled:odd {  /* ungerader zellenindex mit inhalt*/
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000D0;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell:filled:selected {
+    -fx-background-color: #00000030;
+    -fx-text-fill: white;
+}
+
+
+.list-view-modern .list-cell:filled:hover {
+    /*-fx-border-color: gray;
+    -fx-border-width: 1px;*/
+    -fx-font-weight: bold
+}
+
+
+.list-view-classic {
+    -fx-background-color: #FFFFFF8F;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+.list-view-classic .list-cell { /* cell ohne inhalt*/
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
     -fx-padding: 10px;
     -fx-font-size: 14px;
     -fx-text-fill: #333;
 }
-.list-view .list-cell:filled:selected {
-    -fx-background-color: #2196F3; /* Blau */
+.list-view-classic .list-cell:filled:even {  /* gerader zellenindex mit inhalt*/
+    -fx-background-color: #FFFFFF8F;
+    -fx-background-radius: 10px;
+    -fx-border-width: 0px;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000B0;
+}
+.list-view-classic .list-cell:filled:odd {  /* ungerader zellenindex mit inhalt*/
+    -fx-background-color: #FFFFFFBF;
+    -fx-background-radius: 10px;
+    -fx-border-width: 0px;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000E0;
+}
+.list-view-classic .list-cell:filled:selected {
+    -fx-background-color: #00000050;
     -fx-text-fill: white;
 }
+
+
+.list-view-classic .list-cell:filled:hover {
+    /*-fx-border-color: gray;
+    -fx-border-width: 1px;*/
+    -fx-font-weight: bold
+}
+
 
 
 /*----------------------------------------------------------------------------*/
@@ -173,12 +294,24 @@
 /* Allgemeine Einstellungen für TextField */
 .text-field {
     -fx-text-fill: black;
-    -fx-padding: 10 20;
+    -fx-padding: 10px 20px;
     -fx-font-size: 14px;
     -fx-background-insets: 0;
     -fx-background-color: white;
     -fx-background-radius: 50;
     -fx-border-radius: 50;
-    -fx-border-width: 3;
+    -fx-border-width: 3px;
+    -fx-border-color: black;
+}
+
+.text-field-neutral {
+    -fx-text-fill: black;
+    -fx-padding: 5px 10px 5px 10px; /* oben rechts unten links*/
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-width: 3px;
     -fx-border-color: black;
 }

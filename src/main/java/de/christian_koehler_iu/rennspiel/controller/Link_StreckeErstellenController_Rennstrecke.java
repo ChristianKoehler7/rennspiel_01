@@ -230,10 +230,6 @@ public class Link_StreckeErstellenController_Rennstrecke {
                 this.rand_durchgangs_fxNodes.add(dreieck_unten);
             }
         }
-
-
-
-
     }
 
     private Polygon create_dreieck(int x_grid_baseline_left, int y_grid_baseline_up,
@@ -602,64 +598,6 @@ public class Link_StreckeErstellenController_Rennstrecke {
             // aktMouseLine auf null setzen
             this.aktMouseLine = null;
         }
-
-
-//        if(this.aktMouseLine != null) {
-//            double endXPixel = mouseEvent.getX();
-//            double endYPixel = mouseEvent.getY();
-//
-//            Integer startXGrid = this.umrechnung_grid_pixel.posXPixel_to_posXGrid_round(this.aktMouseLine.getStartX());
-//            Integer startYGrid = this.umrechnung_grid_pixel.posYPixel_to_posYGrid_round(this.aktMouseLine.getStartY());
-//            if(startXGrid==null || startYGrid==null){
-//                throw new RuntimeException("Startpunkt ist null, das kann eigentlich hier nicht sein!");
-//            }
-//
-//            Integer endXGrid = this.umrechnung_grid_pixel.posXPixel_to_posXGrid_round(endXPixel);
-//            Integer endYGrid = this.umrechnung_grid_pixel.posYPixel_to_posYGrid_round(endYPixel);
-//
-//            // wenn endpunkt auch validen wert hat und endpunkt != startpunkt
-//            if (endXGrid!=null && endYGrid!=null
-//                    && !(endXGrid.equals(startXGrid) && endYGrid.equals(startYGrid)) ) {
-//                // endpunkt der linie setzen
-//                this.aktMouseLine.setEndX(this.umrechnung_grid_pixel.posXGrid_to_posXPixel(endXGrid));
-//                this.aktMouseLine.setEndY(this.umrechnung_grid_pixel.posYGrid_to_posYPixel(endYGrid));
-//
-//                // linie in der rennstrecke speichern (wichtig Line != Linie)
-//                // abfrage welche art von line
-//                if(this.i_linkStrErstControllerRennstrecke.get_zeichnungszustand() == StreckeErstellenController.Zeichnungszustand.STRECKENLINIE_ZEICHNEN){
-//                    // streckenlinie in rennstrecke hinzufügen
-//                    this.add_streckenlinie(this.aktMouseLine);
-//                    // listview aktualisieren
-//                    this.update_streckenLinien_listView();
-//                }else if(this.i_linkStrErstControllerRennstrecke.get_zeichnungszustand() == StreckeErstellenController.Zeichnungszustand.STARTLINIE_ZEICHNEN){
-//                    // startlinie darf nur horizontal oder vertikal sein
-//                    if( (startXGrid.equals(endXGrid)) || (startYGrid.equals(endYGrid)) ){
-//                        // alte linie in group falls vorhanden löschen
-//                        Linie alteRennstreckeStartlinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie();
-//                        System.out.println("alteRennstreckeStartlinie = " + (alteRennstreckeStartlinie != null ? alteRennstreckeStartlinie.toString() : null));
-//                        if(alteRennstreckeStartlinie != null){
-//                            if(alteGroupStartLine != null){
-//                                this.streckeErstellen_group_strecke.getChildren().remove(alteGroupStartLine);
-//                            }else{
-//                                throw new RuntimeException("Fehler: alte Startlinie im Group-Element nicht gefunden!");
-//                            }
-//                        }
-//                        // startlinie in rennstrecke setzen
-//                        this.rennstrecke.setStartlinie(startXGrid, startYGrid, endXGrid, endYGrid);
-//                    }else{
-//                        // akt line löschen
-//                        this.streckeErstellen_group_strecke.getChildren().remove(this.aktMouseLine);
-//                    }
-//                }else{
-//                    throw new RuntimeException("unvorhergesehener Zeichnungszustand");
-//                }
-//            } else { // nicht valider endpunkt
-//                // linie aus group entfernen
-//                this.streckeErstellen_group_strecke.getChildren().remove(this.aktMouseLine);
-//            }
-//            // temp mouselinie auf null setzen
-//            this.aktMouseLine = null;
-//        }
     }
 
     private void update_streckenLinien_listView(){

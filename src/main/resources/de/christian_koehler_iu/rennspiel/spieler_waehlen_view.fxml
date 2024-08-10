@@ -30,7 +30,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ListView fx:id="spielerWaehlen_listview_spieler" maxWidth="500.0" prefWidth="500.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ListView fx:id="spielerWaehlen_listview_spieler" maxWidth="500.0" prefWidth="500.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" styleClass="list-view-modern" />
       <Button fx:id="spielerWaehlen_bn_beenden" mnemonicParsing="false" onAction="#spielerWaehlen_bn_beenden_action" styleClass="button-vorsicht-beenden-loeschen" text="Spiel beenden" GridPane.rowIndex="4" />
       <Button fx:id="spielerWaehlen_bn_weiter" mnemonicParsing="false" onAction="#spielerWaehlen_bn_weiter_action" styleClass="button-weiter-ok" text="weiter" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
       <Button fx:id="spielerWaehlen_bn_neuerSpieler" mnemonicParsing="false" onAction="#spielerWaehlen_bn_neuerSpieler_action" styleClass="button-neutral" text="+  neuen Spieler erstellen" GridPane.halignment="CENTER" GridPane.rowIndex="3" />

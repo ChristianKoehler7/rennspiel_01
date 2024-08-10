@@ -3,6 +3,7 @@ module de.christian_koehler_iu.rennspiel {
     requires javafx.fxml;
     requires org.jetbrains.annotations;
     requires java.sql;
+    requires java.desktop;
 
 
     opens de.christian_koehler_iu.rennspiel to javafx.fxml;

@@ -1,8 +1,6 @@
 package de.christian_koehler_iu.rennspiel.database;
 
-import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
-import de.christian_koehler_iu.rennspiel.interfaces.I_rennstrecke_database;
 import de.christian_koehler_iu.rennspiel.interfaces.I_spieler_database;
 
 import java.sql.SQLException;
@@ -30,9 +28,9 @@ public class Spieler_database_connection implements I_spieler_database {
     }
 
     @Override
-    public Spieler load_spieler(String spieler_name) {
+    public Spieler load_spieler_complete(String spieler_name) {
         try {
-            return new Spieler_db_table().get_spieler(spieler_name);
+            return new Spieler_db_table().get_spieler_complete(spieler_name);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -51,5 +49,14 @@ public class Spieler_database_connection implements I_spieler_database {
     public boolean is_spieler_name_vorhanden(String spieler_name) {
         ArrayList<String> spieler_namen = this.load_spieler_namen();
         return spieler_namen.contains(spieler_name);
+    }
+
+    @Override
+    public void delete_spieler_complete(String spieler_name) {
+        try {
+            new Spieler_db_table().delete_spieler_complete(spieler_name);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

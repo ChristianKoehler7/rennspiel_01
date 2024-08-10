@@ -124,6 +124,17 @@ public class Linie{
                 x_punkt, y_punkt);
     }
 
+    /**
+     * berechnet absolute differenz zwischen x0 und x1
+     * berechnet absolute differenz zwischen y0 und y1
+     * @return absolute differenz des größeren der beiden werte
+     */
+    public int get_max_breite_oder_hoehe(){
+        int delta_x_abs = p0.getX()-p1.getX()>=0 ? p0.getX()-p1.getX() : p1.getX()-p0.getX();
+        int delta_y_abs = p0.getY()-p1.getY()>=0 ? p0.getY()-p1.getY() : p1.getY()-p0.getY();
+        return delta_x_abs>delta_y_abs ? delta_x_abs : delta_y_abs;
+    }
+
     @Override
     public String toString() {
         return "Linie x0=" + getP0().getX() + " y0=" + getP0().getY() + " x1=" + getP1().getX() + " y1=" + getP1().getY();

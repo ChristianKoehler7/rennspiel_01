@@ -1,13 +1,8 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
-import de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection;
-import de.christian_koehler_iu.rennspiel.database.Rennstrecke_db_table;
 import de.christian_koehler_iu.rennspiel.database.Spieler_database_connection;
 import de.christian_koehler_iu.rennspiel.interfaces.I_spieler_database;
 import de.christian_koehler_iu.rennspiel.utility.User_eingaben_pruefen;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,14 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpielerErstellenController {
@@ -72,7 +64,7 @@ public class SpielerErstellenController {
 
         User_eingaben_pruefen userEingabenPruefen = new User_eingaben_pruefen(benutzer_eingabe);
 
-        List<String> fehlermeldungen = userEingabenPruefen.get_fehlermeldungen();
+        List<String> fehlermeldungen = userEingabenPruefen.get_fehlermeldungen_string_eingabe();
 
         // spieler-db-verbindung holen
         I_spieler_database i_spieler_database = new Spieler_database_connection();
@@ -83,6 +75,8 @@ public class SpielerErstellenController {
         if(!is_spieler_schon_vorhanden && fehlermeldungen.isEmpty()){
             // kein fehler vorhanden -> spieler anlegen
             i_spieler_database.save_new_spieler(benutzer_eingabe);
+            // wechseln zur scene spieler_waehlen
+            ScenesManager.getInstance().switch_to_spieler_wahlen();
         }else{
             // fehler vorhanden
             String fehler_text;

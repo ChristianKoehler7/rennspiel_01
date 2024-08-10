@@ -27,7 +27,8 @@ public class Rennstrecke {
                        int streckenhoehe,
                        Linie startlinie,
                        ArrayList<Linie> streckenlinien,
-                       boolean is_startrichtung_nach_unten_oder_rechts) {
+                       boolean is_startrichtung_nach_unten_oder_rechts,
+                       int anz_runden) {
         this.name = streckenname;
         this.is_standartstrecke = is_standartstrecke;
         this.breite = streckenbreite;
@@ -35,6 +36,7 @@ public class Rennstrecke {
         this.startlinie = startlinie;
         this.set_streckenlinien(streckenlinien);
         this.is_startrichtung_nach_unten_oder_rechts = is_startrichtung_nach_unten_oder_rechts;
+        this.anz_runden = anz_runden;
     }
 
     public String getName() {
@@ -108,11 +110,11 @@ public class Rennstrecke {
         this.is_startrichtung_nach_unten_oder_rechts = is_startrichtung_nach_unten_oder_rechts;
     }
 
-    public int getAnz_runden() {
+    public int get_anz_runden() {
         return anz_runden;
     }
 
-    public void setAnz_runden(int anz_runden) {
+    public void set_anz_runden(int anz_runden) {
         this.anz_runden = anz_runden;
     }
 
@@ -124,9 +126,14 @@ public class Rennstrecke {
         this.strecken_bestzeit = strecken_bestzeit;
     }
 
+    public int get_max_anz_spielern(){
+        // max spieler die auf startlinie passen zurück geben, aber maximal 4
+        return (startlinie.get_max_breite_oder_hoehe()-2)<=4 ? (startlinie.get_max_breite_oder_hoehe()-2) : 4;
+    }
+
     public static Rennstrecke generate_strecke_01(){
         Rennstrecke rennstrecke_01 = new Rennstrecke("Rennstrecke 01", 26, 20);
-        rennstrecke_01.setAnz_runden(1);
+        rennstrecke_01.set_anz_runden(1);
 
         // äußerer rahmen
         rennstrecke_01.addStreckenlinie(0, 0, 26, 0);

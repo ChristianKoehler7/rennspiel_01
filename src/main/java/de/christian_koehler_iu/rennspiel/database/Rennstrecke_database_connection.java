@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Rennstrecke_database_connection implements I_rennstrecke_database {
 
     @Override
-    public void save_rennstrecke(Rennstrecke rennstrecke) {
+    public void save_rennstrecke_complete(Rennstrecke rennstrecke) {
         // alles von rennstrecke speichern
         try {
             new Rennstrecke_db_table().save_rennstrecke(rennstrecke);
@@ -22,23 +22,47 @@ public class Rennstrecke_database_connection implements I_rennstrecke_database {
     }
 
     @Override
-    public Rennstrecke load_rennstrecke(String strecken_name) {
-        // TODO rennstrecke laden
-        return null;
+    public Rennstrecke load_rennstrecke_complete(String strecken_name) {
+        try {
+            return new Rennstrecke_db_table().load_rennstrecke_complete(strecken_name);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ArrayList<String> load_rennstrecke_namen() {
-        return null;
+        try {
+            return new Rennstrecke_db_table().get_strecken_namen();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ArrayList<String> load_rennstrecke_standart_namen() {
-        return null;
+        try {
+            return new Rennstrecke_db_table().get_strecke_standart_namen();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public ArrayList<String> load_rennstrecke_custom_namen() {
-        return null;
+        try {
+            return new Rennstrecke_db_table().get_strecke_custom_namen();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void delete_rennstrecke_complete(String strecken_name) {
+        try {
+            new Rennstrecke_db_table().delete_rennstrecke_complete(strecken_name);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
