@@ -315,3 +315,93 @@
     -fx-border-width: 3px;
     -fx-border-color: black;
 }
+
+/*----------------------------------------------------------------------------*/
+/* VBox */
+/*----------------------------------------------------------------------------*/
+.vbox_light {
+    -fx-background-color: #ffffff80;
+    -fx-background-radius: 50;
+    -fx-padding: 25 25 25 25;
+}
+
+.vbox_dark {
+    -fx-background-color: #000000b0;
+    -fx-background-radius: 50;
+    -fx-padding: 25 25 25 25;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/* Rennen elemente */
+/*----------------------------------------------------------------------------*/
+
+.rechteck_rennen_hintergrund {
+    -fx-fill: #ffffffe8;
+    -fx-stroke: lightgray;
+    -fx-stroke-width: 1px;
+}
+
+.linie_rennen_gitter {
+    -fx-stroke: lightgray;
+    -fx-stroke-width: 0.5px;
+}
+
+.linie_rennen_strecke{
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
+}
+
+.linie_rennen_start{
+    -fx-stroke: violet;
+    -fx-stroke-width: 2px;
+}
+
+.polygon_rennen_startrichting{
+    -fx-fill: #ee82ee80; /*violet = #ee82ee*/
+    -fx-stroke: black;
+    -fx-stroke-width: 0px;
+}
+
+.polygon_rennen_randdurchgang{
+    -fx-fill: #80808080; /*gray = #808080*/
+    -fx-stroke: black;
+    -fx-stroke-width: 0px;
+}
+
+.circle_moegliche_neue_position {
+    -fx-fill: transparent; /* Keine Füllung */
+    -fx-stroke: blue; /* Blaue Randlinie */
+    -fx-stroke-width: 2; /* Dicke der Randlinie */
+    -fx-stroke-dash-array: 5 5; /* Gepunktete Linie: 5 Einheiten Linie, 5 Einheiten Lücke */
+}
+
+.circle_moegliche_neue_position:hover {
+    -fx-stroke-width: 3; /* Verbreitert die Linie beim Hover */
+    -fx-stroke-dash-array: 3 7; /* Ändert das Muster der gepunkteten Linie beim Hover */
+}
+
+.circle_moegliche_neue_position:pressed {
+    -fx-stroke-width: 4; /* Noch breitere Linie bei gedrücktem Zustand */
+    -fx-stroke-dash-array: 1 0; /* Dichtes gepunktetes Muster bei gedrücktem Zustand */
+}
+
+
+.circle_fahr_position {
+    -fx-fill: blue;
+    -fx-stroke: blue; /* Blaue Randlinie */
+    -fx-stroke-width: 0; /* Dicke der Randlinie */
+    -fx-stroke-dash-array: 5 5; /* Gepunktete Linie: 5 Einheiten Linie, 5 Einheiten Lücke */
+}
+
+.circle_fahr_position:hover {
+    -fx-stroke-width: 3; /* Verbreitert die Linie beim Hover */
+    -fx-stroke-dash-array: 3 7; /* Ändert das Muster der gepunkteten Linie beim Hover */
+}
+
+.circle_fahr_position:pressed {
+    -fx-stroke-width: 4; /* Noch breitere Linie bei gedrücktem Zustand */
+    -fx-stroke-dash-array: 1 0; /* Dichtes gepunktetes Muster bei gedrücktem Zustand */
+}
+

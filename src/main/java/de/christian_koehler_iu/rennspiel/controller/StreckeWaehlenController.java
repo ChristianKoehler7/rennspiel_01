@@ -133,14 +133,19 @@ public class StreckeWaehlenController {
     }
 
     public void streckeWaehlen_bn_weiter_action(ActionEvent actionEvent) {
-        // gewählte rennstrecke aus db laden
-        I_rennstrecke_database i_rennstrecke_database = new Rennstrecke_database_connection();
-        Rennstrecke rennstrecke = i_rennstrecke_database.load_rennstrecke_complete(strecken_name_selected);
-        System.out.println(rennstrecke);
-        System.out.println(rennstrecke.getName());
+        if(strecken_name_selected != null){
+            // gewählte rennstrecke aus db laden
+            I_rennstrecke_database i_rennstrecke_database = new Rennstrecke_database_connection();
+            Rennstrecke rennstrecke = i_rennstrecke_database.load_rennstrecke_complete(strecken_name_selected);
+            System.out.println(rennstrecke);
+            System.out.println(rennstrecke.getName());
 
-        // weiter zu mitspieler wählen
-        ScenesManager.getInstance().switch_to_mitspieler_waehlen(spieler, rennstrecke);
+            // weiter zu mitspieler wählen
+            ScenesManager.getInstance().switch_to_mitspieler_waehlen(spieler, rennstrecke);
+        }else{
+            ScenesManager.getInstance().show_toast_neutral("Keine Rennstrecke gewählt!");
+        }
+
     }
 
     public void streckeWaehlen_bn_neuerStrecke_action(ActionEvent actionEvent) {

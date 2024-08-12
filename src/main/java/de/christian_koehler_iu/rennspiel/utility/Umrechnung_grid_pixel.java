@@ -6,7 +6,7 @@ public class Umrechnung_grid_pixel {
 
     private final double B_RAND_GRID = 1.5; // breite des randes (in kästchen) im group
     private final double H_RAND_GRID = 1.5; // breite des randes (in kästchen) im group
-    public final double CLICK_TOLERANZ_GRID = 0.25; // abweichung click (in kästchen) zu kästchenkreuz, sodass der click noch zählt
+    public final double CLICK_TOLERANZ_GRID = 0.4; // abweichung click (in kästchen) zu kästchenkreuz, sodass der click noch zählt
 
     private final double B_MAX_PIXEL; // breite des elements in dem group steckt (in pixel)
     private final double H_MAX_PIXEL; // höhe des elements in dem group steckt
@@ -18,8 +18,8 @@ public class Umrechnung_grid_pixel {
     private final double B_STRECKE_GRID_MIT_RAND; // breite der strecke mit rand (in kästchen)
     private final double H_STRECKE_GRID_MIT_RAND; // höhe der strecke mit rand (in kästchen)
 
-    private final double B_1GRID_IN_PIXEL; // breite eines kästchens (in pixel)
-    private final double H_1GRID_IN_PIXEL; // höhe eines kästchens (in pixel)
+    public final double B_1GRID_IN_PIXEL; // breite eines kästchens (in pixel)
+    public final double H_1GRID_IN_PIXEL; // höhe eines kästchens (in pixel)
 
 
     public Umrechnung_grid_pixel(double b_max_pixel, double h_max_pixel, int b_strecke_grid_ohne_rand, int h_strecke_grid_ohne_rand) {

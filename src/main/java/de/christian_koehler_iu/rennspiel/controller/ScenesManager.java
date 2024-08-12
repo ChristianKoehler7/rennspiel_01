@@ -141,7 +141,7 @@ public class ScenesManager {
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
 
-        int toastDelay = 1500; // anzeige dauer
+        int toastDelay = 2500; // anzeige dauer
         int fadeInDelay = 500; // einblende dauer
         int fadeOutDelay = 500; // ausblende dauer
 
@@ -186,7 +186,7 @@ public class ScenesManager {
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
 
-        int toastDelay = 2000; // anzeige dauer
+        int toastDelay = 2500; // anzeige dauer
         int fadeInDelay = 500; // einblende dauer
         int fadeOutDelay = 500; // ausblende dauer
 

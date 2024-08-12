@@ -1,7 +1,13 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
+import de.christian_koehler_iu.rennspiel.controller_helper.Link_StreckeErstellenController_Rennstrecke;
+import de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf;
+import de.christian_koehler_iu.rennspiel.controller_helper.Rennen_start_positionen_waehlen;
+import de.christian_koehler_iu.rennspiel.controller_helper.Rennen_strecke_zeichnen;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
+import de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet;
+import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -9,8 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 
 import java.net.URL;
@@ -27,9 +31,14 @@ public class RennenController {
     @FXML
     GridPane rennen_grid_root;
     @FXML
+    Label rennen_lb_streckenName;
+    @FXML
     VBox rennen_vbox_info;
     @FXML
-    Label rennen_lb_streckenName;
+    Label rennen_lb_rennInfos;
+    @FXML
+    Group rennen_group_strecke;
+
 
     private final double B_MAX_PIXEL = 860.0;
     private final double H_MAX_PIXEL = 530.0;
@@ -42,13 +51,14 @@ public class RennenController {
     private final String[] farben = {"blue", "red", "orange", "green"};
     private final HashMap<Spieler, String> zurordnung_spieler_farbe = new HashMap<>();
     private final URL url_to_stylesheet = Objects.requireNonNull(getClass().getResource("/de/christian_koehler_iu/rennspiel/styles_04.css"));
+    private Umrechnung_grid_pixel umrechnung_grid_pixel;
 
 
-
-
-
-
-
+    @FXML
+    public void initialize() {
+        System.out.println("#############################");
+        System.out.println("initialize()");
+    }
 
 
     public void initialize_spieler_rennstrecke_mitspieler(Spieler aktiver_spieler, Rennstrecke rennstrecke, ArrayList<Spieler> mitspieler) {
@@ -82,10 +92,64 @@ public class RennenController {
             rennen_vbox_info.getChildren().add(akt_label);
         }
 
+        // renn info label leeren
+        rennen_lb_rennInfos.setText("");
 
+        // umrechnung_grid_pixel initialisieren
+        this.umrechnung_grid_pixel = new Umrechnung_grid_pixel(B_MAX_PIXEL, H_MAX_PIXEL, rennstrecke.getBreite(), rennstrecke.getHoehe());
+
+        // rennstrecke zeichnen
+        Rennen_strecke_zeichnen rennen_strecke_zeichnen = new Rennen_strecke_zeichnen(umrechnung_grid_pixel, rennstrecke, rennen_group_strecke);
+
+        // startpositionen wählen
+        start_positionen_waehlen();
+
+
+        // rennen
+
+
+        // rennnen beendet
 
 
     }
+
+    private void start_positionen_waehlen(){
+        Rennen_start_positionen_waehlen rennen_start_positionen_waehlen = new Rennen_start_positionen_waehlen(
+                umrechnung_grid_pixel,
+                rennstrecke,
+                rennen_group_strecke,
+                spieler,
+                rennen_lb_rennInfos,
+                zurordnung_spieler_farbe,
+                new I_aufgabe_beendet() {
+                    @Override
+                    public void aufgabe_beendet() {
+                        // startpositionen sind alle erfolgreich gewählt
+                        // weiter mit rennen starten
+                        rennen_starten();
+                    }
+                });
+    }
+
+    private void rennen_starten(){
+        Rennen_renn_verlauf rennen_renn_verlauf = new Rennen_renn_verlauf();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void rennen_group_strecke_mDragged(MouseEvent mouseEvent) {

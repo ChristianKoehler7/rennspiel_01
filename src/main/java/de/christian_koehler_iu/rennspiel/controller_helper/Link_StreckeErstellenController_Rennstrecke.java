@@ -1,5 +1,6 @@
-package de.christian_koehler_iu.rennspiel.controller;
+package de.christian_koehler_iu.rennspiel.controller_helper;
 
+import de.christian_koehler_iu.rennspiel.controller.StreckeErstellenController;
 import de.christian_koehler_iu.rennspiel.data_classes.Linie;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
@@ -36,9 +37,6 @@ public class Link_StreckeErstellenController_Rennstrecke {
 
     private final String css_style_startline = "-fx-stroke: red;"
                                               +"-fx-stroke-width: 2px;";
-
-    private final String css_style_startrichtungslinien = "-fx-stroke: violet;"
-                                                         +"-fx-stroke-width: 4px;";
 
     private final String css_style_dreieck_startrichung = "-fx-fill: red;"      /* Füllfarbe */
                                                          +"-fx-stroke: black;"   /* Randfarbe */

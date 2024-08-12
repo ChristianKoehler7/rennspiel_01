@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="rennen_grid_root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="gridpane" stylesheets="@styles_04.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.christian_koehler_iu.rennspiel.controller.RennenController">
@@ -32,12 +33,17 @@
                   <Insets />
               </GridPane.margin>
           </Button>
-      <VBox fx:id="rennen_vbox_info" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff80; -fx-background-radius: 50; -fx-padding: 25 25 25 25;" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <VBox fx:id="rennen_vbox_info" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" styleClass="vbox_light" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <children>
             <Label styleClass="label-medium" text="Rennstrecke" />
             <Label fx:id="rennen_lb_streckenName" styleClass="label-large" text="Rennstrecke" />
             <Label text="   " />
             <Label styleClass="label-medium" text="Spieler" />
          </children></VBox>
+      <VBox alignment="CENTER" styleClass="vbox_dark" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label fx:id="rennen_lb_rennInfos" alignment="CENTER" styleClass="label-large" text="Hier werden Renninformationen ausgegeben" />
+         </children>
+      </VBox>
     </children>
 </GridPane>

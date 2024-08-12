@@ -15,5 +15,12 @@ module de.christian_koehler_iu.rennspiel {
 
     exports de.christian_koehler_iu.rennspiel.data_classes;
 
+    exports de.christian_koehler_iu.rennspiel.utility;
+
+    exports de.christian_koehler_iu.rennspiel.interfaces;
+
+    opens de.christian_koehler_iu.rennspiel.controller_helper to javafx.fxml;
+    exports de.christian_koehler_iu.rennspiel.controller_helper;
+
 
 }
