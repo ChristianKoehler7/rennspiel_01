@@ -8,7 +8,6 @@ import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet;
 import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
@@ -34,28 +33,23 @@ public class Rennen_start_positionen_waehlen {
     private final I_aufgabe_beendet i_aufgabe_beendet;
     // konstanten
     private final String path_to_stylesheet = Objects.requireNonNull(getClass().getResource("/de/christian_koehler_iu/rennspiel/styles_04.css")).toExternalForm();
-    private final String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND = "rechteck_rennen_hintergrund";
-    private final String CSS_STYLE_CLASS_LINIE_GITTER = "linie_rennen_gitter";
-    private final String CSS_STYLE_CLASS_LINIE_STRECKE = "linie_rennen_strecke";
-    private final String CSS_STYLE_CLASS_LINIE_START = "linie_rennen_start";
-    private final String CSS_STYLE_CLASS_POLYGON_STARTRICHTUNG = "polygon_rennen_startrichting";
-    private final String CSS_STYLE_CLASS_POLYGON_RANDDURCHGANG = "polygon_rennen_randdurchgang";
     private final String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS = "circle_moegliche_neue_position";
     private final String CSS_STYLE_CLASS_CIRCLE_FAHR_POS = "circle_fahr_position";
 
     private final HashMap<Spieler, Punkt> zuordnung_spieler_startpunkt = new HashMap<>();
-    private final HashMap<Spieler, Circle> zuordnung_spieler_fxFahrNode = new HashMap<>();
-    private int index_aktuelle_spieler = 0;
+    private final HashMap<Spieler, Circle> zuordnung_spieler_fxStartNode = new HashMap<>();
+    private int akt_index_spieler = 0; // index des spielers der am zug ist
     private final ArrayList<Circle> fx_nodes_moegliche_startpunkte = new ArrayList<>();
 
     // constructor
-    public Rennen_start_positionen_waehlen(Umrechnung_grid_pixel umrechnung_grid_pixel,
-                                           Rennstrecke rennstrecke,
-                                           Group group_strecke,
-                                           ArrayList<Spieler> spieler,
-                                           Label label_renn_infos,
-                                           HashMap<Spieler, String> zuordnung_spieler_farbe,
-                                           I_aufgabe_beendet i_aufgabe_beendet) {
+    public Rennen_start_positionen_waehlen(
+           Umrechnung_grid_pixel umrechnung_grid_pixel,
+           Rennstrecke rennstrecke,
+           Group group_strecke,
+           ArrayList<Spieler> spieler,
+           Label label_renn_infos,
+           HashMap<Spieler, String> zuordnung_spieler_farbe,
+           I_aufgabe_beendet i_aufgabe_beendet) {
         // object attribute initialisieren
         this.umrechnung_grid_pixel = umrechnung_grid_pixel;
         this.rennstrecke = rennstrecke;
@@ -68,6 +62,7 @@ public class Rennen_start_positionen_waehlen {
         // positionswahl beginnen
         start_choice_next_spieler();
 
+        // maus click listener erstellen
         group_strecke.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -95,22 +90,22 @@ public class Rennen_start_positionen_waehlen {
                             group_strecke.getChildren().removeAll(fx_nodes_moegliche_startpunkte);
                             fx_nodes_moegliche_startpunkte.clear();
                             // startpunkt dem spieler zuordnen
-                            zuordnung_spieler_startpunkt.put(spieler.get(index_aktuelle_spieler), new Punkt(pos_x_grid_nullable, pos_y_grid_nullable));
+                            zuordnung_spieler_startpunkt.put(spieler.get(akt_index_spieler), new Punkt(pos_x_grid_nullable, pos_y_grid_nullable));
                             // startpunkt einzeichnen
                             Circle startpunkt = new Circle();
                             startpunkt.getStyleClass().add(CSS_STYLE_CLASS_CIRCLE_FAHR_POS);
-                            startpunkt.setStyle("-fx-fill: " + zurordnung_spieler_farbe.get(spieler.get(index_aktuelle_spieler)) );
+                            startpunkt.setStyle("-fx-fill: " + zurordnung_spieler_farbe.get(spieler.get(akt_index_spieler)) + ";");
                             startpunkt.setCenterX(umrechnung_grid_pixel.posXGrid_to_posXPixel(pos_x_grid_nullable));
                             startpunkt.setCenterY(umrechnung_grid_pixel.posYGrid_to_posYPixel(pos_y_grid_nullable));
                             startpunkt.setRadius(umrechnung_grid_pixel.B_1GRID_IN_PIXEL * 0.2);
                             // gewählten fx-startpunkt-node der group übergeben
                             group_strecke.getChildren().add(startpunkt);
                             // gewählten fx-startpunkt-node dem spieler zuordnen
-                            zuordnung_spieler_fxFahrNode.put(spieler.get(index_aktuelle_spieler), startpunkt);
+                            zuordnung_spieler_fxStartNode.put(spieler.get(akt_index_spieler), startpunkt);
 
                             // aktueller spielr hat erfolgreich seine position gewählt
                             // index des aktuellen spielers erhöhen
-                            index_aktuelle_spieler++;
+                            akt_index_spieler++;
                             // nächsten spieler wählen lassen
                             start_choice_next_spieler();
                         }
@@ -121,13 +116,13 @@ public class Rennen_start_positionen_waehlen {
     }
 
     private void start_choice_next_spieler(){
-        if(index_aktuelle_spieler < spieler.size()){
+        if(akt_index_spieler < spieler.size()){
             // aktueller spieler vorhanden -> position wählen lassen
             // infolabel aktualisieren
             // textfarbe vom spieler im info label setzen
-            label_renn_infos.setStyle("-fx-text-fill: " + zurordnung_spieler_farbe.get(spieler.get(index_aktuelle_spieler)));
+            label_renn_infos.setStyle("-fx-text-fill: " + zurordnung_spieler_farbe.get(spieler.get(akt_index_spieler)));
             // info label text setzen
-            label_renn_infos.setText(spieler.get(index_aktuelle_spieler).get_name() + ": Startposition wählen");
+            label_renn_infos.setText(spieler.get(akt_index_spieler).get_name() + ": Startposition wählen");
 
             // mögliche startpositionen zeichnen
             zeichne_moegliche_startpositionen();
@@ -160,7 +155,7 @@ public class Rennen_start_positionen_waehlen {
             akt_circle.setCenterX( umrechnung_grid_pixel.posXGrid_to_posXPixel(akt_punkt.getX()) );
             akt_circle.setCenterY( umrechnung_grid_pixel.posYGrid_to_posYPixel(akt_punkt.getY()) );
             akt_circle.setRadius(umrechnung_grid_pixel.B_1GRID_IN_PIXEL * 0.3);
-            akt_circle.setStyle("-fx-stroke: " + zurordnung_spieler_farbe.get(spieler.get(index_aktuelle_spieler)) );
+            akt_circle.setStyle("-fx-stroke: " + zurordnung_spieler_farbe.get(spieler.get(akt_index_spieler)) );
             // circle der arraylist übergeben
             fx_nodes_moegliche_startpunkte.add(akt_circle);
             // circle der group übergeben
@@ -242,8 +237,11 @@ public class Rennen_start_positionen_waehlen {
     }
 
 
+    public HashMap<Spieler, Circle> getZuordnung_spieler_fxStartNode() {
+        return zuordnung_spieler_fxStartNode;
+    }
 
-
-
-
+    public HashMap<Spieler, Punkt> getZuordnung_spieler_startpunkt() {
+        return zuordnung_spieler_startpunkt;
+    }
 }

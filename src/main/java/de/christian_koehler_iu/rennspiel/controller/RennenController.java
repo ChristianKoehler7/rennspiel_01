@@ -4,6 +4,7 @@ import de.christian_koehler_iu.rennspiel.controller_helper.Link_StreckeErstellen
 import de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf;
 import de.christian_koehler_iu.rennspiel.controller_helper.Rennen_start_positionen_waehlen;
 import de.christian_koehler_iu.rennspiel.controller_helper.Rennen_strecke_zeichnen;
+import de.christian_koehler_iu.rennspiel.data_classes.Punkt;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 
 import java.net.URL;
@@ -37,6 +39,8 @@ public class RennenController {
     @FXML
     Label rennen_lb_rennInfos;
     @FXML
+    Label rennen_lb_aktAnzSpielRunden;
+    @FXML
     Group rennen_group_strecke;
 
 
@@ -52,6 +56,8 @@ public class RennenController {
     private final HashMap<Spieler, String> zurordnung_spieler_farbe = new HashMap<>();
     private final URL url_to_stylesheet = Objects.requireNonNull(getClass().getResource("/de/christian_koehler_iu/rennspiel/styles_04.css"));
     private Umrechnung_grid_pixel umrechnung_grid_pixel;
+
+    private Rennen_start_positionen_waehlen rennen_start_positionen_waehlen;
 
 
     @FXML
@@ -103,18 +109,10 @@ public class RennenController {
 
         // startpositionen wählen
         start_positionen_waehlen();
-
-
-        // rennen
-
-
-        // rennnen beendet
-
-
     }
 
     private void start_positionen_waehlen(){
-        Rennen_start_positionen_waehlen rennen_start_positionen_waehlen = new Rennen_start_positionen_waehlen(
+        rennen_start_positionen_waehlen = new Rennen_start_positionen_waehlen(
                 umrechnung_grid_pixel,
                 rennstrecke,
                 rennen_group_strecke,
@@ -132,7 +130,29 @@ public class RennenController {
     }
 
     private void rennen_starten(){
-        Rennen_renn_verlauf rennen_renn_verlauf = new Rennen_renn_verlauf();
+        // wichtige variablen aus rennen_start_positionen_waehlen holen
+        HashMap<Spieler, Circle> zuordnung_spieler_fxStartNode = rennen_start_positionen_waehlen.getZuordnung_spieler_fxStartNode();
+        HashMap<Spieler, Punkt> zuordnung_spieler_startpunkt = rennen_start_positionen_waehlen.getZuordnung_spieler_startpunkt();
+        // rennen_start_positionen_waehlen löschen
+        rennen_start_positionen_waehlen = null;
+        // rennen starten
+        Rennen_renn_verlauf rennen_renn_verlauf = new Rennen_renn_verlauf(
+                zuordnung_spieler_fxStartNode,
+                zuordnung_spieler_startpunkt,
+                umrechnung_grid_pixel,
+                rennstrecke,
+                rennen_group_strecke,
+                spieler,
+                rennen_lb_rennInfos,
+                rennen_lb_aktAnzSpielRunden,
+                zurordnung_spieler_farbe,
+                new I_aufgabe_beendet() {
+                    @Override
+                    public void aufgabe_beendet() {
+                        // rennen beendet
+                        // TODO weiter zu rennen_beendet
+                    }
+                });
     }
 
 

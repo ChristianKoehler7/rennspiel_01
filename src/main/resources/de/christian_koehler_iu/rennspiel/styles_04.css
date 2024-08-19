@@ -376,15 +376,19 @@
     -fx-stroke-width: 2; /* Dicke der Randlinie */
     -fx-stroke-dash-array: 5 5; /* Gepunktete Linie: 5 Einheiten Linie, 5 Einheiten Lücke */
 }
-
 .circle_moegliche_neue_position:hover {
     -fx-stroke-width: 3; /* Verbreitert die Linie beim Hover */
     -fx-stroke-dash-array: 3 7; /* Ändert das Muster der gepunkteten Linie beim Hover */
 }
-
 .circle_moegliche_neue_position:pressed {
     -fx-stroke-width: 4; /* Noch breitere Linie bei gedrücktem Zustand */
     -fx-stroke-dash-array: 1 0; /* Dichtes gepunktetes Muster bei gedrücktem Zustand */
+}
+
+.linie_moegliche_neue_fahr_linie{
+    -fx-stroke: blue;
+    -fx-stroke-width: 1px;
+    -fx-stroke-dash-array: 4 8; /* gestrichelte linie */
 }
 
 
@@ -395,13 +399,13 @@
     -fx-stroke-dash-array: 5 5; /* Gepunktete Linie: 5 Einheiten Linie, 5 Einheiten Lücke */
 }
 
-.circle_fahr_position:hover {
-    -fx-stroke-width: 3; /* Verbreitert die Linie beim Hover */
-    -fx-stroke-dash-array: 3 7; /* Ändert das Muster der gepunkteten Linie beim Hover */
+.linie_fahr_linie{
+    -fx-stroke: blue;
+    -fx-stroke-width: 2px;
 }
 
-.circle_fahr_position:pressed {
-    -fx-stroke-width: 4; /* Noch breitere Linie bei gedrücktem Zustand */
-    -fx-stroke-dash-array: 1 0; /* Dichtes gepunktetes Muster bei gedrücktem Zustand */
+
+.linie_unsichtbar{
+    -fx-stroke-width: 0px;
 }
 
