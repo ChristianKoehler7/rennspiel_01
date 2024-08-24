@@ -78,6 +78,7 @@ public class Rennen_renn_verlauf {
                     rennstrecke.getBreite(),
                     rennstrecke.getHoehe(),
                     umrechnung_grid_pixel,
+                    rennstrecke,
                     group_strecke,
                     new I_aufgabe_beendet() {
                         @Override
@@ -120,7 +121,9 @@ public class Rennen_renn_verlauf {
         if(alle_spieler_raus){
             // wenn alle raus sind ist das rennen beendet
             i_aufgabe_beendet.aufgabe_beendet();
+            return;
         }
+        // mindestens ein spieler ist noch im rennen
 
         // aktuellen spieler holen
         Spieler akt_spieler = spieler_arrayList.get(akt_spieler_index);

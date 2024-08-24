@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Startpositionen wählen abgeschlossen">
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Rennen_renn_verlauf angefangen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/RennenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/RennenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_renn_verlauf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_renn_verlauf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_start_positionen_waehlen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_start_positionen_waehlen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles_04.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/styles_04.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +207,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723473138976</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Rennen_renn_verlauf angefangen">
+      <option name="closed" value="true" />
+      <created>1724085677852</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724085677852</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,6 +243,7 @@
     <MESSAGE value="Programm ab Startpunkt (Spieler wählen) begonnen 3" />
     <MESSAGE value="Begonnen Rennen zu implementieren 01" />
     <MESSAGE value="Startpositionen wählen abgeschlossen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Startpositionen wählen abgeschlossen" />
+    <MESSAGE value="Rennen_renn_verlauf angefangen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rennen_renn_verlauf angefangen" />
   </component>
 </project>
