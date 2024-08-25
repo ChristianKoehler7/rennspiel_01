@@ -69,7 +69,14 @@ public class Rennstrecke {
         this.streckenlinien.clear();
         // streckenlinien aus einagbe in attribut streckenlinien einfügen
         for(Linie streckenlinie : streckenlininen){
-            this.streckenlinien.add(streckenlinie);
+            // test ob streckenlinie nur ganzzahl koordinaten hat
+            if(streckenlinie.is_jede_koordinate_ganzzahl()){
+                this.streckenlinien.add(streckenlinie);
+            }else{
+                // mindestens eine koordinate ist keine ganzzahl -> fehler ausgeben
+                throw new RuntimeException("Mindestens eine Streckenlinien-Koordinate ist keine Ganzzahl !");
+            }
+
         }
     }
 
@@ -95,7 +102,13 @@ public class Rennstrecke {
     }
 
     public void setStartlinie(Linie startlinie) {
-        this.startlinie = startlinie;
+        // startlinien koordinaten müssen alle ganzzahlen sein
+        if(startlinie.is_jede_koordinate_ganzzahl()){
+            this.startlinie = startlinie;
+        }else{
+            // mindestens eine koordinate ist keine ganzzahl -> fehler ausgeben
+            throw new RuntimeException("Mindestens eine Startlinien-Koordinate ist keine Ganzzahl !");
+        }
     }
 
     public void setStartlinie(int x0, int y0, int x1, int y1) {
@@ -128,7 +141,13 @@ public class Rennstrecke {
 
     public int get_max_anz_spielern(){
         // max spieler die auf startlinie passen zurück geben, aber maximal 4
-        return (startlinie.get_max_breite_oder_hoehe()-2)<=4 ? (startlinie.get_max_breite_oder_hoehe()-2) : 4;
+        double max_anz_spieler_double = (startlinie.get_max_breite_oder_hoehe()-2)<=4 ? (startlinie.get_max_breite_oder_hoehe()-2) : 4;
+        if( (max_anz_spieler_double%1)==0 ){
+            // max_anz_spieler_double ist eine ganzzahl
+            return (int) max_anz_spieler_double;
+        }else{
+            throw new RuntimeException("Mindestens eine Koordinate der Startlinie ist keine Ganzzahl!");
+        }
     }
 
     public static Rennstrecke generate_strecke_01(){

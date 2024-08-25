@@ -894,7 +894,8 @@ public class Fahrlinie {
             line.getStyleClass().add(CSS_STYLE_CLASS_LINE_FAHR_LINIE);
             line.setStyle("-fx-stroke: " + farbe_spieler + ";");
             // bei tatsächlichen fahlinien werden zusätzlich noch die Linien (grid) gespeichert
-            // Linie grid_linie = new Linie(start_x_grid, start_y_grid, end_x_grid, end_y_grid);
+            Linie grid_linie = new Linie(start_x_grid, start_y_grid, end_x_grid, end_y_grid);
+            grid_linien.add(grid_linie);
         }else if(fahrlinien_styles == Fahrlinien_styles.MOEGLICHER_ZUG_MIT_LINIE){
             line.getStyleClass().add(CSS_STYLE_CLASS_LINE_MOEGLICHE_POS);
             line.setStyle("-fx-stroke: " + farbe_spieler + ";");
@@ -971,5 +972,9 @@ public class Fahrlinie {
 
         // arraylist ausgeben
         return fx_nodes;
+    }
+
+    public ArrayList<Linie> get_grid_linien() {
+        return grid_linien;
     }
 }

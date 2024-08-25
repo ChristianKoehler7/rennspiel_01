@@ -25,8 +25,6 @@ public class Spieler_fahrverlauf {
     private final Spieler spieler;
     private final String spieler_farbe;
     private final HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf;
-    private int strecke_breite_grid;
-    private int strecke_hoehe_grid;
     private final Umrechnung_grid_pixel umrechnung_grid_pixel;
     private final Rennstrecke rennstrecke;
     private final Group group_strecke;
@@ -36,8 +34,9 @@ public class Spieler_fahrverlauf {
     private boolean is_crashed = false;
     private Circle crash_fxNode = null;
     private boolean is_im_ziel = false;
-    private int akt_renn_runde = 1;
+    private int akt_renn_runde = 0;
     private Double gesamt_zeit_beendetes_rennen = null;
+    private boolean startline_nach_start_verlassen = false; // wird benötigt für die prüfung eine startlinien-durchfahrung
 
     private final ArrayList<Node> fx_nodes_moegliche_zuege =  new ArrayList<>();
 
@@ -46,29 +45,31 @@ public class Spieler_fahrverlauf {
             String spieler_farbe,
             Punkt startpunkt_grid,
             HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf,
-            int strecke_breite_grid,
-            int strecke_hoehe_grid,
             Umrechnung_grid_pixel umrechnung_grid_pixel,
             Rennstrecke rennstrecke,
             Group group_strecke,
             I_aufgabe_beendet i_aufgabe_beendet) {
         this.spieler = spieler;
         this.spieler_farbe = spieler_farbe;
-        this.strecke_breite_grid = strecke_breite_grid;
-        this.strecke_hoehe_grid = strecke_hoehe_grid;
         this.umrechnung_grid_pixel = umrechnung_grid_pixel;
         this.rennstrecke = rennstrecke;
         this.group_strecke = group_strecke;
         this.i_aufgabe_beendet = i_aufgabe_beendet;
         // aus startpunkt die erste fahrlinie mit delta = 0 erzeugen
+        // startpunkte müssen ganzzahl sein
+        if( !startpunkt_grid.is_jede_koordinate_ganzzahl() ){
+            // mindestens eine koordinate ist keine ganzzahl -> fehler ausgeben
+            throw new RuntimeException("Mindestens eine Startpunkt-Koordinate ist keine Ganzzahl !");
+        }
+        // startpunkt koordinaten sind beide ganzzahlen
         fahrlinien.add(
                 new Fahrlinie(
-                        startpunkt_grid.getX(),
-                        startpunkt_grid.getY(),
+                        (int)startpunkt_grid.getX(),
+                        (int)startpunkt_grid.getY(),
                         0,
                         0,
-                        strecke_breite_grid,
-                        strecke_hoehe_grid,
+                        rennstrecke.getBreite(),
+                        rennstrecke.getHoehe(),
                         umrechnung_grid_pixel,
                         spieler_farbe
                         ));
@@ -149,11 +150,11 @@ public class Spieler_fahrverlauf {
 
             // spieler hat erfolgreich seine position gewählt
 
-            // TODO auf kollisionen prüfen
+            // auf kollisionen prüfen
+            kollisons_pruefung();
 
-
-            // TODO prüfen ob startlinie überfahren wurde
-
+            // prüfen ob startlinie überfahren wurde
+            startlinie_durchfahren_pruefung();
 
             // zug beenden
             zug_beendet();
@@ -176,25 +177,276 @@ public class Spieler_fahrverlauf {
         // eigene letzte fahrlinie holen
         Fahrlinie eigene_letzte_fahrlinie = get_last_fahrlinie();
 
-        // fahrlinien aller anderen spieler holen
-        ArrayList<Fahrlinie> fahrlinien_andere_spieler = new ArrayList<>();
+        // aktuelle fahrpositionen aller anderen spieler holen, die noch nicht raus sind
+        ArrayList<Punkt> fahrpositionen_andere_spieler = new ArrayList<>();
+        for(Spieler akt_spieler : zuordnung_spieler_spielerFahrverlauf.keySet()){
+            if(akt_spieler != this.spieler){
+                // akt_spieler ist ein anderer spieler
+                Spieler_fahrverlauf akt_spieler_fahrverlauf = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler);
+                if( !akt_spieler_fahrverlauf.get_is_spieler_raus()){
+                    // nur wenn spieler noch nicht raus ist, kann man mit ihm kollidieren
+                    int pos_x_grid_anderer_spieler = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler).get_last_fahrlinie().get_end_x_grid();
+                    int pos_y_grid_anderer_spieler = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler).get_last_fahrlinie().get_end_y_grid();
+                    // punkt erzeugen
+                    fahrpositionen_andere_spieler.add(
+                            new Punkt(pos_x_grid_anderer_spieler, pos_y_grid_anderer_spieler)
+                    );
+                }
+            }
+        }
 
         // test auf kollisionen mit einer randlinie
-//        boolean kollision_mit_randlinie = false;
-//        for(Linie akt_rand_linie : rennstrecke.getStreckenlinien()){
-//            if(eigene_letzte_fahrlinie.){
-//
-//            }
-//        }
+        boolean kollision_mit_randlinie = false;
+        for(Linie akt_rand_linie : rennstrecke.getStreckenlinien()){
+            System.out.println("akt_rand_linie: " + akt_rand_linie);
+            for(Linie akt_fahrlinien_line : eigene_letzte_fahrlinie.get_grid_linien()){
+                System.out.println("akt_fahrlinien_line: " + akt_fahrlinien_line);
+                if(akt_rand_linie.hat_schnittpunkt_mit_linie(akt_fahrlinien_line)){
+                    kollision_mit_randlinie = true;
+                    break;
+                }
+            }
+        }
+        System.out.println("kollision_mit_randlinie = " +kollision_mit_randlinie);
+        if(kollision_mit_randlinie){
+            // toast anzeigen
+            ScenesManager.getInstance().show_toast_warning("CRASH mit Streckenlinie!");
+            // spieler crashed speichern
+            is_crashed = true;
+            // TODO crash einzeichnen + links anzeigen, dass spieler raus ist
+        }
 
+        // test auf kollisionen mit anderen spielerpositionen
+        boolean kollision_mit_anderen_spielern = false;
+        for(Punkt akt_pos_anderer_spieler : fahrpositionen_andere_spieler){
+            for(Linie akt_fahrlinien_line : eigene_letzte_fahrlinie.get_grid_linien()){
+                if(akt_fahrlinien_line.liegt_punkt_auf_linie(akt_pos_anderer_spieler)){
+                    // fahrline geht über eine fahrposition eines anderen spielers
+                    kollision_mit_anderen_spielern = true;
+                    break;
+                }
+            }
+        }
+        System.out.println("kollision_mit_anderen_spielern = " +kollision_mit_anderen_spielern);
+        if(kollision_mit_anderen_spielern){
+            // toast anzeigen
+            ScenesManager.getInstance().show_toast_warning("CRASH mit anderem Spieler!");
+            // spieler crashed speichern
+            is_crashed = true;
+            // TODO crash einzeichnen+ links anzeigen, dass spieler raus ist
+        }
+    }
 
+    private void startlinie_durchfahren_pruefung(){
+        System.out.println("Spieler_fahrverlauf: startlinie_durchfahren_pruefung()");
+
+        // eigene letzte fahrlinie holen
+        Fahrlinie eigene_letzte_fahrlinie = get_last_fahrlinie();
+
+        // startlinie holen
+        Linie startlinie = rennstrecke.getStartlinie();
+        if(startlinie == null){
+            throw new RuntimeException("Startlinie fehlt!");
+        }
+
+        // prüfung findet erst statt, sobald das erste mal die startlinie verlassen wurde
+        if(!startline_nach_start_verlassen){
+            // startlinie wurde bis jetzt noch nicht verlassen
+            // prüfen, ob jetzt verlassen
+
+            // endpunkt der aktuellen fahrlinie holen
+            Punkt end_punkt = new Punkt(
+                    eigene_letzte_fahrlinie.get_end_x_grid(),
+                    eigene_letzte_fahrlinie.get_end_y_grid()
+            );
+            if( !startlinie.liegt_punkt_auf_linie(end_punkt) ){
+                // endpunkt der akt fahrlinie liegt nicht auf startlinie -> startlinie verlassen
+                startline_nach_start_verlassen = true;
+            }
+            // damit man nicht rückwärts durch die startlinie fahren kann und dann durch ziel
+            //  muss geprüft werden, ob rückwärts gefahren wurde
+            boolean richtige_richtung_gestartet = false;
+            if(
+                    !startlinie.is_horizontal() && // startlinie vertikal
+                    !rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung links
+                    (eigene_letzte_fahrlinie.get_delta_x_grid() < 0) // fahrt nach links
+            ){
+                richtige_richtung_gestartet = true;
+            }
+            if(
+                    !startlinie.is_horizontal() && // startlinie vertikal
+                    rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung rechts
+                    (eigene_letzte_fahrlinie.get_delta_x_grid() > 0) // fahrt nach rechts
+            ){
+                richtige_richtung_gestartet = true;
+            }
+            if(
+                    startlinie.is_horizontal() && // startlinie horizontal
+                    !rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung oben
+                    (eigene_letzte_fahrlinie.get_delta_y_grid() < 0) // fahrt nach oben
+            ){
+                richtige_richtung_gestartet = true;
+            }
+            if(
+                    startlinie.is_horizontal() && // startlinie horizontal
+                    rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung unten
+                    (eigene_letzte_fahrlinie.get_delta_y_grid() > 0) // fahrt nach unten
+            ){
+                richtige_richtung_gestartet = true;
+            }
+            if(!richtige_richtung_gestartet){
+                // wenn in die falsche richtung gestartet wurde, dann akt_renn_runde verringern
+                akt_renn_runde--;
+            }
+
+            // prüfung beenden
+            return;
+        }
+
+        // pruefen, ob eine der fahrlinien_linien die startlinie berührt hat (berührt oder durchfahren)
+        int anz_linien_die_die_startlinie_beruehren = 0;
+        for(Linie akt_linie : eigene_letzte_fahrlinie.get_grid_linien()){
+            if(akt_linie.hat_schnittpunkt_mit_linie(startlinie)){
+                anz_linien_die_die_startlinie_beruehren++;
+            }
+        }
+        if(anz_linien_die_die_startlinie_beruehren==0){
+            // keine berührung mit startlinie -> methode returnen
+            return;
+        }
+        // es gibt mindestens eine berührung mit der startlinie
+        System.out.println("es gibt mindestens eine berührung mit der startlinie");
+
+        // prüfung, ob startlinie durchfahren wurde
+        // endpunkt der fahrlinie erzeugen
+        Punkt endpunkt = new Punkt(
+                eigene_letzte_fahrlinie.get_end_x_grid(),
+                eigene_letzte_fahrlinie.get_end_y_grid()
+                );
+        if(startlinie.liegt_punkt_auf_linie(endpunkt) && anz_linien_die_die_startlinie_beruehren==1){
+            // wenn endpunkt der letzten fahlinie auf der startlinie liegt und keine vorherigen linien die
+            //  startlinie berühren, dann wurde die startlinie nicht durchfahren -> methode returnen
+            return;
+        }
+        // starlinie wurde durchfahren
+        System.out.println("starlinie wurde durchfahren");
+
+        // prüfung ob startlinie in richtiger richtung durchfahren wurde
+        boolean richtige_richtung_durchfahren = false;
+        if(
+            !startlinie.is_horizontal() && // startlinie vertikal
+            !rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung links
+            (eigene_letzte_fahrlinie.get_delta_x_grid() < 0) // fahrt nach links
+        ){
+            richtige_richtung_durchfahren = true;
+        }
+        if(
+            !startlinie.is_horizontal() && // startlinie vertikal
+            rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung rechts
+            (eigene_letzte_fahrlinie.get_delta_x_grid() > 0) // fahrt nach rechts
+        ){
+            richtige_richtung_durchfahren = true;
+        }
+        if(
+            startlinie.is_horizontal() && // startlinie horizontal
+            !rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung oben
+            (eigene_letzte_fahrlinie.get_delta_y_grid() < 0) // fahrt nach oben
+        ){
+            richtige_richtung_durchfahren = true;
+        }
+        if(
+            startlinie.is_horizontal() && // startlinie horizontal
+            rennstrecke.get_is_startrichtung_nach_unten_oder_rechts() && // startrichtung unten
+            (eigene_letzte_fahrlinie.get_delta_y_grid() > 0) // fahrt nach unten
+        ){
+            richtige_richtung_durchfahren = true;
+        }
+
+        if(richtige_richtung_durchfahren){
+            // akt_renn_runde erhöhen
+            akt_renn_runde++;
+
+            // toast anzeigen
+            ScenesManager.getInstance().show_toast_neutral("Zielline durchfahren");
+
+            // test ob rennen beendet
+            if(akt_renn_runde >= rennstrecke.get_anz_runden()){
+                // spieler hat alle runden beendet
+                is_im_ziel = true;
+                // gesamtzeit berechnen
+                gesamt_zeit_beendetes_rennen = calc_rennzeit();
+            }
+        }else{ // startline in falscher richtung durchfahren
+            // akt_renn_runde verringern
+            akt_renn_runde--;
+
+            // toast anzeigen
+            ScenesManager.getInstance().show_toast_neutral("Zielline in falscher Richtung durchfahren");
+        }
     }
 
     public Fahrlinie get_last_fahrlinie(){
         return fahrlinien.getLast();
     }
 
+    private double calc_rennzeit(){
+        // eigene letzte fahrlinie holen
+        Fahrlinie eigene_letzte_fahrlinie = get_last_fahrlinie();
 
+        // startlinie holen
+        Linie startlinie = rennstrecke.getStartlinie();
+        if(startlinie == null){
+            throw new RuntimeException("Startlinie fehlt!");
+        }
+
+        // anzahl ganze fahrlinien berechnen
+        double anz_ganze_fahrlinien = fahrlinien.size() - 2; //-2 da letzte und erste wegfallen (erste ist nur die startposition)
+
+        // linie holen, die die startlinie als erstes durchfahren hat
+        int index_linie_erste_durchfahrt = -1;
+        for(int akt_index=0 ; akt_index<eigene_letzte_fahrlinie.get_grid_linien().size() ; akt_index++){
+            Linie akt_linie = eigene_letzte_fahrlinie.get_grid_linien().get(akt_index);
+            if(akt_linie.hat_schnittpunkt_mit_linie(startlinie)){
+                index_linie_erste_durchfahrt = akt_index;
+                break;
+            }
+        }
+        if(index_linie_erste_durchfahrt < 0){
+            throw new RuntimeException("Aufruf der Methode Spieler_fahrverlauf:calc_rennzeit() ohne, dass die Startlinie überfahren wurde");
+        }
+
+        // berechnen welcher anteil der linie bis zur durchquerung der startlinie erfolgt ist
+        double anteil_bis_ziel;
+        Linie erste_durchfahrts_linie = eigene_letzte_fahrlinie.get_grid_linien().get(index_linie_erste_durchfahrt);
+        if(startlinie.is_horizontal()){
+            // delta y entscheidend
+            // delta_y bis zur startlinie berechnen
+            double delta_y_bis_startlinie = startlinie.getP0().getY() - erste_durchfahrts_linie.getP0().getY();
+            // die delta_y der vorherigen linien hinzufügen
+            for(int akt_index=0 ; akt_index<index_linie_erste_durchfahrt ; akt_index++){
+                Linie akt_linie = eigene_letzte_fahrlinie.get_grid_linien().get(akt_index);
+                delta_y_bis_startlinie = delta_y_bis_startlinie + (akt_linie.getP1().getY() - akt_linie.getP0().getY());
+            }
+
+            // anteil bis ziel berechnen
+            anteil_bis_ziel = delta_y_bis_startlinie / eigene_letzte_fahrlinie.get_end_y_grid();
+        }else{ // startlinie ist vertikal
+            // delta x entscheidend
+            // delta_x bis zur startlinie berechnen
+            double delta_x_bis_startlinie = startlinie.getP0().getX() - erste_durchfahrts_linie.getP0().getX();
+            // die delta_x der vorherigen linien hinzufügen
+            for(int akt_index=0 ; akt_index<index_linie_erste_durchfahrt ; akt_index++){
+                Linie akt_linie = eigene_letzte_fahrlinie.get_grid_linien().get(akt_index);
+                delta_x_bis_startlinie = delta_x_bis_startlinie + (akt_linie.getP1().getX() - akt_linie.getP0().getX());
+            }
+
+            // anteil bis ziel berechnen
+            anteil_bis_ziel = delta_x_bis_startlinie / eigene_letzte_fahrlinie.get_end_x_grid();
+        }
+
+        // gesamtzeit berechnen und ausgeben
+        return anz_ganze_fahrlinien + anteil_bis_ziel;
+    }
 
 
 

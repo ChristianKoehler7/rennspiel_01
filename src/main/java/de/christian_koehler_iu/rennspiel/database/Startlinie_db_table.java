@@ -36,14 +36,21 @@ public class Startlinie_db_table {
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 
+        // testen ob startlinie nur ganzzahlige koordinaten hat
+        if( !startlinie.is_jede_koordinate_ganzzahl() ){
+            // mindestens eine koordinate ist keine ganzzahl -> fehler ausgeben
+            throw new RuntimeException("beim Speichern der Startlinie ist ein Fehler aufgetreten. Mindestens eine Koordinate ist keine Ganzzahl!");
+        }
+        // alle koordinaten können als ganzzahlen dargestellt werden
+
         // statlinie in db speichern
         String sql_expression = "INSERT INTO " + TABELLENNAME + " ("+SPALTENNAME_FK_RENNSTRECKE+", "+SPALTENNAME_X0+", "+SPALTENNAME_Y0+", "+SPALTENNAME_X1+", "+SPALTENNAME_Y1+") VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
             pstmt.setString(1, strecken_name);
-            pstmt.setInt(2, startlinie.getP0().getX());
-            pstmt.setInt(3, startlinie.getP0().getY());
-            pstmt.setInt(4, startlinie.getP1().getX());
-            pstmt.setInt(5, startlinie.getP1().getY());
+            pstmt.setInt(2, (int) startlinie.getP0().getX());
+            pstmt.setInt(3, (int) startlinie.getP0().getY());
+            pstmt.setInt(4, (int) startlinie.getP1().getX());
+            pstmt.setInt(5, (int) startlinie.getP1().getY());
             pstmt.executeUpdate();
         }
     }

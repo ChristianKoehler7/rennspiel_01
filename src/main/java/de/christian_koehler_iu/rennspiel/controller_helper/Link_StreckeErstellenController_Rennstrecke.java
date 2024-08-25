@@ -463,10 +463,10 @@ public class Link_StreckeErstellenController_Rennstrecke {
         // neue startrichtungs linien erstellen
         if(this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie() != null){
             // startpunkt ermitteln an dem startlinie beginnt
-            int x0_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP0().getX();
-            int y0_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP0().getY();
-            int x1_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getX();
-            int y1_grid_startLinie = this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getY();
+            int x0_grid_startLinie = (int)this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP0().getX();
+            int y0_grid_startLinie = (int)this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP0().getY();
+            int x1_grid_startLinie = (int)this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getX();
+            int y1_grid_startLinie = (int)this.i_linkStrErstControllerRennstrecke.get_rennstrecke().getStartlinie().getP1().getY();
 
             // startlinie horizontal oder vertikal
             boolean is_startlinie_horizontal;

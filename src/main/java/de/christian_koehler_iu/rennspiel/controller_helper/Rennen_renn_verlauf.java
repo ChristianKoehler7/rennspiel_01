@@ -1,5 +1,6 @@
 package de.christian_koehler_iu.rennspiel.controller_helper;
 
+import de.christian_koehler_iu.rennspiel.controller.ScenesManager;
 import de.christian_koehler_iu.rennspiel.data_classes.Punkt;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
@@ -75,8 +76,6 @@ public class Rennen_renn_verlauf {
                     zurordnung_spieler_farbe.get(akt_spieler),
                     zuordnung_spieler_startpunkt.get(akt_spieler),
                     zuordnung_spieler_spielerFahrverlauf,
-                    rennstrecke.getBreite(),
-                    rennstrecke.getHoehe(),
                     umrechnung_grid_pixel,
                     rennstrecke,
                     group_strecke,
@@ -120,6 +119,9 @@ public class Rennen_renn_verlauf {
         }
         if(alle_spieler_raus){
             // wenn alle raus sind ist das rennen beendet
+            // toast anzeigen, dass rennen beendet
+            ScenesManager.getInstance().show_toast_neutral("Rennen beendet!");
+            // zurück zum rennenController
             i_aufgabe_beendet.aufgabe_beendet();
             return;
         }

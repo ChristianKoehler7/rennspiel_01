@@ -9,7 +9,7 @@ public class Linie{
         this.p1 = p1;
     }
 
-    public Linie(int x0, int y0, int x1, int y1){
+    public Linie(double x0, double y0, double x1, double y1){
         this.p0 = new Punkt(x0,y0);
         this.p1 = new Punkt(x1, y1);
     }
@@ -31,18 +31,10 @@ public class Linie{
     }
 
     public boolean is_horizontal(){
-        boolean is_horizontal = false;
-        if(this.p0.getY() == this.p1.getY()){
-            is_horizontal = true;
-        }
-        return is_horizontal;
+        return this.p0.getY() == this.p1.getY();
     }
     public boolean is_vertikal(){
-        boolean is_vertikal = false;
-        if(this.p0.getX() == this.p1.getX()){
-            is_vertikal = true;
-        }
-        return is_vertikal;
+        return this.p0.getX() == this.p1.getX();
     }
 
     public boolean hat_schnittpunkt_mit_linie(Linie otherLinie){
@@ -129,10 +121,14 @@ public class Linie{
      * berechnet absolute differenz zwischen y0 und y1
      * @return absolute differenz des größeren der beiden werte
      */
-    public int get_max_breite_oder_hoehe(){
-        int delta_x_abs = p0.getX()-p1.getX()>=0 ? p0.getX()-p1.getX() : p1.getX()-p0.getX();
-        int delta_y_abs = p0.getY()-p1.getY()>=0 ? p0.getY()-p1.getY() : p1.getY()-p0.getY();
+    public double get_max_breite_oder_hoehe(){
+        double delta_x_abs = p0.getX()-p1.getX()>=0 ? p0.getX()-p1.getX() : p1.getX()-p0.getX();
+        double delta_y_abs = p0.getY()-p1.getY()>=0 ? p0.getY()-p1.getY() : p1.getY()-p0.getY();
         return delta_x_abs>delta_y_abs ? delta_x_abs : delta_y_abs;
+    }
+
+    public boolean is_jede_koordinate_ganzzahl(){
+        return ((p0.getX() % 1)==0) && ((p0.getY() % 1)==0) && ((p1.getX() % 1)==0) && ((p1.getY() % 1)==0);
     }
 
     @Override

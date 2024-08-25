@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Rennen_renn_verlauf angefangen">
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="neue Fahrposition gewählt fertig,&#10;jetzt kommt noch die kollisionskontrolle und&#10;die prüfung ob startlinie überfahren wurde">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Fahrlinie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Fahrlinie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Link_StreckeErstellenController_Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Link_StreckeErstellenController_Rennstrecke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_renn_verlauf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_renn_verlauf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_start_positionen_waehlen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_start_positionen_waehlen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_strecke_zeichnen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Rennen_strecke_zeichnen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Spieler_fahrverlauf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Spieler_fahrverlauf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Linie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Linie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Punkt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Punkt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/data_classes/Rennstrecke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Startlinie_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Startlinie_db_table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Streckenlinie_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Streckenlinie_db_table.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,23 +65,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.de.christian_koehler_iu.rennspiel.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/java/de/christian_koehler_iu/rennspiel&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/resources/de/christian_koehler_iu/rennspiel&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.MainApplication.executor": "Run",
+    "Application.de.christian_koehler_iu.rennspiel.MainApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/java/de/christian_koehler_iu/rennspiel",
+    "last_opened_file_path": "/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/resources/de/christian_koehler_iu/rennspiel",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel" />
@@ -215,7 +226,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724085677852</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="neue Fahrposition gewählt fertig,&#10;jetzt kommt noch die kollisionskontrolle und&#10;die prüfung ob startlinie überfahren wurde">
+      <option name="closed" value="true" />
+      <created>1724516186053</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1724516186053</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -244,6 +263,7 @@
     <MESSAGE value="Begonnen Rennen zu implementieren 01" />
     <MESSAGE value="Startpositionen wählen abgeschlossen" />
     <MESSAGE value="Rennen_renn_verlauf angefangen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rennen_renn_verlauf angefangen" />
+    <MESSAGE value="neue Fahrposition gewählt fertig,&#10;jetzt kommt noch die kollisionskontrolle und&#10;die prüfung ob startlinie überfahren wurde" />
+    <option name="LAST_COMMIT_MESSAGE" value="neue Fahrposition gewählt fertig,&#10;jetzt kommt noch die kollisionskontrolle und&#10;die prüfung ob startlinie überfahren wurde" />
   </component>
 </project>

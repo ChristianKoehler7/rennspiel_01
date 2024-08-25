@@ -145,10 +145,10 @@ public class Rennen_strecke_zeichnen {
         // neue startrichtungs linien erstellen
 
         // startpunkt ermitteln an dem startlinie beginnt
-        int x0_grid_startLinie = rennstrecke.getStartlinie().getP0().getX();
-        int y0_grid_startLinie = rennstrecke.getStartlinie().getP0().getY();
-        int x1_grid_startLinie = rennstrecke.getStartlinie().getP1().getX();
-        int y1_grid_startLinie = rennstrecke.getStartlinie().getP1().getY();
+        int x0_grid_startLinie = (int)rennstrecke.getStartlinie().getP0().getX();
+        int y0_grid_startLinie = (int)rennstrecke.getStartlinie().getP0().getY();
+        int x1_grid_startLinie = (int)rennstrecke.getStartlinie().getP1().getX();
+        int y1_grid_startLinie = (int)rennstrecke.getStartlinie().getP1().getY();
 
         // startlinie horizontal oder vertikal
         boolean is_startlinie_horizontal;
