@@ -27,7 +27,6 @@ public class Rennen_renn_verlauf {
     private final Group group_strecke;
     private final ArrayList<Spieler> spieler_arrayList;
     private final Label label_renn_infos;
-    private final Label rennen_lb_aktAnzSpielRunden;
     private final HashMap<Spieler, String> zurordnung_spieler_farbe;
     private final I_aufgabe_beendet i_aufgabe_beendet;
     // konstanten
@@ -42,20 +41,21 @@ public class Rennen_renn_verlauf {
     private final String CSS_STYLE_CLASS_CIRCLE_FAHR_POS = "circle_fahr_position";
 
     // sonstige attribute
-    private int akt_anz_runden = 0; // eine runde ist wenn jeder spieler einen zug gemacht hat;
+    EventHandler<MouseEvent> mouseClickHandler_group; // click event handler für group
     private int akt_spieler_index = 0; // index des spielers der am zug ist
+    private final HashMap<Spieler, Rennen_spieler_info_labels> zurordnung_spieler_infoLabels = new HashMap<>();
     private final HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf = new HashMap<>();
 
     // constructor
     public Rennen_renn_verlauf(
             HashMap<Spieler, Circle> zuordnung_spieler_fxStartNode,
             HashMap<Spieler, Punkt> zuordnung_spieler_startpunkt,
+            HashMap<Spieler, Rennen_spieler_info_labels> zurordnung_spieler_infoLabels,
             Umrechnung_grid_pixel umrechnung_grid_pixel,
             Rennstrecke rennstrecke,
             Group group_strecke,
             ArrayList<Spieler> spieler_arrayList,
             Label label_renn_infos,
-            Label rennen_lb_aktAnzSpielRunden,
             HashMap<Spieler, String> zurordnung_spieler_farbe,
             I_aufgabe_beendet i_aufgabe_beendet) {
 
@@ -64,7 +64,6 @@ public class Rennen_renn_verlauf {
         this.group_strecke = group_strecke;
         this.spieler_arrayList = spieler_arrayList;
         this.label_renn_infos = label_renn_infos;
-        this.rennen_lb_aktAnzSpielRunden = rennen_lb_aktAnzSpielRunden;
         this.zurordnung_spieler_farbe = zurordnung_spieler_farbe;
         this.i_aufgabe_beendet = i_aufgabe_beendet;
 
@@ -75,6 +74,7 @@ public class Rennen_renn_verlauf {
                     akt_spieler,
                     zurordnung_spieler_farbe.get(akt_spieler),
                     zuordnung_spieler_startpunkt.get(akt_spieler),
+                    zurordnung_spieler_infoLabels.get(akt_spieler),
                     zuordnung_spieler_spielerFahrverlauf,
                     umrechnung_grid_pixel,
                     rennstrecke,
@@ -88,21 +88,20 @@ public class Rennen_renn_verlauf {
                     });
             zuordnung_spieler_spielerFahrverlauf.put(akt_spieler, akt_spieler_fahrverlauf);
         }
+        // mouseClickHandler erstellen
+        mouseClickHandler_group = mouseEvent -> {
+            // aktuellen spieler holen
+            Spieler akt_spieler = spieler_arrayList.get(akt_spieler_index);
 
-        // group click listener implementieren
-        group_strecke.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                // aktuellen spieler holen
-                Spieler akt_spieler = spieler_arrayList.get(akt_spieler_index);
+            // fahrverlauf holen
+            Spieler_fahrverlauf spieler_fahrverlauf = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler);
 
-                // fahrverlauf holen
-                Spieler_fahrverlauf spieler_fahrverlauf = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler);
+            // mouse click event an akt fahrverlauf weitergeben
+            spieler_fahrverlauf.mouse_clicked(mouseEvent);
+        };
 
-                // mouse click event an akt fahrverlauf weitergeben
-                spieler_fahrverlauf.mouse_clicked(mouseEvent);
-            }
-        });
+        // mouseClickHandler der group übergeben
+        group_strecke.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickHandler_group);
 
         // zug starten
         start_next_zug();
@@ -119,10 +118,7 @@ public class Rennen_renn_verlauf {
         }
         if(alle_spieler_raus){
             // wenn alle raus sind ist das rennen beendet
-            // toast anzeigen, dass rennen beendet
-            ScenesManager.getInstance().show_toast_neutral("Rennen beendet!");
-            // zurück zum rennenController
-            i_aufgabe_beendet.aufgabe_beendet();
+            rennen_beendet();
             return;
         }
         // mindestens ein spieler ist noch im rennen
@@ -141,7 +137,7 @@ public class Rennen_renn_verlauf {
             // rennen des spielers ist nicht beendet
             // infolabel aktualisieren
             // textfarbe vom spieler im info label setzen
-            label_renn_infos.setStyle("-fx-text-fill: " + zurordnung_spieler_farbe.get(spieler_arrayList.get(akt_spieler_index)));
+            label_renn_infos.setStyle("-fx-text-fill: " + zurordnung_spieler_farbe.get(spieler_arrayList.get(akt_spieler_index)) + ";");
             // info label text setzen
             label_renn_infos.setText(spieler_arrayList.get(akt_spieler_index).get_name() + ": neue Position wählen");
             // spieler_fahrverlauf starten
@@ -155,8 +151,6 @@ public class Rennen_renn_verlauf {
 
         // fahrverlauf holen
         Spieler_fahrverlauf spieler_fahrverlauf = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler);
-//        // fx nodes mit möglichen neuen positionen löschen
-//        spieler_fahrverlauf.remove_moegliche_positionen();
 
         // info label leeren
         label_renn_infos.setText("");
@@ -170,14 +164,23 @@ public class Rennen_renn_verlauf {
             start_next_zug();
         }else{
             // runde beendet
-            // anzahl runden hochsetzen
-            akt_anz_runden++;
-            // label anz runden akzualisieren
-            rennen_lb_aktAnzSpielRunden.setText(String.valueOf(akt_anz_runden));
+
             // index des spielers der am zug ist zurücksetzten
             akt_spieler_index = 0;
             // nächster zug
             start_next_zug();
         }
+    }
+
+    private void rennen_beendet(){
+        // toast anzeigen, dass rennen beendet
+        ScenesManager.getInstance().show_toast_neutral("Rennen beendet!");
+        // infobox setzen
+        label_renn_infos.setText("Rennen beendet");
+        label_renn_infos.setStyle("-fx-text-fill: white;");
+        // click listener entfernen
+        group_strecke.removeEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickHandler_group);
+        // zurück zum rennenController
+        i_aufgabe_beendet.aufgabe_beendet();
     }
 }

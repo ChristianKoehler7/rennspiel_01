@@ -29,13 +29,15 @@ public class Spieler_fahrverlauf {
     private final Rennstrecke rennstrecke;
     private final Group group_strecke;
     private final I_aufgabe_beendet i_aufgabe_beendet;
+    private final Rennen_spieler_info_labels rennen_spieler_info_labels;
 
     private final ArrayList<Fahrlinie> fahrlinien = new ArrayList<>();
     private boolean is_crashed = false;
     private Circle crash_fxNode = null;
     private boolean is_im_ziel = false;
     private int akt_renn_runde = 0;
-    private Double gesamt_zeit_beendetes_rennen = null;
+    private double akt_zeit = 0.0;
+//    private Double gesamt_zeit_beendetes_rennen = null;
     private boolean startline_nach_start_verlassen = false; // wird benötigt für die prüfung eine startlinien-durchfahrung
 
     private final ArrayList<Node> fx_nodes_moegliche_zuege =  new ArrayList<>();
@@ -44,6 +46,7 @@ public class Spieler_fahrverlauf {
             Spieler spieler,
             String spieler_farbe,
             Punkt startpunkt_grid,
+            Rennen_spieler_info_labels rennen_spieler_info_labels,
             HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf,
             Umrechnung_grid_pixel umrechnung_grid_pixel,
             Rennstrecke rennstrecke,
@@ -51,6 +54,7 @@ public class Spieler_fahrverlauf {
             I_aufgabe_beendet i_aufgabe_beendet) {
         this.spieler = spieler;
         this.spieler_farbe = spieler_farbe;
+        this.rennen_spieler_info_labels = rennen_spieler_info_labels;
         this.umrechnung_grid_pixel = umrechnung_grid_pixel;
         this.rennstrecke = rennstrecke;
         this.group_strecke = group_strecke;
@@ -150,11 +154,17 @@ public class Spieler_fahrverlauf {
 
             // spieler hat erfolgreich seine position gewählt
 
+            // akt_zeit erhöhen
+            akt_zeit++;
+
             // auf kollisionen prüfen
             kollisons_pruefung();
 
             // prüfen ob startlinie überfahren wurde
             startlinie_durchfahren_pruefung();
+
+            // info labels aktualisieren
+            update_info_labels();
 
             // zug beenden
             zug_beendet();
@@ -171,6 +181,17 @@ public class Spieler_fahrverlauf {
     private void zug_beendet(){
         // zug ist beendet -> Rennen_renn_verlauf bescheid geben, dass aufgabe beendet
         i_aufgabe_beendet.aufgabe_beendet();
+    }
+
+    private void update_info_labels(){
+        rennen_spieler_info_labels.set_spieler_runde(akt_renn_runde+1); // +1 da attribut bei null beginnt
+        rennen_spieler_info_labels.set_spieler_zeit(akt_zeit);
+        if(is_crashed){
+            rennen_spieler_info_labels.set_spieler_status("CRASHED");
+        }else if(is_im_ziel){
+            rennen_spieler_info_labels.set_spieler_status("im Ziel");
+        }
+
     }
 
     private void kollisons_pruefung(){
@@ -374,7 +395,7 @@ public class Spieler_fahrverlauf {
                 // spieler hat alle runden beendet
                 is_im_ziel = true;
                 // gesamtzeit berechnen
-                gesamt_zeit_beendetes_rennen = calc_rennzeit();
+                akt_zeit = calc_ziel_zeit();
             }
         }else{ // startline in falscher richtung durchfahren
             // akt_renn_runde verringern
@@ -389,7 +410,7 @@ public class Spieler_fahrverlauf {
         return fahrlinien.getLast();
     }
 
-    private double calc_rennzeit(){
+    private double calc_ziel_zeit(){
         // eigene letzte fahrlinie holen
         Fahrlinie eigene_letzte_fahrlinie = get_last_fahrlinie();
 

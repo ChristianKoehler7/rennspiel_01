@@ -37,15 +37,37 @@
             <Label styleClass="label-medium" text="Rennstrecke" />
             <Label fx:id="rennen_lb_streckenName" styleClass="label-large" text="Rennstrecke" />
             <Label text="   " />
-            <Label styleClass="label-medium" text="Aktuelle Anzahl Spielerrunden" />
-            <Label fx:id="rennen_lb_aktAnzSpielRunden" styleClass="label-large" text="0" />
+            <Label styleClass="label-medium" text="Anzahl Runden der Strecke" />
+            <Label fx:id="rennen_lb_anzStreckenRunden" styleClass="label-large" text="0" />
             <Label text="   " />
-            <Label styleClass="label-medium" text="Spieler" />
+            <Label text="   " />
+            <GridPane fx:id="rennen_grid_spieler_info">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="60.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="6.0" prefWidth="60.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="84.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label styleClass="label-small" text="Spieler" />
+                  <Label styleClass="label-small" text="Runde" GridPane.columnIndex="1" />
+                  <Label styleClass="label-small" text="Zeit" GridPane.columnIndex="2" />
+                  <Label styleClass="label-small" text="Status" GridPane.columnIndex="3" />
+               </children>
+            </GridPane>
          </children></VBox>
-      <VBox alignment="CENTER" styleClass="vbox_dark" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="800.0" styleClass="vbox_dark" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <children>
             <Label fx:id="rennen_lb_rennInfos" alignment="CENTER" styleClass="label-large" text="Hier werden Renninformationen ausgegeben" />
          </children>
       </VBox>
+      <Button fx:id="rennen_bn_weiter" disable="true" mnemonicParsing="false" onAction="#rennen_bn_weiter_action" styleClass="button-weiter-ok" text="weiter" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
     </children>
 </GridPane>
