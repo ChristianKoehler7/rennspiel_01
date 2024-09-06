@@ -11,4 +11,7 @@ public interface I_rennstrecke_database {
     ArrayList<String> load_rennstrecke_standart_namen();
     ArrayList<String> load_rennstrecke_custom_namen();
     void delete_rennstrecke_complete(String strecken_name);
+    void update_bestzeit(String strecken_name, double neue_bestzeit);
+    Double get_strecken_bestzeit(String strecken_name);
+    String get_strecke_bester_spieler(String strecken_name);
 }

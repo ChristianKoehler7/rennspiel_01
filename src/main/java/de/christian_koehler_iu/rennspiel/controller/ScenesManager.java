@@ -1,5 +1,6 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
+import de.christian_koehler_iu.rennspiel.controller_helper.Spieler_fahrverlauf;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import javafx.animation.*;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -101,8 +103,19 @@ public class ScenesManager {
         rennenController.initialize_spieler_rennstrecke_mitspieler(aktiver_spieler, rennstrecke, mitspieler);
     }
 
-    public void switch_to_rennen_beendet(Rennstrecke rennstrecke){
-        switch_scene(StreckeErstellenController.PATH_TO_FXML);
+    public void switch_to_rennen_beendet(
+            Rennstrecke rennstrecke,
+            Spieler aktiver_spieler,
+            ArrayList<Spieler> mitspieler,
+            HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+            ){
+        RennenBeendetController rennenBeendetController = switch_scene(RennenBeendetController.PATH_TO_FXML);
+        rennenBeendetController.initialize_rennstrecke_spieler_mitspieler_fahrverlaeufe(
+                rennstrecke,
+                aktiver_spieler,
+                mitspieler,
+                zuordnung_spieler_spielerFahrverlauf
+                );
     }
 
     /**

@@ -59,4 +59,34 @@ public class Spieler_database_connection implements I_spieler_database {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void save_spieler_rennstrecke_bestzeit(String spieler_name, String strecken_name, Double bestzeit) {
+        try {
+            // alte spieler_strecke_bestzeit holen
+            Double bestzeit_alt = null;
+            LinkRennstreckeSpielerBestzeit_db_table linkRennstreckeSpielerBestzeit_db_table = new LinkRennstreckeSpielerBestzeit_db_table();
+            System.out.println("Spieler_database_connection: save_spieler_rennstrecke_bestzeit(): 0");
+            bestzeit_alt = linkRennstreckeSpielerBestzeit_db_table.get_spieler_strecke_bestzeit(strecken_name, spieler_name);
+
+            System.out.println("Spieler_database_connection: save_spieler_rennstrecke_bestzeit(): 1: bestzeit_alt=" + bestzeit_alt);
+            if(bestzeit_alt == null){
+                // es gibt für den spieler und die strecke noch keine bestzeit,
+                //  -> neuen db eintrag erstellen
+                linkRennstreckeSpielerBestzeit_db_table.create_new_spieler_strecke_bestzeit(strecken_name, spieler_name, bestzeit);
+                System.out.println("Spieler_database_connection: save_spieler_rennstrecke_bestzeit(): 2");
+
+            }else if(bestzeit < bestzeit_alt){
+                // die neue bestzeit ist schneller als die alte
+                //  alte bestzeit updaten
+                linkRennstreckeSpielerBestzeit_db_table.update_spieler_strecke_bestzeit(strecken_name, spieler_name, bestzeit);
+            }else{
+                // neue bestzeit ist langsamer als die bisherige
+                //  -> fehler ausgeben
+                throw new RuntimeException("Spieler_database_connection:save_spieler_rennstrecke_bestzeit(...) neue Zeit ist langssamer als bisherige!");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -249,4 +249,19 @@ public class Rennstrecke_db_table {
         // streckennamen ausgeben
         return strecken_namen;
     }
+
+    protected void update_bestzeit(String strecken_name, double neue_bestzeit) throws SQLException {
+        // datenbankverbindung holen
+        SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
+
+        // neue bestzeit speichern
+        String sql_expression = "UPDATE " + TABELLENNAME + "\n" +
+                "SET " + SPALTENNAME_STRECKEN_BESTZEIT + " = ?\n" +
+                "WHERE " + SPALTENNAME_NAME + " = ?;";
+        try (PreparedStatement pstmt = sqLiteDbConnection.getConnection().prepareStatement(sql_expression)) {
+            pstmt.setDouble(1, neue_bestzeit);
+            pstmt.setString(2, strecken_name);
+            pstmt.executeQuery();
+        }
+    }
 }

@@ -4,6 +4,7 @@ import de.christian_koehler_iu.rennspiel.controller.ScenesManager;
 import de.christian_koehler_iu.rennspiel.data_classes.Punkt;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
+import de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection;
 import de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet;
 import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
 import javafx.event.EventHandler;
@@ -28,7 +29,7 @@ public class Rennen_renn_verlauf {
     private final ArrayList<Spieler> spieler_arrayList;
     private final Label label_renn_infos;
     private final HashMap<Spieler, String> zurordnung_spieler_farbe;
-    private final I_aufgabe_beendet i_aufgabe_beendet;
+    private final I_rennen_renn_verlauf i_rennen_renn_verlauf;
     // konstanten
     private final String path_to_stylesheet = Objects.requireNonNull(getClass().getResource("/de/christian_koehler_iu/rennspiel/styles_04.css")).toExternalForm();
     private final String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND = "rechteck_rennen_hintergrund";
@@ -57,7 +58,7 @@ public class Rennen_renn_verlauf {
             ArrayList<Spieler> spieler_arrayList,
             Label label_renn_infos,
             HashMap<Spieler, String> zurordnung_spieler_farbe,
-            I_aufgabe_beendet i_aufgabe_beendet) {
+            I_rennen_renn_verlauf i_rennen_renn_verlauf) {
 
         this.umrechnung_grid_pixel = umrechnung_grid_pixel;
         this.rennstrecke = rennstrecke;
@@ -65,7 +66,7 @@ public class Rennen_renn_verlauf {
         this.spieler_arrayList = spieler_arrayList;
         this.label_renn_infos = label_renn_infos;
         this.zurordnung_spieler_farbe = zurordnung_spieler_farbe;
-        this.i_aufgabe_beendet = i_aufgabe_beendet;
+        this.i_rennen_renn_verlauf = i_rennen_renn_verlauf;
 
         // initialisierung zuordnung_spieler_spielerFahrverlauf
         for(Spieler akt_spieler : spieler_arrayList){
@@ -180,7 +181,40 @@ public class Rennen_renn_verlauf {
         label_renn_infos.setStyle("-fx-text-fill: white;");
         // click listener entfernen
         group_strecke.removeEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickHandler_group);
+
+        // spieler bestzeiten speichern (in spieler-objekt und db)
+        Double akt_bestzeit = null; // berechnet die bestzeit des aktuellen rennens
+        String strecken_name = rennstrecke.getName();
+        for(Spieler akt_spieler : spieler_arrayList){
+            // spieler fahrverlauf holen
+            Spieler_fahrverlauf akt_spieler_fahrverlauf = zuordnung_spieler_spielerFahrverlauf.get(akt_spieler);
+            // rennzeit holen (wenn nicht im ziel dann null)
+            Double renn_zeit_nullable = akt_spieler_fahrverlauf.get_gesamt_renn_zeit();
+            if(renn_zeit_nullable != null && akt_spieler_fahrverlauf.get_is_im_ziel()){
+                // akt_spieler hat das rennen regulär beendet
+                akt_spieler.process_new_strecken_zeit(strecken_name, renn_zeit_nullable);
+                if(akt_bestzeit==null || renn_zeit_nullable<akt_bestzeit){
+                    akt_bestzeit = renn_zeit_nullable;
+                }
+            }
+        }
+
+//        // strecken bestzeit aktualisieren
+//        if(akt_bestzeit!=null && akt_bestzeit < rennstrecke.getStrecken_bestzeit()){
+//            // es wurde eine neue strecken bestzeit gefahren
+//            // neue bestzeit im rennstrecken-objekt speichern
+//            rennstrecke.setStrecken_bestzeit(akt_bestzeit);
+//            // neue bestzeit i db speichern
+//            new Rennstrecke_database_connection().update_bestzeit(rennstrecke.getName(), akt_bestzeit);
+//        }
+
         // zurück zum rennenController
-        i_aufgabe_beendet.aufgabe_beendet();
+        i_rennen_renn_verlauf.rennen_beendet(zuordnung_spieler_spielerFahrverlauf);
     }
+
+
+    public interface I_rennen_renn_verlauf{
+        void rennen_beendet(HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf);
+    }
+
 }

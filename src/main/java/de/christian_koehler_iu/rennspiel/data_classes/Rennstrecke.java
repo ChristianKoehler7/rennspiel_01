@@ -13,7 +13,7 @@ public class Rennstrecke {
     private Linie startlinie = null;
     private boolean is_startrichtung_nach_unten_oder_rechts = true;
     private int anz_runden;
-    private double strecken_bestzeit = -1; // -1 bedeutet, dass es noch keine bestzeit gibt
+    //private double strecken_bestzeit = -1; // -1 bedeutet, dass es noch keine bestzeit gibt
 
     public Rennstrecke(String streckenname, int streckenbreite, int streckenhoehe) {
         this.name = streckenname;
@@ -131,13 +131,13 @@ public class Rennstrecke {
         this.anz_runden = anz_runden;
     }
 
-    public double getStrecken_bestzeit() {
-        return strecken_bestzeit;
-    }
+//    public double getStrecken_bestzeit() {
+//        return strecken_bestzeit;
+//    }
 
-    public void setStrecken_bestzeit(float strecken_bestzeit) {
-        this.strecken_bestzeit = strecken_bestzeit;
-    }
+//    public void setStrecken_bestzeit(double strecken_bestzeit) {
+//        this.strecken_bestzeit = strecken_bestzeit;
+//    }
 
     public int get_max_anz_spielern(){
         // max spieler die auf startlinie passen zurück geben, aber maximal 4
