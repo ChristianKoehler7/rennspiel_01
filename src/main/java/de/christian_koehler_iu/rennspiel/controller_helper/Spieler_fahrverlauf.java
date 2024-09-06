@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import org.jetbrains.annotations.Nullable;
 
 
 import java.util.ArrayList;
@@ -174,8 +175,26 @@ public class Spieler_fahrverlauf {
         }
     }
 
+    public boolean get_is_im_ziel(){
+        return is_im_ziel;
+    }
+
     public boolean get_is_spieler_raus(){
         return is_crashed || is_im_ziel;
+    }
+
+    /**
+     * gibt die renn zeit aus, wenn der spieler das rennen noch nicht regulär beendet hat wird null ausgegeben
+     * @return Double gesamt renn zeit
+     */
+    @Nullable
+    public Double get_gesamt_renn_zeit(){
+        if(is_im_ziel && !is_crashed){
+            return akt_zeit;
+        }else{
+            // rennen nicht regulär beendet
+            return null;
+        }
     }
 
     private void zug_beendet(){
@@ -450,7 +469,7 @@ public class Spieler_fahrverlauf {
             }
 
             // anteil bis ziel berechnen
-            anteil_bis_ziel = delta_y_bis_startlinie / eigene_letzte_fahrlinie.get_end_y_grid();
+            anteil_bis_ziel = delta_y_bis_startlinie / eigene_letzte_fahrlinie.get_delta_y_grid();
         }else{ // startlinie ist vertikal
             // delta x entscheidend
             // delta_x bis zur startlinie berechnen
@@ -462,7 +481,7 @@ public class Spieler_fahrverlauf {
             }
 
             // anteil bis ziel berechnen
-            anteil_bis_ziel = delta_x_bis_startlinie / eigene_letzte_fahrlinie.get_end_x_grid();
+            anteil_bis_ziel = delta_x_bis_startlinie / eigene_letzte_fahrlinie.get_delta_x_grid();
         }
 
         // gesamtzeit berechnen und ausgeben

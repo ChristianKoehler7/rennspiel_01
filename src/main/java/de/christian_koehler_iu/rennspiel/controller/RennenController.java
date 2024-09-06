@@ -9,6 +9,7 @@ import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -41,22 +42,28 @@ public class RennenController {
     Group rennen_group_strecke;
     @FXML
     GridPane rennen_grid_spieler_info;
+    @FXML
+    Button rennen_bn_rennenBeenden;
+    @FXML
+    Button rennen_bn_weiter;
+
 
     private final double B_MAX_PIXEL = 860.0;
     private final double H_MAX_PIXEL = 530.0;
 
     private Spieler aktiver_spieler;
     private Rennstrecke rennstrecke;
+    private ArrayList<Spieler> mitspieler;
     private final ArrayList<Spieler> spieler = new ArrayList<>();
-    private Link_StreckeErstellenController_Rennstrecke link_StreckeErstellenController_Rennstrecke;
-//    private final Paint[] farben = {Color.BLUE,Color.RED, Color.ORANGE, Color.GREEN};
     private final String[] farben = {"blue", "red", "orange", "green"};
     private final HashMap<Spieler, String> zurordnung_spieler_farbe = new HashMap<>();
     private final URL url_to_stylesheet = Objects.requireNonNull(getClass().getResource("/de/christian_koehler_iu/rennspiel/styles_04.css"));
     private Umrechnung_grid_pixel umrechnung_grid_pixel;
-    private final HashMap<Spieler, Rennen_spieler_info_labels> zurordnung_spieler_infoLabels = new HashMap<>();
+    private final HashMap<Spieler, Rennen_spieler_info_labels> zurordnung_spieler_infoLabels = new HashMap<>(); // für die infobox
 
     private Rennen_start_positionen_waehlen rennen_start_positionen_waehlen;
+
+    HashMap<Spieler, Spieler_fahrverlauf> rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf;
 
 
     @FXML
@@ -74,6 +81,9 @@ public class RennenController {
         this.rennstrecke = rennstrecke;
 
         // mitspieler in attribut speichern
+        this.mitspieler = mitspieler;
+
+        // alle spieler in attribut speichern
         this.spieler.add(aktiver_spieler);
         this.spieler.addAll(mitspieler);
 
@@ -163,51 +173,56 @@ public class RennenController {
                 spieler,
                 rennen_lb_rennInfos,
                 zurordnung_spieler_farbe,
-                new I_aufgabe_beendet() {
+                new Rennen_renn_verlauf.I_rennen_renn_verlauf() {
                     @Override
-                    public void aufgabe_beendet() {
-                        // rennen beendet
-                        // TODO weiter zu rennen_beendet
+                    public void rennen_beendet(HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf) {
+                        rennen_renn_verlauf_beendet(zuordnung_spieler_spielerFahrverlauf);
                     }
                 });
     }
 
+    private void rennen_renn_verlauf_beendet(HashMap<Spieler, Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf){
+        // button beenden disablen
+        rennen_bn_rennenBeenden.setDisable(true);
+
+        // button weiter aktivieren
+        rennen_bn_weiter.setDisable(false);
+
+        // spieler strecken bestzeiten sind bereits im spieler-objekt und in der db aktualisiert
+
+        // zuordnung spieler fahrverläufe speichern, um es dann der scene rennen beendet weiterzugeben
+        rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf = zuordnung_spieler_spielerFahrverlauf;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void rennen_group_strecke_mDragged(MouseEvent mouseEvent) {
-    }
-
-
-    public void rennen_group_strecke_mPressed(MouseEvent mouseEvent) {
-    }
-
-
-    public void rennen_group_mReleased(MouseEvent mouseEvent) {
     }
 
 
     public void rennen_bn_rennenBeenden_action(ActionEvent actionEvent) {
-        // TODO
-        ScenesManager.getInstance().show_toast_neutral("beenden");
+        ScenesManager.getInstance().show_dialog_warning(
+                "Rennen wirklich beenden?",
+                "ja",
+                "nein",
+                new ScenesManager.I_dialog_actions() {
+                    @Override
+                    public void ok_action() {
+                        // rennen beenden und zurück zu strecke wählen scene
+                        ScenesManager.getInstance().switch_to_strecke_waehlen(aktiver_spieler);
+                    }
+
+                    @Override
+                    public void cancel_action() {
+                        // nix tun
+                    }
+                });
     }
 
     public void rennen_bn_weiter_action(ActionEvent actionEvent) {
-        // TODO
-        ScenesManager.getInstance().show_toast_neutral("weiter");
+        // wechseln zu scene rennen beendet
+        ScenesManager.getInstance().switch_to_rennen_beendet(
+                rennstrecke,
+                aktiver_spieler,
+                mitspieler,
+                rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf
+        );
     }
 }

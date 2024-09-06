@@ -26,7 +26,7 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <Group fx:id="rennen_group_strecke" onMouseDragged="#rennen_group_strecke_mDragged" onMousePressed="#rennen_group_strecke_mPressed" onMouseReleased="#rennen_group_mReleased" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Group fx:id="rennen_group_strecke" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
           <Button fx:id="rennen_bn_rennenBeenden" mnemonicParsing="false" onAction="#rennen_bn_rennenBeenden_action" styleClass="button-vorsicht-beenden-loeschen" text="Rennen beenden" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
               <GridPane.margin>
                   <Insets />
