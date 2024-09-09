@@ -4,12 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Spiel funktionsfähig, nur noch kleine anpassungen nötig">
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Spiel funktionsfähig, nur noch kleine anpassungen nötig 02">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/default_strecken_rennstrecken.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/default_strecken_startlinien.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/default_strecken_streckenlinien.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/RennenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/RennenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Spieler_fahrverlauf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Spieler_fahrverlauf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_beendet_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_beendet_view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel/rennen_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/ScenesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/ScenesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeErstellenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeWaehlenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller/StreckeWaehlenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/Link_StreckeErstellenController_Rennstrecke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/controller_helper/StreckeErstellen_helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Admin_functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Admin_functions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_database_connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_database_connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Rennstrecke_db_table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/SQLite_db_connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/SQLite_db_connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Startlinie_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Startlinie_db_table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Streckenlinie_db_table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/database/Streckenlinie_db_table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/interfaces/I_rennstrecke_database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/christian_koehler_iu/rennspiel/interfaces/I_rennstrecke_database.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +51,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ChristianKoehler7/rennspiel_01.git&quot;,
-    &quot;accountId&quot;: &quot;0eeee017-f078-437c-9020-353993a35fa5&quot;
+    &quot;accountId&quot;: &quot;55216a6d-e8ed-4913-8b92-dd4c05df3561&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -69,7 +83,7 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/java/de/christian_koehler_iu/rennspiel&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/meineProgramme/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/meineDaten/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/resources/de/christian_koehler_iu/rennspiel&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -78,6 +92,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\meineDaten\Dokumente\studiumMasterInformatik\projektSoftwareEngineering\code\rennspiel\src\main\resources\de\christian_koehler_iu\rennspiel" />
       <recent name="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel" />
       <recent name="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01" />
       <recent name="$PROJECT_DIR$/src/main/java/de/rennspiel_01/rennspiel_01/datasets" />
@@ -245,7 +260,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724694792946</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Spiel funktionsfähig, nur noch kleine anpassungen nötig">
+      <option name="closed" value="true" />
+      <created>1725620804088</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1725620804088</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Spiel funktionsfähig, nur noch kleine anpassungen nötig 02">
+      <option name="closed" value="true" />
+      <created>1725620946228</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1725620946228</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -278,6 +309,7 @@
     <MESSAGE value="rennverlauf fast fertig" />
     <MESSAGE value="rennverlauf fast fertig2" />
     <MESSAGE value="Spiel funktionsfähig, nur noch kleine anpassungen nötig" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spiel funktionsfähig, nur noch kleine anpassungen nötig" />
+    <MESSAGE value="Spiel funktionsfähig, nur noch kleine anpassungen nötig 02" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spiel funktionsfähig, nur noch kleine anpassungen nötig 02" />
   </component>
 </project>

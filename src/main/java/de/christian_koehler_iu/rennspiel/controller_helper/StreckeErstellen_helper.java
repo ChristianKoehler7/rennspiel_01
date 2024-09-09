@@ -18,7 +18,7 @@ import java.util.*;
 /*
     klasse um StreckeErstellenController und Rennstrecke zu koppeln
  */
-public class Link_StreckeErstellenController_Rennstrecke {
+public class StreckeErstellen_helper {
 
     //------------------------------------------------------------------------------------------------------------------
     // css style attribute
@@ -67,7 +67,7 @@ public class Link_StreckeErstellenController_Rennstrecke {
     //------------------------------------------------------------------------------------------------------------------
     // constructor
 
-    public Link_StreckeErstellenController_Rennstrecke(double b_max_pixel, double h_max_pixel, I_Link_StrErstController_Rennstrecke i_linkStrErstControllerRennstrecke) {
+    public StreckeErstellen_helper(double b_max_pixel, double h_max_pixel, I_Link_StrErstController_Rennstrecke i_linkStrErstControllerRennstrecke) {
         this.umrechnung_grid_pixel = new Umrechnung_grid_pixel(
                 b_max_pixel,
                 h_max_pixel,

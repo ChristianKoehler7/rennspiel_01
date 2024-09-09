@@ -145,7 +145,6 @@ public class StreckeWaehlenController {
         }else{
             ScenesManager.getInstance().show_toast_neutral("Keine Rennstrecke gewählt!");
         }
-
     }
 
     public void streckeWaehlen_bn_neuerStrecke_action(ActionEvent actionEvent) {
@@ -154,21 +153,47 @@ public class StreckeWaehlenController {
     }
 
     public void streckeWaehlen_bn_streckeLoeschen_action(ActionEvent actionEvent) {
-        // gewählte rennstrecke löschen mit allen linien und spieler_bestzeiten
-        I_rennstrecke_database i_rennstrecke_database = new Rennstrecke_database_connection();
-        i_rennstrecke_database.delete_rennstrecke_complete(strecken_name_selected);
+        if(strecken_name_selected == null){
+            // keine strecke gewählt
+            // toast ausgeben
+            ScenesManager.getInstance().show_toast_neutral("keine Strecke gewählt");
+        }else if(strecken_default.contains(strecken_name_selected)){
+            // standartstrecke ist gewählt -> darf nicht gelöscht werden
+            // toast ausgeben
+            ScenesManager.getInstance().show_toast_warning("Standartstrecken dürfen nicht gelöscht werden");
 
-        // strecken namen laden
-        init_load_strecken();
+        }else if(strecken_custom.contains(strecken_name_selected)){
+            // gewählte wird gelöscht, aber zuvor nochmal fragen
+            ScenesManager.getInstance().show_dialog_warning(
+                    ("Soll die Strecke \"" + strecken_name_selected + "\" wirklich gelöscht werden?"),
+                    "ja",
+                    "nein",
+                    new ScenesManager.I_dialog_actions() {
+                        @Override
+                        public void ok_action() {
+                            // gewählte rennstrecke löschen mit allen linien und spieler_bestzeiten
+                            I_rennstrecke_database i_rennstrecke_database = new Rennstrecke_database_connection();
+                            i_rennstrecke_database.delete_rennstrecke_complete(strecken_name_selected);
 
-        // listview standart strecken initialisieren
-        init_listview_strecken_default();
+                            // strecken namen laden
+                            init_load_strecken();
 
-        // listview custom strecken initialisieren
-        init_listview_strecken_custom();
+                            // listview standart strecken initialisieren
+                            init_listview_strecken_default();
 
-        // toast ausgeben
-        ScenesManager.getInstance().show_toast_neutral("Strecke erfolgreich gelöscht!");
+                            // listview custom strecken initialisieren
+                            init_listview_strecken_custom();
+                        }
+
+                        @Override
+                        public void cancel_action() {
+                            // nix tun
+                        }
+                    }
+            );
+        }else{
+            // unvorhergesehener zustand -> fehler ausgeben
+            throw new RuntimeException("StreckeWaehlenController: streckeWaehlen_bn_streckeLoeschen_action(ActionEvent actionEvent): unvorhergesener Zustand");
+        }
     }
-
 }

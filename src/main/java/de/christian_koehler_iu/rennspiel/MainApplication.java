@@ -4,6 +4,7 @@ import de.christian_koehler_iu.rennspiel.controller.ScenesManager;
 import de.christian_koehler_iu.rennspiel.controller.SpielerWaehlenController;
 import de.christian_koehler_iu.rennspiel.controller.StreckeGroesseWaehlenController;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
+import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import de.christian_koehler_iu.rennspiel.database.Admin_functions;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -24,10 +25,7 @@ public class MainApplication extends Application {
         scenesManager.switch_to_spieler_wahlen();
 //        Admin_functions admin_functions = new Admin_functions();
 //        try {
-//            admin_functions.set_rennstrecke_as_default("Strecke01");
-//            admin_functions.set_rennstrecke_as_default("Strecke02");
-//            admin_functions.set_rennstrecke_as_default("Strecke03");
-//            admin_functions.set_rennstrecke_as_default("Strecke04");
+//            admin_functions.export_default_strecken_to_csv();
 //        } catch (SQLException e) {
 //            throw new RuntimeException(e);
 //        }

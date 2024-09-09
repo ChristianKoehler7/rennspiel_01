@@ -66,14 +66,14 @@ public class Rennstrecke_database_connection implements I_rennstrecke_database {
         }
     }
 
-    @Override
-    public void update_bestzeit(String strecken_name, double neue_bestzeit) {
-        try {
-            new Rennstrecke_db_table().update_bestzeit(strecken_name, neue_bestzeit);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Override
+//    public void update_bestzeit(String strecken_name, double neue_bestzeit) {
+//        try {
+//            new Rennstrecke_db_table().update_bestzeit(strecken_name, neue_bestzeit);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Override
     public Double get_strecken_bestzeit(String strecken_name){

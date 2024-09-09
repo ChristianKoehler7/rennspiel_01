@@ -1,6 +1,6 @@
 package de.christian_koehler_iu.rennspiel.controller;
 
-import de.christian_koehler_iu.rennspiel.controller_helper.Link_StreckeErstellenController_Rennstrecke;
+import de.christian_koehler_iu.rennspiel.controller_helper.StreckeErstellen_helper;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection;
 import de.christian_koehler_iu.rennspiel.interfaces.I_rennstrecke_database;
@@ -56,7 +56,7 @@ public class StreckeErstellenController {
             "-fx-border-width: 2px;" +        // Dickere Umrandung
             "-fx-text-fill: #FFFFFF;";        // Weiße Schrift
 
-    private Link_StreckeErstellenController_Rennstrecke link_StreckeErstellenController_Rennstrecke;
+    private StreckeErstellen_helper _StreckeErstellenHelper;
 
     private final double B_MAX_PIXEL = 860.0;
     private final double H_MAX_PIXEL = 530.0;
@@ -86,10 +86,10 @@ public class StreckeErstellenController {
         this.rennstrecke = rennstrecke;
 
         // Link_StreckeErstellenController_Rennstrecke objekt erstellen
-        this.link_StreckeErstellenController_Rennstrecke = new Link_StreckeErstellenController_Rennstrecke(
+        this._StreckeErstellenHelper = new StreckeErstellen_helper(
                 B_MAX_PIXEL,
                 H_MAX_PIXEL,
-                new Link_StreckeErstellenController_Rennstrecke.I_Link_StrErstController_Rennstrecke() {
+                new StreckeErstellen_helper.I_Link_StrErstController_Rennstrecke() {
                     @Override
                     public Zeichnungszustand get_zeichnungszustand() {
                         return zeichnungszustand;
@@ -111,7 +111,7 @@ public class StreckeErstellenController {
         this.streckeErstellen_lb_streckengroesse.setText("Streckenname: " + rennstrecke.getName() + "\nBreite: " + rennstrecke.getBreite() + "\nHöhe: " + rennstrecke.getHoehe());
 
         // speicher für listview initialisieren
-        this.streckeErstellen_listview_streckenlinien.setItems(this.link_StreckeErstellenController_Rennstrecke.get_observable_streckenlinien_for_listview());
+        this.streckeErstellen_listview_streckenlinien.setItems(this._StreckeErstellenHelper.get_observable_streckenlinien_for_listview());
 
         // ChangeListener wenn sich ausgewähltes item der listview ändert erstellen
         this.init_create_listView_selected_changeListener();
@@ -124,7 +124,7 @@ public class StreckeErstellenController {
             int index_selected = this.streckeErstellen_listview_streckenlinien.getSelectionModel().getSelectedIndex();
 
             // weitergeben an link_StreckeErstellenController_Rennstrecke
-            this.link_StreckeErstellenController_Rennstrecke.listView_selected_changed(index_selected);
+            this._StreckeErstellenHelper.listView_selected_changed(index_selected);
         });
     }
 
@@ -169,7 +169,7 @@ public class StreckeErstellenController {
         int index_selected_item = this.streckeErstellen_listview_streckenlinien.getSelectionModel().getSelectedIndex();
 
         // streckenline löschen
-        link_StreckeErstellenController_Rennstrecke.delete_streckenlinie(index_selected_item);
+        _StreckeErstellenHelper.delete_streckenlinie(index_selected_item);
     }
 
     public void streckeErstellen_bn_streckenLinieZeichnen_action(ActionEvent actionEvent) {
@@ -199,22 +199,22 @@ public class StreckeErstellenController {
     }
 
     public void streckeErstellen_bn_letzteStrLinieLoeschen_action(ActionEvent actionEvent) {
-        this.link_StreckeErstellenController_Rennstrecke.delete_last_streckenlinie();
+        this._StreckeErstellenHelper.delete_last_streckenlinie();
     }
 
     public void streckeErstellen_bn_startRichtungAendern_action(ActionEvent actionEvent) {
-        this.link_StreckeErstellenController_Rennstrecke.start_richtung_aendern();
+        this._StreckeErstellenHelper.start_richtung_aendern();
     }
 
     public void streckeErstellen_group_strecke_mPressed(MouseEvent mouseEvent) {
-        this.link_StreckeErstellenController_Rennstrecke.group_mPressed(mouseEvent);
+        this._StreckeErstellenHelper.group_mPressed(mouseEvent);
     }
 
     public void streckeErstellen_group_strecke_mDragged(MouseEvent mouseEvent){
-        this.link_StreckeErstellenController_Rennstrecke.group_mDraged(mouseEvent);
+        this._StreckeErstellenHelper.group_mDraged(mouseEvent);
     }
 
     public void streckeErstellen_group_mReleased(MouseEvent mouseEvent){
-        this.link_StreckeErstellenController_Rennstrecke.group_mReleased(mouseEvent);
+        this._StreckeErstellenHelper.group_mReleased(mouseEvent);
     }
 }

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Streckenlinie_db_table {
 
+    public final String DEFAULT_STRECKEN_STRECKENLINIEN_CSV_PATH = "/de/christian_koehler_iu/rennspiel/default_strecken_streckenlinien.csv";
+
     protected final String TABELLENNAME = "Streckenlinie";
     protected final String SPALTENNAME_ID = "id";
     protected final String SPALTENNAME_FK_RENNSTRECKE = "fk_rennstrecke";

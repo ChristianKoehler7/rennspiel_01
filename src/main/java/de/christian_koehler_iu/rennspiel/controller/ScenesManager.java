@@ -120,7 +120,7 @@ public class ScenesManager {
 
     /**
      * wechselt in die szene, die hinter dem pfad der eingabe steckt
-     * @param path_to_fxml
+     * @param path_to_fxml pfad (String) zur fmxl datei
      * @return controller-instanz der view zu der gewechselt wird
      * @param <T> typ der controller klasse
      */
@@ -138,11 +138,11 @@ public class ScenesManager {
                 this.STAGE.setScene(scene);
                 this.STAGE.show();
             } catch (IOException e) {
-                System.out.print("Fehler beim laden des FXMLLoaders\n" + e.toString());
+                throw new RuntimeException("Fehler beim laden des FXMLLoaders\n" + e.toString());
             }
 
         }else{
-            System.out.println("FXML file not found.");
+            throw new RuntimeException("FXML file not found. path_to_fxml = " + path_to_fxml);
         }
 
         return controller;
