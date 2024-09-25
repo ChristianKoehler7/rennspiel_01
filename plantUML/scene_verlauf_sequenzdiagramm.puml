@@ -1,0 +1,31 @@
+@startuml
+'skinparam linetype polyline
+'skinparam linetype ortho
+
+[*] --> aktiven_spieler_waehlen_scene: Start Game
+
+aktiven_spieler_waehlen_scene --> spieler_anlegen_scene: neuen Spieler anlegen
+aktiven_spieler_waehlen_scene --> strecke_waehlen_scene: vorhanden Spieler gewählt
+aktiven_spieler_waehlen_scene --> [*]: Spiel beenden
+
+spieler_anlegen_scene --> aktiven_spieler_waehlen_scene: zurück (kein Spieler erstellt)
+spieler_anlegen_scene --> strecke_waehlen_scene: Spieler angelegt
+
+strecke_waehlen_scene --> aktiven_spieler_waehlen_scene: zurück
+strecke_waehlen_scene --> strecke_erstellen_scene: neue Strecke erstellen
+strecke_waehlen_scene --> mitspieler_wahlen_scene: Strecke gewählt
+
+strecke_erstellen_scene --> strecke_waehlen_scene: neue Strecke erstellt
+strecke_erstellen_scene --> strecke_waehlen_scene: zurück (keine Strecke erstellt)
+
+mitspieler_wahlen_scene --> rennen_scene: Mitspieler gewählt
+mitspieler_wahlen_scene --> strecke_waehlen_scene: zurück
+
+rennen_scene --> rennen_beendet_scene: Rennen regulär beendet
+rennen_scene --> strecke_waehlen_scene: Rennen vorzeitig beendet
+
+rennen_beendet_scene --> rennen_scene: nochmal spielen
+rennen_beendet_scene --> strecke_waehlen_scene: weiter
+rennen_beendet_scene --> [*]: Spiel beenden
+
+@enduml

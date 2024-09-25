@@ -1,0 +1,148 @@
+@startuml
+class Rennen_renn_verlauf {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- ArrayList<Spieler> spieler_arrayList
+- Label label_renn_infos
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- I_rennen_renn_verlauf i_rennen_renn_verlauf
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND
+- String CSS_STYLE_CLASS_LINIE_GITTER
+- String CSS_STYLE_CLASS_LINIE_STRECKE
+- String CSS_STYLE_CLASS_LINIE_START
+- String CSS_STYLE_CLASS_POLYGON_STARTRICHTUNG
+- String CSS_STYLE_CLASS_POLYGON_RANDDURCHGANG
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+~ EventHandler<MouseEvent> mouseClickHandler_group
+- int akt_spieler_index
+- HashMap<Spieler,Rennen_spieler_info_labels> zurordnung_spieler_infoLabels
+- HashMap<Spieler,Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+}
+
+interface Rennen_renn_verlauf$I_rennen_renn_verlauf {
+}
+class Rennen_spieler_info_labels {
+- Label lb_spieler_name
+- Label lb_spieler_runde
+- Label lb_spieler_zeit
+- Label lb_spieler_status
+- String spieler_farbe
+- int anz_runden_der_strecke
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_LABEL_SMALL
+}
+
+class Rennen_start_positionen_waehlen {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- ArrayList<Spieler> spieler
+- Label label_renn_infos
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- I_aufgabe_beendet i_aufgabe_beendet
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+- HashMap<Spieler,Punkt> zuordnung_spieler_startpunkt
+- HashMap<Spieler,Circle> zuordnung_spieler_fxStartNode
+- int akt_index_spieler
+- ArrayList<Circle> fx_nodes_moegliche_startpunkte
+}
+
+class StreckeErstellen_helper {
+- String css_style_hintergrund_rechteck
+- String css_style_gitterlinie
+- String css_style_streckenlinie_notSelected
+- String css_style_streckenlinie_selected
+- String css_style_startline
+- String css_style_dreieck_startrichung
+- String css_style_dreieck_rand_durchgang
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Line aktMouseLine
+~ I_Link_StrErstController_Rennstrecke i_linkStrErstControllerRennstrecke
+- ObservableList<String> observable_streckenlinien_for_listview
+- HashMap<Linie,Line> streckenLinien_fxLines_map
+- Line startFxLine
+- Line selceted_streckenFxLine
+- ArrayList<Polygon> startrichtung_fxNodes
+- ArrayList<Polygon> rand_durchgangs_fxNodes
+}
+
+interface StreckeErstellen_helper$I_Link_StrErstController_Rennstrecke {
+}
+
+
+class Spieler_fahrverlauf {
+- Spieler spieler
+- String spieler_farbe
+- HashMap<Spieler,Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- I_aufgabe_beendet i_aufgabe_beendet
+- Rennen_spieler_info_labels rennen_spieler_info_labels
+- ArrayList<Fahrlinie> fahrlinien
+- boolean is_crashed
+- Circle crash_fxNode
+- boolean is_im_ziel
+- int akt_renn_runde
+- double akt_zeit
+- boolean startline_nach_start_verlassen
+- ArrayList<Node> fx_nodes_moegliche_zuege
+}
+
+class Fahrlinie {
+- int strecke_breite_grid
+- int strecke_hoehe_grid
+- int start_x_grid
+- int start_y_grid
+- int delta_x_grid
+- int delta_y_grid
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- String farbe_spieler
+- int end_x_grid
+- int end_y_grid
+- ArrayList<Linie> grid_linien
+- ArrayList<Line> fx_lines
+- Circle fx_end_node
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_LINE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+- String CSS_STYLE_CLASS_LINE_FAHR_LINIE
+- String CSS_STYLE_CLASS_LINE_UNSICHTBAR
+}
+
+enum Fahrlinien_styles {
++  FAHRLINIE
++  MOEGLICHER_ZUG_MIT_LINIE
++  MOEGLICHER_ZUG_OHNE_LINIE
+}
+
+class Rennen_strecke_zeichnen {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND
+- String CSS_STYLE_CLASS_LINIE_GITTER
+- String CSS_STYLE_CLASS_LINIE_STRECKE
+- String CSS_STYLE_CLASS_LINIE_START
+- String CSS_STYLE_CLASS_POLYGON_STARTRICHTUNG
+- String CSS_STYLE_CLASS_POLYGON_RANDDURCHGANG
+- Rectangle rechteck_hintergrund
+- ArrayList<Line> linien_gitter
+- HashMap<Linie,Line> map_streckenlinie_fxline
+- Line line_start
+- ArrayList<Polygon> polygone_start_richtung
+- ArrayList<Polygon> polygone_rand_durchgaenge
+}
+
+
+
+Rennen_renn_verlauf +.. Rennen_renn_verlauf$I_rennen_renn_verlauf
+StreckeErstellen_helper +.. StreckeErstellen_helper$I_Link_StrErstController_Rennstrecke
+@enduml

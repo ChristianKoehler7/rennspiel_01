@@ -1,0 +1,36 @@
+@startuml
+class de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- ArrayList<Spieler> spieler_arrayList
+- Label label_renn_infos
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- I_rennen_renn_verlauf i_rennen_renn_verlauf
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND
+- String CSS_STYLE_CLASS_LINIE_GITTER
+- String CSS_STYLE_CLASS_LINIE_STRECKE
+- String CSS_STYLE_CLASS_LINIE_START
+- String CSS_STYLE_CLASS_POLYGON_STARTRICHTUNG
+- String CSS_STYLE_CLASS_POLYGON_RANDDURCHGANG
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+~ EventHandler<MouseEvent> mouseClickHandler_group
+- int akt_spieler_index
+- HashMap<Spieler,Rennen_spieler_info_labels> zurordnung_spieler_infoLabels
+- HashMap<Spieler,Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+- void start_next_zug()
+- void zug_beendet()
+- void rennen_beendet()
+}
+
+
+interface de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf$I_rennen_renn_verlauf {
+~ void rennen_beendet(HashMap<Spieler,Spieler_fahrverlauf>)
+}
+
+
+
+de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf +.. de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf$I_rennen_renn_verlauf
+@enduml

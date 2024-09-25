@@ -41,6 +41,8 @@ public class MitspielerWaehlenController {
     @FXML
     Label mitspielerWaehlen_lb_maxAnzMitspieler;
     @FXML
+    Label mitspielerWaehlen_lb_keineMitspielerVorhanden;
+    @FXML
     ListView<String> mitspielerWaehlen_listview_mitspieler;
 
     private Spieler spieler;
@@ -71,6 +73,17 @@ public class MitspielerWaehlenController {
 
         // listview initialisieren
         init_listview();
+
+        // label mitspielerWaehlen_lb_keineMitspielerVorhanden initialisieren
+        //  falls neben dem aktiven spieler kein weiterer spieler vorhanden ist, kann auch kein mitspieler gewählt werden
+        //  -> info in label schreiben
+        if(mitspieler.isEmpty()){
+            // keine möglichen mitspieler vorhanden
+            mitspielerWaehlen_lb_keineMitspielerVorhanden.setText("Um Mitspieler zu wählen, müssen zuerst weitere Spieler angelegt werden");
+        }else{
+            // mitspieler sind vorhanden
+            mitspielerWaehlen_lb_keineMitspielerVorhanden.setText("");
+        }
 
     }
 

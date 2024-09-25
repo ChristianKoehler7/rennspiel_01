@@ -1,0 +1,6 @@
+@startuml
+interface de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet {
++ void aufgabe_beendet()
+}
+
+@enduml

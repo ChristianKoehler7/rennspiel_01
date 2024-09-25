@@ -1,0 +1,758 @@
+@startuml
+class de.christian_koehler_iu.rennspiel.utility.User_eingaben_pruefen {
+- String benutzer_eingabe
+- int MIN_NAME_LENGTH
+- int MAX_NAME_LENGTH
+- List<String> fehlermeldungen_string
+- List<String> fehlermeldungen_int
+- Integer eingabe_as_integer
+- Pattern NAME_PATTERN
+- Pattern SQL_INJECTION_PATTERN
+- void init_fehlermeldungen_string()
+- void init_int_eingabe()
++ boolean is_gueltige_string_einagbe()
++ List<String> get_fehlermeldungen_string_eingabe()
++ boolean is_gueltige_int_einagbe()
++ Integer get_parsed_integer()
++ List<String> get_fehlermeldungen_int()
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- ArrayList<Spieler> spieler_arrayList
+- Label label_renn_infos
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- I_rennen_renn_verlauf i_rennen_renn_verlauf
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND
+- String CSS_STYLE_CLASS_LINIE_GITTER
+- String CSS_STYLE_CLASS_LINIE_STRECKE
+- String CSS_STYLE_CLASS_LINIE_START
+- String CSS_STYLE_CLASS_POLYGON_STARTRICHTUNG
+- String CSS_STYLE_CLASS_POLYGON_RANDDURCHGANG
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+~ EventHandler<MouseEvent> mouseClickHandler_group
+- int akt_spieler_index
+- HashMap<Spieler,Rennen_spieler_info_labels> zurordnung_spieler_infoLabels
+- HashMap<Spieler,Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+- void start_next_zug()
+- void zug_beendet()
+- void rennen_beendet()
+}
+
+
+interface de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf$I_rennen_renn_verlauf {
+~ void rennen_beendet(HashMap<Spieler,Spieler_fahrverlauf>)
+}
+
+interface de.christian_koehler_iu.rennspiel.interfaces.I_rennstrecke_database {
+~ void save_rennstrecke_complete(Rennstrecke)
+~ Rennstrecke load_rennstrecke_complete(String)
+~ ArrayList<String> load_rennstrecke_namen()
+~ ArrayList<String> load_rennstrecke_standart_namen()
+~ ArrayList<String> load_rennstrecke_custom_namen()
+~ void delete_rennstrecke_complete(String)
+~ Double get_strecken_bestzeit(String)
+~ String get_strecke_bester_spieler(String)
+}
+
+class de.christian_koehler_iu.rennspiel.database.Spieler_db_table {
+# String TABELLENNAME
+# String SPALTENNAME_NAME
+# String get_create_table_string()
+# void save_new_spieler(String)
+# Spieler get_spieler_complete(String)
+# ArrayList<String> get_spieler_namen()
+# void delete_spieler_complete(String)
+}
+
+
+class de.christian_koehler_iu.rennspiel.MainApplication {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+class de.christian_koehler_iu.rennspiel.data_classes.Punkt {
+- double x
+- double y
++ double getX()
++ double getY()
++ void setX(double)
++ void setY(double)
++ boolean equals(Object)
++ boolean is_jede_koordinate_ganzzahl()
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.LinkRennstreckeSpielerBestzeit_db_table {
+# String TABELLENNAME
+# String SPALTENNAME_ID
+# String SPALTENNAME_FK_RENNSTRECKE
+# String SPALTENNAME_FK_SPIELER
+# String SPALTENNAME_BESTZEIT
+# String get_create_table_string()
+# void delete_alle_eintraege_der_rennstrecke(String)
+# void delete_alle_eintraege_des_spielers(String)
+# HashMap<String,Double> get_spieler_bestzeiten(String)
+# Double get_spieler_strecke_bestzeit(String,String)
+# void create_new_spieler_strecke_bestzeit(String,String,double)
+# void update_spieler_strecke_bestzeit(String,String,double)
+# Double get_strecken_bestzeit(String)
+# String get_strecke_bester_spieler(String)
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.Admin_functions {
++ void set_rennstrecke_as_default(String)
++ void set_all_rennstrecken_as_default()
++ void export_default_strecken_to_csv()
+- void rennstrecken_to_csv()
+- void startlinien_to_csv()
+- void streckenlinien_to_csv()
+}
+
+class de.christian_koehler_iu.rennspiel.controller.RennenController {
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+~ GridPane rennen_grid_root
+~ Label rennen_lb_streckenName
+~ VBox rennen_vbox_info
+~ Label rennen_lb_rennInfos
+~ Label rennen_lb_anzStreckenRunden
+~ Group rennen_group_strecke
+~ GridPane rennen_grid_spieler_info
+~ Button rennen_bn_rennenBeenden
+~ Button rennen_bn_weiter
+- double B_MAX_PIXEL
+- double H_MAX_PIXEL
+- Spieler aktiver_spieler
+- Rennstrecke rennstrecke
+- ArrayList<Spieler> mitspieler
+- ArrayList<Spieler> spieler
+- String[] farben
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- URL url_to_stylesheet
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- HashMap<Spieler,Rennen_spieler_info_labels> zurordnung_spieler_infoLabels
+- Rennen_start_positionen_waehlen rennen_start_positionen_waehlen
+~ HashMap<Spieler,Spieler_fahrverlauf> rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf
++ void initialize()
++ void initialize_spieler_rennstrecke_mitspieler(Spieler,Rennstrecke,ArrayList<Spieler>)
+- void start_positionen_waehlen()
+- void rennen_starten()
+- void rennen_renn_verlauf_beendet(HashMap<Spieler,Spieler_fahrverlauf>)
++ void rennen_bn_rennenBeenden_action(ActionEvent)
++ void rennen_bn_weiter_action(ActionEvent)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller_helper.StreckeErstellen_helper {
+- String css_style_hintergrund_rechteck
+- String css_style_gitterlinie
+- String css_style_streckenlinie_notSelected
+- String css_style_streckenlinie_selected
+- String css_style_startline
+- String css_style_dreieck_startrichung
+- String css_style_dreieck_rand_durchgang
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Line aktMouseLine
+~ I_Link_StrErstController_Rennstrecke i_linkStrErstControllerRennstrecke
+- ObservableList<String> observable_streckenlinien_for_listview
+- HashMap<Linie,Line> streckenLinien_fxLines_map
+- Line startFxLine
+- Line selceted_streckenFxLine
+- ArrayList<Polygon> startrichtung_fxNodes
+- ArrayList<Polygon> rand_durchgangs_fxNodes
+- void init_gitter_und_hintergrund()
+- void init_streckenlinien()
+- void init_startlinie()
+- void init_startrichtung()
+- void update_rand_durchgangs_elemente()
+- Polygon create_dreieck(int,int,boolean,boolean,String)
++ ObservableList<String> get_observable_streckenlinien_for_listview()
++ void delete_last_streckenlinie()
++ void delete_streckenlinie(int)
++ void listView_selected_changed(int)
++ void add_streckenlinie(Line)
+- String linie_to_string(Linie)
++ void add_or_change_startlinie(Line)
+- void draw_start_richtung()
++ void start_richtung_aendern()
++ void group_mPressed(MouseEvent)
++ void group_mDraged(MouseEvent)
++ void group_mReleased(MouseEvent)
+- void update_streckenLinien_listView()
+}
+
+
+interface de.christian_koehler_iu.rennspiel.controller_helper.StreckeErstellen_helper$I_Link_StrErstController_Rennstrecke {
++ StreckeErstellenController.Zeichnungszustand get_zeichnungszustand()
++ Group get_group()
++ Rennstrecke get_rennstrecke()
+}
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Spieler_fahrverlauf {
+- Spieler spieler
+- String spieler_farbe
+- HashMap<Spieler,Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- I_aufgabe_beendet i_aufgabe_beendet
+- Rennen_spieler_info_labels rennen_spieler_info_labels
+- ArrayList<Fahrlinie> fahrlinien
+- boolean is_crashed
+- Circle crash_fxNode
+- boolean is_im_ziel
+- int akt_renn_runde
+- double akt_zeit
+- boolean startline_nach_start_verlassen
+- ArrayList<Node> fx_nodes_moegliche_zuege
++ void start_zug()
+- void zeichne_moegliche_neue_positionen()
++ void mouse_clicked(MouseEvent)
+- void fahre_zur_gewaehlten_position(int,int)
++ boolean get_is_im_ziel()
++ boolean get_is_spieler_raus()
++ Double get_gesamt_renn_zeit()
+- void zug_beendet()
+- void update_info_labels()
+- void kollisons_pruefung()
+- void startlinie_durchfahren_pruefung()
++ Fahrlinie get_last_fahrlinie()
+- double calc_ziel_zeit()
+}
+
+
+interface de.christian_koehler_iu.rennspiel.interfaces.I_spieler_database {
+~ void save_new_spieler(String)
+~ Spieler load_spieler_complete(String)
+~ ArrayList<String> load_spieler_namen()
+~ boolean is_spieler_name_vorhanden(String)
+~ void delete_spieler_complete(String)
+~ void save_spieler_rennstrecke_bestzeit(String,String,Double)
+}
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Fahrlinie {
+- int strecke_breite_grid
+- int strecke_hoehe_grid
+- int start_x_grid
+- int start_y_grid
+- int delta_x_grid
+- int delta_y_grid
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- String farbe_spieler
+- int end_x_grid
+- int end_y_grid
+- ArrayList<Linie> grid_linien
+- ArrayList<Line> fx_lines
+- Circle fx_end_node
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_LINE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+- String CSS_STYLE_CLASS_LINE_FAHR_LINIE
+- String CSS_STYLE_CLASS_LINE_UNSICHTBAR
++ ArrayList<Node> create_fxNodes_for_moegliche_neue_positionen()
++ ArrayList<Punkt> calc_moegliche_neue_positionen()
++ Fahrlinie create_next_fahrlinie(int,int)
+- void generate_fx_nodes_for_zug(ArrayList<Node>,Fahrlinien_styles,double,double,double,double)
+- Line create_fx_line(double,double,double,double,Fahrlinien_styles)
+- Circle create_fx_circle(double,double,Fahrlinien_styles)
++ int get_start_x_grid()
++ int get_start_y_grid()
++ int get_delta_x_grid()
++ int get_delta_y_grid()
++ int get_end_x_grid()
++ int get_end_y_grid()
++ ArrayList<Node> get_fx_nodes()
++ ArrayList<Linie> get_grid_linien()
+}
+
+
+enum de.christian_koehler_iu.rennspiel.controller_helper.Fahrlinien_styles {
++  FAHRLINIE
++  MOEGLICHER_ZUG_MIT_LINIE
++  MOEGLICHER_ZUG_OHNE_LINIE
+}
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Rennen_strecke_zeichnen {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_RECHTECK_HINTERGRUND
+- String CSS_STYLE_CLASS_LINIE_GITTER
+- String CSS_STYLE_CLASS_LINIE_STRECKE
+- String CSS_STYLE_CLASS_LINIE_START
+- String CSS_STYLE_CLASS_POLYGON_STARTRICHTUNG
+- String CSS_STYLE_CLASS_POLYGON_RANDDURCHGANG
+- Rectangle rechteck_hintergrund
+- ArrayList<Line> linien_gitter
+- HashMap<Linie,Line> map_streckenlinie_fxline
+- Line line_start
+- ArrayList<Polygon> polygone_start_richtung
+- ArrayList<Polygon> polygone_rand_durchgaenge
+- void init_gitter_und_hintergrund()
+- void init_strecken_linien_zeichnen()
+- void init_start_linie_zeichnen()
+- void init_start_richtung_zeichnen()
+- void init_rand_durchgaenge_zeichnen()
++ Rectangle getRechteck_hintergrund()
++ ArrayList<Line> getLinien_gitter()
++ HashMap<Linie,Line> getMap_streckenlinie_fxline()
++ Line getLine_start()
++ ArrayList<Polygon> getPolygone_start_richtung()
++ ArrayList<Polygon> getPolygone_rand_durchgaenge()
+- Polygon create_dreieck(int,int,boolean,boolean,String)
+}
+
+
+class de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel {
+- double B_RAND_GRID
+- double H_RAND_GRID
++ double CLICK_TOLERANZ_GRID
+- double B_MAX_PIXEL
+- double H_MAX_PIXEL
+- double B_STRECKE_PIXEL_MIT_RAND
+- double H_STRECKE_PIXEL_MIT_RAND
+- int B_STRECKE_GRID_OHNE_RAND
+- int H_STRECKE_GRID_OHNE_RAND
+- double B_STRECKE_GRID_MIT_RAND
+- double H_STRECKE_GRID_MIT_RAND
++ double B_1GRID_IN_PIXEL
++ double H_1GRID_IN_PIXEL
+- double init_calc_b_strecke_pixel_mit_rand(double,double,double,double)
+- double init_calc_h_strecke_pixel_mit_rand(double,double,double,double)
++ double posXGrid_to_posXPixel(double)
++ double posYGrid_to_posYPixel(double)
+- double posXPixel_to_posXGrid(double)
+- double posYPixel_to_posYGrid(double)
++ Integer posXPixel_to_posXGrid_round(double)
++ Integer posYPixel_to_posYGrid_round(double)
++ double get_b_strecke_pixel_mit_rand()
++ double get_h_strecke_pixel_mit_rand()
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.Rennstrecke_db_table {
++ String DEFAULT_STRECKEN_RENNSTRECKEN_CSV_PATH
++ String TABELLENNAME
++ String SPALTENNAME_NAME
++ String SPALTENNAME_IS_STANDARTSTRECKE
++ String SPALTENNAME_BREITE
++ String SPALTENNAME_HOEHE
++ String SPALTENNAME_IS_STARTRICHTUNG_NACH_UNTEN_ODER_RECHTS
++ String SPALTENNAME_ANZ_RUNDEN
++ String SPALTENNAME_STRECKEN_BESTZEIT
+# String get_create_table_string()
+# void save_rennstrecke(Rennstrecke)
+# Rennstrecke load_rennstrecke_complete(String)
+# void delete_rennstrecke_complete(String)
+# ArrayList<String> get_strecken_namen()
+# ArrayList<String> get_strecke_standart_namen()
+# ArrayList<String> get_strecke_standart_namen(Connection)
+# ArrayList<String> get_strecke_custom_namen()
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.SQLite_db_connection {
+# {static} SQLite_db_connection instance
+# {static} Connection connection
+# {static} String URL
+# {static} SQLite_db_connection getInstance()
+# Connection getConnection()
+- void createTables()
+- void import_default_strecken_from_csv()
+- void rennstrecken_from_csv(Connection)
+- void startlinien_from_csv(Connection)
+- void streckenlinien_from_csv(Connection)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller.StreckeWaehlenController {
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+~ GridPane streckeWaehlen_grid_root
+~ ListView<String> streckeWaehlen_listview_standartStrecken
+~ ListView<String> streckeWaehlen_listview_eigeneStrecken
+- Spieler spieler
+- ArrayList<String> strecken_default
+- ObservableList<String> observable_strecken_default_for_listview
+- ArrayList<String> strecken_custom
+- ObservableList<String> observable_strecken_custom_for_listview
+- String strecken_name_selected
++ void initialize()
++ void initialize_spieler(Spieler)
+- void init_load_strecken()
+- void init_listview_strecken_default()
+- void init_listview_strecken_custom()
++ void streckeWaehlen_bn_zurueck_action(ActionEvent)
++ void streckeWaehlen_bn_weiter_action(ActionEvent)
++ void streckeWaehlen_bn_neuerStrecke_action(ActionEvent)
++ void streckeWaehlen_bn_streckeLoeschen_action(ActionEvent)
+}
+
+
+class de.christian_koehler_iu.rennspiel.data_classes.Linie {
+- Punkt p0
+- Punkt p1
++ Punkt getP0()
++ void setP0(Punkt)
++ Punkt getP1()
++ void setP1(Punkt)
++ boolean is_horizontal()
++ boolean is_vertikal()
++ boolean hat_schnittpunkt_mit_linie(Linie)
+- double schnittpunktberechnung_orientierung(Punkt,Punkt,Punkt)
+- double schnittpunktberechnung_orientierung(double,double,double,double,double,double)
+- boolean schnittpunktberechnung_liegtAufLinie(Punkt,Punkt,Punkt)
+- boolean schnittpunktberechnung_liegtAufLinie(double,double,double,double,double,double)
++ boolean liegt_punkt_auf_linie(Punkt)
++ boolean liegt_punkt_auf_linie(double,double)
++ double get_max_breite_oder_hoehe()
++ boolean is_jede_koordinate_ganzzahl()
++ String toString()
++ boolean equals(Object)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller.RennenBeendetController {
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+~ GridPane rennenBeendet_grid_root
+~ Button rennenBeendet_bn_weiter
+~ Button rennenBeendet_bn_nochmal
+~ Button rennenBeendet_bn_beenden
+~ GridPane rennenBeendet_grid_spielerPlatzierung
+~ GridPane rennenBeendet_grid_streckeBestzeit
+- double B_MAX_PIXEL
+- double H_MAX_PIXEL
+- Spieler aktiver_spieler
+- Rennstrecke rennstrecke
+- ArrayList<Spieler> spieler_alle
+- ArrayList<Spieler> mitspieler
+~ HashMap<Spieler,Spieler_fahrverlauf> zuordnung_spieler_spielerFahrverlauf
+- URL url_to_stylesheet
+- String CSS_STYLE_CLASS_LABEL_SMALL
++ void initialize()
++ void initialize_rennstrecke_spieler_mitspieler_fahrverlaeufe(Rennstrecke,Spieler,ArrayList<Spieler>,HashMap<Spieler,Spieler_fahrverlauf>)
+- void init_sort_spieler_nach_zeit()
+- void init_grid_spieler_paltzierung()
+- void init_grid_strecken_bestzeit()
++ void rennenBeendet_bn_weiter_action(ActionEvent)
++ void rennenBeendet_bn_nochmal_action(ActionEvent)
++ void rennenBeendet_bn_beenden_action(ActionEvent)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller.StreckeErstellenController {
+- GridPane streckeErstellen_grid_root
+- GridPane streckeErstellen_grid_rechts
+- Group streckeErstellen_group_strecke
+- ListView<String> streckeErstellen_listview_streckenlinien
+- Label streckeErstellen_lb_streckengroesse
+- Label streckeErstellen_lb_fehler
+- Button streckeErstellen_bn_streckenLinieZeichnen
+- Button streckeErstellen_bn_startLinieZeichnen
+- Button streckeErstellen_bn_letzteStrLinieLoeschen
+- Button streckeErstellen_bn_startRichtungAendern
+- Button streckeErstellen_bn_streckeSpeichern
+- TextField streckeErstellen_tf_anzRunden
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+- String css_style_button_streckenLinie_pressed
+- String css_style_button_startLinie_pressed
+- StreckeErstellen_helper _StreckeErstellenHelper
+- double B_MAX_PIXEL
+- double H_MAX_PIXEL
+- Rennstrecke rennstrecke
+- Spieler spieler
+- Zeichnungszustand zeichnungszustand
++ void initialize()
++ void initialize_spieler_rennstrecke(Spieler,Rennstrecke)
+- void init_create_listView_selected_changeListener()
++ void streckeErstellen_bn_streckeSpeichern_action(ActionEvent)
++ void streckeErstellen_bn_zurueck_action(ActionEvent)
++ void streckeErstellen_bn_gewStrLinieLoeschen_action(ActionEvent)
++ void streckeErstellen_bn_streckenLinieZeichnen_action(ActionEvent)
++ void streckeErstellen_bn_startLinieZeichnen_action(ActionEvent)
++ void streckeErstellen_bn_letzteStrLinieLoeschen_action(ActionEvent)
++ void streckeErstellen_bn_startRichtungAendern_action(ActionEvent)
++ void streckeErstellen_group_strecke_mPressed(MouseEvent)
++ void streckeErstellen_group_strecke_mDragged(MouseEvent)
++ void streckeErstellen_group_mReleased(MouseEvent)
+}
+
+
+enum de.christian_koehler_iu.rennspiel.controller.Zeichnungszustand {
++  STRECKENLINIE_ZEICHNEN
++  STARTLINIE_ZEICHNEN
++  KEINS_GEWAEHLT
+}
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Rennen_start_positionen_waehlen {
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- Rennstrecke rennstrecke
+- Group group_strecke
+- ArrayList<Spieler> spieler
+- Label label_renn_infos
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- I_aufgabe_beendet i_aufgabe_beendet
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_CIRCLE_MOEGLICHE_POS
+- String CSS_STYLE_CLASS_CIRCLE_FAHR_POS
+- HashMap<Spieler,Punkt> zuordnung_spieler_startpunkt
+- HashMap<Spieler,Circle> zuordnung_spieler_fxStartNode
+- int akt_index_spieler
+- ArrayList<Circle> fx_nodes_moegliche_startpunkte
+- void start_choice_next_spieler()
+- void zeichne_moegliche_startpositionen()
+- ArrayList<Punkt> get_moegliche_startpunkte()
++ HashMap<Spieler,Circle> getZuordnung_spieler_fxStartNode()
++ HashMap<Spieler,Punkt> getZuordnung_spieler_startpunkt()
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection {
++ void save_rennstrecke_complete(Rennstrecke)
++ Rennstrecke load_rennstrecke_complete(String)
++ ArrayList<String> load_rennstrecke_namen()
++ ArrayList<String> load_rennstrecke_standart_namen()
++ ArrayList<String> load_rennstrecke_custom_namen()
++ void delete_rennstrecke_complete(String)
++ Double get_strecken_bestzeit(String)
++ String get_strecke_bester_spieler(String)
+}
+
+class de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke {
+- String name
+- boolean is_standartstrecke
+- int breite
+- int hoehe
+- ArrayList<Linie> streckenlinien
+- Linie startlinie
+- boolean is_startrichtung_nach_unten_oder_rechts
+- int anz_runden
++ String getName()
++ boolean get_is_standartstrecke()
++ void set_is_standartstrecke(boolean)
++ int getBreite()
++ int getHoehe()
++ ArrayList<Linie> getStreckenlinien()
++ void set_streckenlinien(ArrayList<Linie>)
++ void addStreckenlinie(Linie)
++ void addStreckenlinie(int,int,int,int)
++ void removeStreckenlinie(Linie)
++ void removeLastStreckenlinie()
++ Linie getStartlinie()
++ void setStartlinie(Linie)
++ void setStartlinie(int,int,int,int)
++ boolean get_is_startrichtung_nach_unten_oder_rechts()
++ void set_is_startrichtung_nach_unten_oder_rechts(boolean)
++ int get_anz_runden()
++ void set_anz_runden(int)
++ int get_max_anz_spielern()
++ {static} Rennstrecke generate_strecke_01()
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.Startlinie_db_table {
++ String DEFAULT_STRECKEN_STARTLINIEN_CSV_PATH
+# String TABELLENNAME
+# String SPALTENNAME_ID
+# String SPALTENNAME_FK_RENNSTRECKE
+# String SPALTENNAME_X0
+# String SPALTENNAME_Y0
+# String SPALTENNAME_X1
+# String SPALTENNAME_Y1
+# String get_create_table_string()
+# void saveStartlinie(Linie,String)
+# Linie get_startlinie(String)
+# void delete_startlinie(String)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Rennen_spieler_info_labels {
+- Label lb_spieler_name
+- Label lb_spieler_runde
+- Label lb_spieler_zeit
+- Label lb_spieler_status
+- String spieler_farbe
+- int anz_runden_der_strecke
+- String path_to_stylesheet
+- String CSS_STYLE_CLASS_LABEL_SMALL
++ void set_spieler_runde(int)
++ void set_spieler_zeit(Double)
++ void set_spieler_status(String)
++ Label get_lb_spieler_name()
++ Label get_lb_spieler_runde()
++ Label get_lb_spieler_zeit()
++ Label get_lb_spieler_status()
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller.MitspielerWaehlenController {
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+~ GridPane mitspielerWaehlen_grid_root
+~ Label mitspielerWaehlen_lb_spieler
+~ Label mitspielerWaehlen_lb_rennstrecke
+~ Label mitspielerWaehlen_lb_maxAnzMitspieler
+~ Label mitspielerWaehlen_lb_keineMitspielerVorhanden
+~ ListView<String> mitspielerWaehlen_listview_mitspieler
+- Spieler spieler
+- Rennstrecke rennstrecke
+- ArrayList<String> mitspieler
+- ObservableList<String> observable_mitspieler_for_listview
++ void initialize()
++ void initialize_spieler_und_Rennstrecke(Spieler,Rennstrecke)
+- void init_load_mitspieler()
+- void init_listview()
++ void mitspielerWaehlen_bn_zurueck_action(ActionEvent)
++ void mitspielerWaehlen_bn_weiter_action(ActionEvent)
++ void mitspielerWaehlen_bn_neuerSpieler_action(ActionEvent)
+}
+
+
+class de.christian_koehler_iu.rennspiel.database.Spieler_database_connection {
++ void save_new_spieler(String)
++ Spieler load_spieler_complete(String)
++ ArrayList<String> load_spieler_namen()
++ boolean is_spieler_name_vorhanden(String)
++ void delete_spieler_complete(String)
++ void save_spieler_rennstrecke_bestzeit(String,String,Double)
+}
+
+class de.christian_koehler_iu.rennspiel.data_classes.Spieler {
+- String name
+- HashMap<String,Double> strecken_bestzeiten
++ String get_name()
++ HashMap<String,Double> get_strecken_bestzeiten()
++ void set_strecken_bestzeiten(HashMap<String,Double>)
++ void process_new_strecken_zeit(String,Double)
++ Double get_bestzeit_von_strecke(String)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller.ScenesManager {
+- {static} ScenesManager scenesManager
+- {static} int FENSTER_BREITE
+- {static} int FENSTER_HOEHE
+- Stage STAGE
++ {static} ScenesManager getInstance()
++ {static} ScenesManager getInstance(Stage)
++ void switch_to_spieler_wahlen()
++ void switch_to_spieler_erstellen()
++ void switch_to_strecke_waehlen(Spieler)
++ void switch_to_mitspieler_waehlen(Spieler,Rennstrecke)
++ void switch_to_strecke_groesse_wahlen(Spieler)
++ void switch_to_strecke_erstellen(Spieler,Rennstrecke)
++ void switch_to_rennen(Rennstrecke,Spieler,ArrayList<Spieler>)
++ void switch_to_rennen_beendet(Rennstrecke,Spieler,ArrayList<Spieler>,HashMap<Spieler,Spieler_fahrverlauf>)
+- T switch_scene(String)
++ void show_toast_neutral(String)
++ void show_toast_warning(String)
++ void show_dialog_neutral(String,String,String,I_dialog_actions)
++ void show_dialog_warning(String,String,String,I_dialog_actions)
+}
+
+
+interface de.christian_koehler_iu.rennspiel.controller.ScenesManager$I_dialog_actions {
+~ void ok_action()
+~ void cancel_action()
+}
+
+class de.christian_koehler_iu.rennspiel.database.Streckenlinie_db_table {
++ String DEFAULT_STRECKEN_STRECKENLINIEN_CSV_PATH
+# String TABELLENNAME
+# String SPALTENNAME_ID
+# String SPALTENNAME_FK_RENNSTRECKE
+# String SPALTENNAME_X0
+# String SPALTENNAME_Y0
+# String SPALTENNAME_X1
+# String SPALTENNAME_Y1
+# String get_create_table_string()
+# void saveStreckenlinie(Linie,String)
+# ArrayList<Linie> getStreckenlinien(String)
+# void delete_streckenlinien_der_rennstrecke(String)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller_helper.Rennen_beendet {
+}
+class de.christian_koehler_iu.rennspiel.controller.StreckeGroesseWaehlenController {
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
++ double RAND_X_GRID
++ double RAND_Y_GRID
++ double CLICK_TOLERANZ_GRID
+- Spieler spieler
+- GridPane streckeGroesse_grid_root
+- Button streckeGroesse_bn_zurueck
+- Button streckeGroesse_bn_weiter
+- Label streckeGroesse_lb_fehler
+- TextField streckeGroesse_tf_breite
+- TextField streckeGroesse_tf_streckenname
+- TextField streckeGroesse_tf_hoehe
++ void initialize()
++ void initialize_spieler(Spieler)
++ void streckeGroesse_bn_zurueck_action(ActionEvent)
++ void streckeGroesse_bn_weiter_action(ActionEvent)
+}
+
+
+interface de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet {
++ void aufgabe_beendet()
+}
+
+class de.christian_koehler_iu.rennspiel.controller.SpielerErstellenController {
+- GridPane spielerErstellen_grid_root
+- Label spielerErstellen_lb_fehler
+- Button spielerErstellen_bn_zurueck
+- Button spielerErstellen_bn_weiter
+- TextField spielerErstellen_tf_spielerName
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
++ void initialize()
++ void spielerErstellen_bn_zurueck_action(ActionEvent)
++ void spielerErstellen_bn_weiter_action(ActionEvent)
+}
+
+
+class de.christian_koehler_iu.rennspiel.controller.SpielerWaehlenController {
+- GridPane spielerWaehlen_grid_root
+- ListView<String> spielerWaehlen_listview_spieler
+- Button spielerWaehlen_bn_beenden
+- Button spielerWaehlen_bn_weiter
+- Button spielerWaehlen_bn_neuerSpieler
+- Button spielerWaehlen_bn_spielerLoeschen
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+- ArrayList<String> vorhandene_spieler
+- ObservableList<String> observable_vorhandene_spieler_for_listview
+- String spieler_name_selected
++ void initialize()
+- void init_listview()
+- void reload_listview()
++ void spielerWaehlen_bn_beenden_action(ActionEvent)
++ void spielerWaehlen_bn_weiter_action(ActionEvent)
++ void spielerWaehlen_bn_neuerSpieler_action(ActionEvent)
++ void spielerWaehlen_bn_spielerLoeschen_action(ActionEvent)
+- void spieler_selected_loeschen()
+}
+
+
+
+
+de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf +.. de.christian_koehler_iu.rennspiel.controller_helper.Rennen_renn_verlauf$I_rennen_renn_verlauf
+javafx.application.Application <|-- de.christian_koehler_iu.rennspiel.MainApplication
+de.christian_koehler_iu.rennspiel.controller_helper.StreckeErstellen_helper +.. de.christian_koehler_iu.rennspiel.controller_helper.StreckeErstellen_helper$I_Link_StrErstController_Rennstrecke
+de.christian_koehler_iu.rennspiel.interfaces.I_rennstrecke_database <|.. de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection
+de.christian_koehler_iu.rennspiel.interfaces.I_spieler_database <|.. de.christian_koehler_iu.rennspiel.database.Spieler_database_connection
+de.christian_koehler_iu.rennspiel.controller.ScenesManager +.. de.christian_koehler_iu.rennspiel.controller.ScenesManager$I_dialog_actions
+@enduml

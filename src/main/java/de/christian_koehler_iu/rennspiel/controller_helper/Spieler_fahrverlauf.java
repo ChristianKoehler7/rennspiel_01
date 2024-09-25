@@ -487,7 +487,4 @@ public class Spieler_fahrverlauf {
         // gesamtzeit berechnen und ausgeben
         return anz_ganze_fahrlinien + anteil_bis_ziel;
     }
-
-
-
 }

@@ -1,0 +1,37 @@
+@startuml
+class de.christian_koehler_iu.rennspiel.controller.RennenController {
++ {static} String PATH_TO_FXML
++ {static} String SCENE_NAME
+~ GridPane rennen_grid_root
+~ Label rennen_lb_streckenName
+~ VBox rennen_vbox_info
+~ Label rennen_lb_rennInfos
+~ Label rennen_lb_anzStreckenRunden
+~ Group rennen_group_strecke
+~ GridPane rennen_grid_spieler_info
+~ Button rennen_bn_rennenBeenden
+~ Button rennen_bn_weiter
+- double B_MAX_PIXEL
+- double H_MAX_PIXEL
+- Spieler aktiver_spieler
+- Rennstrecke rennstrecke
+- ArrayList<Spieler> mitspieler
+- ArrayList<Spieler> spieler
+- String[] farben
+- HashMap<Spieler,String> zurordnung_spieler_farbe
+- URL url_to_stylesheet
+- Umrechnung_grid_pixel umrechnung_grid_pixel
+- HashMap<Spieler,Rennen_spieler_info_labels> zurordnung_spieler_infoLabels
+- Rennen_start_positionen_waehlen rennen_start_positionen_waehlen
+- HashMap<Spieler,Spieler_fahrverlauf> rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf
++ void initialize()
++ void initialize_spieler_rennstrecke_mitspieler(Spieler,Rennstrecke,ArrayList<Spieler>)
+- void start_positionen_waehlen()
+- void rennen_starten()
+- void rennen_renn_verlauf_beendet(HashMap<Spieler,Spieler_fahrverlauf>)
++ void rennen_bn_rennenBeenden_action(ActionEvent)
++ void rennen_bn_weiter_action(ActionEvent)
+}
+
+
+@enduml

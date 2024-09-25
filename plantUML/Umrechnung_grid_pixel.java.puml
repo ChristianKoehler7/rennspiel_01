@@ -1,0 +1,18 @@
+@startuml
+class Umrechnung_grid_pixel {
+- double B_RAND_GRID
+- double H_RAND_GRID
++ double CLICK_TOLERANZ_GRID
+- double B_MAX_PIXEL
+- double H_MAX_PIXEL
+- double B_STRECKE_PIXEL_MIT_RAND
+- double H_STRECKE_PIXEL_MIT_RAND
+- int B_STRECKE_GRID_OHNE_RAND
+- int H_STRECKE_GRID_OHNE_RAND
+- double B_STRECKE_GRID_MIT_RAND
+- double H_STRECKE_GRID_MIT_RAND
++ double B_1GRID_IN_PIXEL
++ double H_1GRID_IN_PIXEL
+}
+
+@enduml

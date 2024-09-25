@@ -63,7 +63,7 @@ public class RennenController {
 
     private Rennen_start_positionen_waehlen rennen_start_positionen_waehlen;
 
-    HashMap<Spieler, Spieler_fahrverlauf> rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf;
+    private HashMap<Spieler, Spieler_fahrverlauf> rueckgabe_von_rennverlauf_zuordnung_spieler_spielerFahrverlauf;
 
 
     @FXML
@@ -132,7 +132,7 @@ public class RennenController {
         this.umrechnung_grid_pixel = new Umrechnung_grid_pixel(B_MAX_PIXEL, H_MAX_PIXEL, rennstrecke.getBreite(), rennstrecke.getHoehe());
 
         // rennstrecke zeichnen
-        Rennen_strecke_zeichnen rennen_strecke_zeichnen = new Rennen_strecke_zeichnen(umrechnung_grid_pixel, rennstrecke, rennen_group_strecke);
+        new Rennen_strecke_zeichnen(umrechnung_grid_pixel, rennstrecke, rennen_group_strecke);
 
         // startpositionen wählen
         start_positionen_waehlen();

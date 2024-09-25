@@ -1,0 +1,42 @@
+' planUML daten klassen
+
+@startuml
+'-----------------------------------------------------------
+' klassen definieren
+'-----------------------------------------------------------
+
+class Rennstrecke {
+    String name
+    boolean is_standartstrecke
+    int breite
+    int hoehe
+    ArrayList<Linie> streckenlinien
+    Linie startlinie
+    boolean is_startrichtung_nach_unten_oder_rechts
+    int anz_runden
+}
+
+class Spieler {
+    String name
+    HashMap<String, Double> strecken_bestzeiten
+}
+
+class Linie {
+    Punkt p0
+    Punkt p1
+}
+
+class Punkt {
+    double x
+    double y
+}
+
+'-----------------------------------------------------------
+' beziehungen definieren
+'-----------------------------------------------------------
+
+Rennstrecke "1" *-- "1...n" Linie
+Linie "1" *-- "2" Punkt
+
+
+@enduml

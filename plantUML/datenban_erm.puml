@@ -1,0 +1,72 @@
+@startuml
+'-------------------------------------------------
+' einstellungen
+'-------------------------------------------------
+skinparam linetype polyline
+skinparam linetype ortho
+
+'-------------------------------------------------
+' entitäten
+'-------------------------------------------------
+entity Rennstrecke {
+  * name: TEXT <<PK>>
+  --
+  * is_standartstrecke: BOOLEAN
+  * breite: INTEGER
+  * hoehe: INTEGER
+  * is_startrichtung_nach_unten_oder_rechts: BOOLEAN
+  * anz_runden: INTEGER
+}
+
+entity Streckenlinie {
+  * id: INTEGER <<PK>>
+  --
+  * fk_rennstrecke: TEXT <<FK>>
+  * x0: INTEGER
+  * y0: INTEGER
+  * x1: INTEGER
+  * y1: INTEGER
+}
+
+entity Startlinie {
+  * id: INTEGER <<PK>>
+  --
+  * fk_rennstrecke: TEXT  <<FK>>
+  * x0: INTEGER
+  * y0: INTEGER
+  * x1: INTEGER
+  * y1: INTEGER
+}
+
+entity Spieler {
+  * name: TEXT <<PK>>
+  --
+}
+
+entity Link_rennstrecke_spielerBestzeit {
+  * id: INTEGER <<PK>>
+  --
+  * fk_rennstrecke: TEXT  <<FK>>
+  * fk_spieler: TEXT  <<FK>>
+  * bestzeit: REAL
+}
+
+'-------------------------------------------------
+' beziehungen
+'-------------------------------------------------
+' Eine oder Keine 	|o--
+' Exakt Eine 		||--
+' Keine oder Viele 	}o--
+' Eine oder Viele 	}|--
+
+Rennstrecke ||--o{ Streckenlinie
+
+Rennstrecke ||--|| Startlinie
+
+Link_rennstrecke_spielerBestzeit }o--|| Rennstrecke
+Link_rennstrecke_spielerBestzeit }o--|| Spieler
+
+
+
+@enduml
+

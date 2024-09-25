@@ -1,0 +1,7 @@
+@startuml
+class Spieler {
+- String name
+- HashMap<String,Double> strecken_bestzeiten
+}
+
+@enduml

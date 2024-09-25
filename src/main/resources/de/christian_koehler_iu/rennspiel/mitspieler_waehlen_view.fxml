@@ -43,5 +43,6 @@
             <Label fx:id="mitspielerWaehlen_lb_maxAnzMitspieler" styleClass="label-medium" text="Anzahl" />
          </children>
       </VBox>
+      <Label fx:id="mitspielerWaehlen_lb_keineMitspielerVorhanden" styleClass="label-error" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
     </children>
 </GridPane>

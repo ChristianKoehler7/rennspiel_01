@@ -94,7 +94,8 @@ public class Rennstrecke {
     }
 
     public void removeLastStreckenlinie() {
-        this.streckenlinien.removeLast();    }
+        this.streckenlinien.remove(this.streckenlinien.size()-1);
+    }
 
     @Nullable
     public Linie getStartlinie() {

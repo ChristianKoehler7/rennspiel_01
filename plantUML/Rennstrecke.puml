@@ -1,0 +1,13 @@
+@startuml
+class Rennstrecke {
+- String name
+- boolean is_standartstrecke
+- int breite
+- int hoehe
+- ArrayList<Linie> streckenlinien
+- Linie startlinie
+- boolean is_startrichtung_nach_unten_oder_rechts
+- int anz_runden
+}
+
+@enduml

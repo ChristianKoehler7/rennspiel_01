@@ -305,6 +305,18 @@ public class Fahrlinie {
         }
     }
 
+    /**
+     * der methode werden eine startposition übergeben, die im spielfeld liegt und delta_x und delta_y
+     *  der methoden aufruf kümmert sich nur um die linie die sich noch im spielfeld befindet,
+     *  sobald ein randduchgang stattfindet, ruft sich die methode mit angepassten werten erneut auf
+     *  -> rekursive methode
+     * @param fx_nodes_for_zug
+     * @param fahrlinien_style
+     * @param start_x_grid
+     * @param start_y_grid
+     * @param delta_x_grid
+     * @param delta_y_grid
+     */
     private void generate_fx_nodes_for_zug(
             ArrayList<Node> fx_nodes_for_zug,
             Fahrlinien_styles fahrlinien_style,
@@ -329,7 +341,7 @@ public class Fahrlinie {
                             end_y_grid,
                             fahrlinien_style
             );
-            // prüfen ob line null ist
+            // prüfen ob line null ist, das ist je nach da fahrlinien_style der fall
             if(line != null){
                 // line der arraylist hinzufügen
                 fx_nodes_for_zug.add(line);
@@ -439,7 +451,7 @@ public class Fahrlinie {
                     delta_x_grid_neu,
                     delta_y_grid_neu
             );
-        }else if(delta_x_grid > 0 && delta_y_grid>0){
+        }else if(delta_x_grid>0 && delta_y_grid>0){
             System.out.println("Fahrlinie: generate_fx_nodes_for_zug() -> line nach rechts unten");
             // line nach rechts unten
             // y wert berechnen für den rechten randdurchgang => y = f(x=b)

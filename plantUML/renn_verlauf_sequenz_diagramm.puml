@@ -1,0 +1,35 @@
+@startuml
+'skinparam linetype polyline
+'skinparam linetype ortho
+
+actor Spieler
+participant "Rennen_controller" as RC
+participant "Rennen_renn_verlauf" as RV
+participant "Spieler_fahrverlauf" as SF
+
+== Start des Rennverlaufs ==
+RC -> RV : start_next_zug()
+
+alt alle Spieler raus
+    RV -> RV : rennen_beendet()
+    RV -> RC : rennen_beendet(HashMap<Spieler,Spieler_fahrverlauf>)
+else akt Spieler raus
+    RV -> RV : zug_beendet()
+    RV -> RV : start_next_zug()
+else akt Spieler nicht raus
+    RV -> SF : start_zug()
+    SF -> SF : zeichne_moegliche_positionen()
+end
+
+== Spieleraktion ==
+Spieler -> RV : mouse_clicked()
+RV -> SF : mouse_clicked()
+
+alt click auf valide Position
+    SF -> SF : fahre_zur_neuen_position()
+    SF -> SF : zug_beendet()
+    SF -> RV : zug_beendet()
+    RV -> RV : start_next_zug()
+end
+
+@enduml
