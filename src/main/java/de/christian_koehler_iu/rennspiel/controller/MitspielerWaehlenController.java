@@ -114,7 +114,8 @@ public class MitspielerWaehlenController {
 
             // Wenn es Teil einer Zelle ist oder die Zelle selbst,
             // das Ereignis selbst handhaben, anstatt die Standardbehandlung zu verwenden
-            if (node instanceof ListCell cell) {
+            if (node instanceof ListCell) {
+                ListCell cell = (ListCell) node;  // explizites Casting
                 // Weitere Verarbeitung verhindern
                 evt.consume();
 
