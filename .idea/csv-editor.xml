@@ -3,6 +3,27 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\rennen_starten\classes\de\christian_koehler_iu\rennspiel\default_strecken_rennstrecken.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\rennen_starten\classes\de\christian_koehler_iu\rennspiel\default_strecken_startlinien.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\rennen_starten\classes\de\christian_koehler_iu\rennspiel\default_strecken_streckenlinien.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\rennspiel_starten\classes\de\christian_koehler_iu\rennspiel\default_strecken_rennstrecken.csv">
           <value>
             <Attribute>

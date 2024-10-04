@@ -6,7 +6,10 @@ Dies ist ein einfaches Rennspiel, das mit Java und JavaFX entwickelt wurde. Dies
 
 Um das Rennspiel auszuführen, benötigen Sie das folgende Softwarepaket:
 
-- **Java Development Kit (JDK)**: Stellen Sie sicher, dass Sie mindestens JDK 11 installiert haben. Sie können die neueste Version von [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) oder [OpenJDK](https://openjdk.java.net/install/) herunterladen und installieren.
+- **Java Development Kit (JDK)**: Stellen Sie sicher, dass Sie mindestens JDK 21 installiert haben
+- hier ist der Downloadlink der neuesten Version von OpenJDK (22.0.2) [OpenJDK](https://download.java.net/java/GA/jdk22.0.2/c9ecb94cd31b495da20a27d4581645e8/9/GPL/openjdk-22.0.2_windows-x64_bin.zip)
+- zip-Ordner entpacken und in ein beliebiges Verzeichnis verschieben
+- in den Windows-Umgebungsvariablen den Pfad zum JDK angeben (https://www.java.com/de/download/help/path.html)
 
 ## Spiel starten
 
