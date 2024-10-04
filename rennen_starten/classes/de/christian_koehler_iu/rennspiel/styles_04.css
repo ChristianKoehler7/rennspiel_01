@@ -1,0 +1,415 @@
+/*----------------------------------------------------------------------------*/
+/* CSS-Stylesheet für die gesamte Anwendung, stellt sicher, dass das komplette Spiel einheitlich aussieht */
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
+/* Grundlegende Einstellungen */
+/*----------------------------------------------------------------------------*/
+* {
+    -fx-font-family: "Arial";
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/*----------------------------------------------------------------------------*/
+/* GridPane */
+/*----------------------------------------------------------------------------*/
+.gridpane {
+    -fx-min-width: 1280;
+    -fx-min-height: 800;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-background-color: #FFFFFF; /*#ECEFF1; /* Sanftes Grau */
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+
+    -fx-background-image: url("city-3029164_1280.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1280 800;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+
+/*----------------------------------------------------------------------------*/
+/* Buttons */
+/*----------------------------------------------------------------------------*/
+/* Allgemeine Einstellungen für Buttons */
+.button {
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-width: 3;
+}
+/* Weiter/Ok Button */
+.button-weiter-ok {
+    -fx-border-color: green;
+    -fx-text-fill: green;
+}
+.button-weiter-ok:hover {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+}
+.button-weiter-ok:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Zurück/Abbrechen Button */
+.button-zurueck-abbrechen {
+    -fx-border-color: gray;
+    -fx-text-fill: gray;
+}
+.button-zurueck-abbrechen:hover {
+    -fx-background-color: gray;
+    -fx-text-fill: white;
+}
+.button-zurueck-abbrechen:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Vorsicht/Beenden/Löschen Button */
+.button-vorsicht-beenden-loeschen {
+    -fx-border-color: red;
+    -fx-text-fill: red;
+}
+.button-vorsicht-beenden-loeschen:hover {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+.button-vorsicht-beenden-loeschen:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Neutral Button */
+.button-neutral {
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+.button-neutral:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+.button-neutral:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+/* Streckenlinie zeichnen Button */
+.button-streckenlinie {
+    -fx-background-color: blue;
+}
+.button-streckenlinie:hover {
+    -fx-background-color: lightblue;
+}
+.button-streckenlinie:pressed {
+    -fx-background-color: lightblue;
+    -fx-border-color: black;
+}
+/* Startlinie zeichnen Button */
+.button-startlinie {
+    -fx-background-color: red;
+}
+.button-startlinie:hover {
+    -fx-background-color: orangered;
+}
+.button-startlinie:pressed {
+    -fx-background-color: orangered;
+    -fx-border-color: black;
+}
+
+/*----------------------------------------------------------------------------*/
+/* Labels */
+/*----------------------------------------------------------------------------*/
+.label-superlarge {
+    -fx-font-size: 36px;
+    -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-superlarge_with_background {
+    -fx-font-size: 36px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
+}
+.label-large {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-large_with_background {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
+}
+.label-medium {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-medium_with_background {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
+}
+.label-medium_with_background {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
+}
+.label-small {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-background-color: transparent;
+}
+.label-small_with_background {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-background-color: white;
+}
+.label-error {
+    -fx-background-color: red;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+.label-error-large {
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: red;
+}
+
+/*----------------------------------------------------------------------------*/
+/* ListView */
+/*----------------------------------------------------------------------------*/
+.list-view-modern {
+    -fx-background-color: #FFFFFF8F;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell { /* cell ohne inhalt*/
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell:filled:even {  /* gerader zellenindex mit inhalt*/
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000D0;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell:filled:odd {  /* ungerader zellenindex mit inhalt*/
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000D0;
+    -fx-content-display:left;
+}
+.list-view-modern .list-cell:filled:selected {
+    -fx-background-color: #00000030;
+    -fx-text-fill: white;
+}
+
+
+.list-view-modern .list-cell:filled:hover {
+    /*-fx-border-color: gray;
+    -fx-border-width: 1px;*/
+    -fx-font-weight: bold
+}
+
+
+.list-view-classic {
+    -fx-background-color: #FFFFFF8F;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+.list-view-classic .list-cell { /* cell ohne inhalt*/
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 0px;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+.list-view-classic .list-cell:filled:even {  /* gerader zellenindex mit inhalt*/
+    -fx-background-color: #FFFFFF8F;
+    -fx-background-radius: 10px;
+    -fx-border-width: 0px;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000B0;
+}
+.list-view-classic .list-cell:filled:odd {  /* ungerader zellenindex mit inhalt*/
+    -fx-background-color: #FFFFFFBF;
+    -fx-background-radius: 10px;
+    -fx-border-width: 0px;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000E0;
+}
+.list-view-classic .list-cell:filled:selected {
+    -fx-background-color: #00000050;
+    -fx-text-fill: white;
+}
+
+
+.list-view-classic .list-cell:filled:hover {
+    /*-fx-border-color: gray;
+    -fx-border-width: 1px;*/
+    -fx-font-weight: bold
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/* TextField */
+/*----------------------------------------------------------------------------*/
+/* Allgemeine Einstellungen für TextField */
+.text-field {
+    -fx-text-fill: black;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-width: 3px;
+    -fx-border-color: black;
+}
+
+.text-field-neutral {
+    -fx-text-fill: black;
+    -fx-padding: 5px 10px 5px 10px; /* oben rechts unten links*/
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-width: 3px;
+    -fx-border-color: black;
+}
+
+/*----------------------------------------------------------------------------*/
+/* VBox */
+/*----------------------------------------------------------------------------*/
+.vbox_light {
+    -fx-background-color: #ffffff80;
+    -fx-background-radius: 50;
+    -fx-padding: 25 25 25 25;
+}
+
+.vbox_dark {
+    -fx-background-color: #000000b0;
+    -fx-background-radius: 50;
+    -fx-padding: 25 25 25 25;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/* Rennen elemente */
+/*----------------------------------------------------------------------------*/
+
+.rechteck_rennen_hintergrund {
+    -fx-fill: #ffffffe8;
+    -fx-stroke: lightgray;
+    -fx-stroke-width: 1px;
+}
+
+.linie_rennen_gitter {
+    -fx-stroke: lightgray;
+    -fx-stroke-width: 0.5px;
+}
+
+.linie_rennen_strecke{
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
+}
+
+.linie_rennen_start{
+    -fx-stroke: violet;
+    -fx-stroke-width: 2px;
+}
+
+.polygon_rennen_startrichting{
+    -fx-fill: #ee82ee80; /*violet = #ee82ee*/
+    -fx-stroke: black;
+    -fx-stroke-width: 0px;
+}
+
+.polygon_rennen_randdurchgang{
+    -fx-fill: #80808080; /*gray = #808080*/
+    -fx-stroke: black;
+    -fx-stroke-width: 0px;
+}
+
+.circle_moegliche_neue_position {
+    -fx-fill: transparent; /* Keine Füllung */
+    -fx-stroke: blue; /* Blaue Randlinie */
+    -fx-stroke-width: 2; /* Dicke der Randlinie */
+    -fx-stroke-dash-array: 5 5; /* Gepunktete Linie: 5 Einheiten Linie, 5 Einheiten Lücke */
+}
+.circle_moegliche_neue_position:hover {
+    -fx-stroke-width: 3; /* Verbreitert die Linie beim Hover */
+    -fx-stroke-dash-array: 3 7; /* Ändert das Muster der gepunkteten Linie beim Hover */
+}
+.circle_moegliche_neue_position:pressed {
+    -fx-stroke-width: 4; /* Noch breitere Linie bei gedrücktem Zustand */
+    -fx-stroke-dash-array: 1 0; /* Dichtes gepunktetes Muster bei gedrücktem Zustand */
+}
+
+.linie_moegliche_neue_fahr_linie{
+    -fx-stroke: blue;
+    -fx-stroke-width: 1px;
+    -fx-stroke-dash-array: 4 8; /* gestrichelte linie */
+}
+
+
+.circle_fahr_position {
+    -fx-fill: blue;
+    -fx-stroke: blue; /* Blaue Randlinie */
+    -fx-stroke-width: 0; /* Dicke der Randlinie */
+    -fx-stroke-dash-array: 5 5; /* Gepunktete Linie: 5 Einheiten Linie, 5 Einheiten Lücke */
+}
+
+.linie_fahr_linie{
+    -fx-stroke: blue;
+    -fx-stroke-width: 2px;
+}
+
+
+.linie_unsichtbar{
+    -fx-stroke-width: 0px;
+}
+

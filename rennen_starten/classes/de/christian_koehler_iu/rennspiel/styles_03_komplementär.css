@@ -1,0 +1,136 @@
+/* Allgemeine Einstellungen */
+* {
+    -fx-font-family: "Arial", sans-serif;
+}
+
+/* Großes Label */
+.label-large {
+    -fx-font-size: 24px;
+    -fx-text-fill: #2196F3; /* Blau */
+}
+
+/* Mittleres Label */
+.label-medium {
+    -fx-font-size: 18px;
+    -fx-text-fill: #FF9800; /* Orange */
+}
+
+/* Kleines Label */
+.label-small {
+    -fx-font-size: 14px;
+    -fx-text-fill: #9E9E9E; /* Grau */
+}
+
+/* Fehlermeldung Label */
+.label-error {
+    -fx-font-size: 14px;
+    -fx-text-fill: #FF4C4C;
+    -fx-font-weight: bold;
+}
+
+/* Allgemeiner Button Style */
+.button {
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+/* Primärer Button (Blau) */
+.button-primary {
+    -fx-background-color: #2196F3; /* Blau */
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1976D2;
+}
+
+.button-primary:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+/* Sekundärer Button (Orange) */
+.button-secondary {
+    -fx-background-color: #FF9800; /* Orange */
+    -fx-text-fill: white;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #FB8C00;
+}
+
+.button-secondary:pressed {
+    -fx-background-color: #EF6C00;
+}
+
+/* Neutraler Button (Grau) */
+.button-neutral {
+    -fx-background-color: #9E9E9E; /* Grau */
+    -fx-text-fill: white;
+}
+
+.button-neutral:hover {
+    -fx-background-color: #757575;
+}
+
+.button-neutral:pressed {
+    -fx-background-color: #616161;
+}
+
+/* Button nur mit Text, ohne Hintergrund und Rahmen */
+.button-textonly {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FF9800; /* Orange */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border: none;
+    -fx-cursor: hand;
+}
+
+.button-textonly:hover {
+    -fx-text-fill: #FB8C00;
+}
+
+.button-textonly:pressed {
+    -fx-text-fill: #EF6C00;
+}
+
+/* Grid */
+.grid {
+    -fx-padding: 10px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-background-color: #FFFFFF /*#ECEFF1; /* Sanftes Grau */
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+
+    -fx-background-image: url("city-3029164_1280.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1280 800;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+/* ListView */
+.list-view {
+    -fx-background-color: #fff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.list-view .list-cell {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #2196F3; /* Blau */
+    -fx-text-fill: white;
+}
