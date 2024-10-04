@@ -16,8 +16,8 @@ Um das Rennspiel zu starten, folgen Sie diesen Schritten:
    - stellen Sie sicher, dass Sie das JDK (OpenJDK oder Oracle JDK) installiert haben
 
 2. **Ordner vorbereiten**:
-   - laden Sie sich das gesamte Repository herunter
-   - kopieren Sie den `rennspiel_starten`-Ordner in ein beliebiges Verzeichnis
+   - laden Sie sich das gesamte Repository herunter und entpacken Sie die zip-Datei
+   - kopieren Sie den Ordner `rennspiel_starten` in ein beliebiges Verzeichnis
 
 3. **Öffnen Sie eine Kommandozeile (Terminal)**:
    - navigieren Sie in das Verzeichnis des `rennspiel_starten`-Ordners

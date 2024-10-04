@@ -13,11 +13,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Abgabe Phase 3&#10;alle Klassen dokumentiert" />
+    <list default="true" id="5c48caf7-2355-4552-8441-992d601241ec" name="Changes" comment="Abgabe Phase 3&#10;ausführbare ordner erstellt und jdk herbgesetzt auf 11">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -66,49 +75,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.de.christian_koehler_iu.rennspiel.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
-    &quot;JAR Application.jrt-fs.jar.executor&quot;: &quot;Run&quot;,
-    &quot;JAR Application.original-rennspiel-1.0-SNAPSHOT.jar.executor&quot;: &quot;Run&quot;,
-    &quot;JAR Application.rennspiel-1.0-SNAPSHOT.jar.executor&quot;: &quot;Run&quot;,
-    &quot;JAR Application.rennspiel.jar.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [javafx:jlink].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [org.apache.maven.plugins:maven-jar-plugin:2.4:jar].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [org.apache.maven.plugins:maven-jar-plugin:3.2.0:jar].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [org.apache.maven.plugins:maven-shade-plugin:3.4.1:shade].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [site].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.rennspiel [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/java/de/christian_koehler_iu/rennspiel&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/meineDaten/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/dokumentation/02_erarbeitungsUndReflexionsphase/latex/Abbildungen/renn_verlauf_sequenz_diagramm.png&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Subversion.SSH&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Application.MainApplication.executor": "Run",
+    "Application.de.christian_koehler_iu.rennspiel.MainApplication.executor": "Run",
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "JAR Application.jrt-fs.jar.executor": "Run",
+    "JAR Application.original-rennspiel-1.0-SNAPSHOT.jar.executor": "Run",
+    "JAR Application.rennspiel-1.0-SNAPSHOT.jar.executor": "Run",
+    "JAR Application.rennspiel.jar.executor": "Run",
+    "Maven.rennspiel [clean].executor": "Run",
+    "Maven.rennspiel [compile].executor": "Run",
+    "Maven.rennspiel [deploy].executor": "Run",
+    "Maven.rennspiel [install].executor": "Run",
+    "Maven.rennspiel [javafx:jlink].executor": "Run",
+    "Maven.rennspiel [org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile].executor": "Run",
+    "Maven.rennspiel [org.apache.maven.plugins:maven-jar-plugin:2.4:jar].executor": "Run",
+    "Maven.rennspiel [org.apache.maven.plugins:maven-jar-plugin:3.2.0:jar].executor": "Run",
+    "Maven.rennspiel [org.apache.maven.plugins:maven-shade-plugin:3.4.1:shade].executor": "Run",
+    "Maven.rennspiel [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
+    "Maven.rennspiel [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "Maven.rennspiel [package].executor": "Run",
+    "Maven.rennspiel [site].executor": "Run",
+    "Maven.rennspiel [test].executor": "Run",
+    "Maven.rennspiel [validate].executor": "Run",
+    "Maven.rennspiel [verify].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/home/chris/synchronNextcloud/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel/src/main/java/de/christian_koehler_iu/rennspiel",
+    "last_opened_file_path": "C:/meineDaten/Dokumente/studiumMasterInformatik/projektSoftwareEngineering/code/rennspiel",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\meineDaten\Dokumente\studiumMasterInformatik\projektSoftwareEngineering\code\rennspiel" />
       <recent name="C:\meineDaten\Dokumente\studiumMasterInformatik\projektSoftwareEngineering\code\rennspiel\src\main\resources\de\christian_koehler_iu\rennspiel" />
       <recent name="$PROJECT_DIR$/src/main/resources/de/christian_koehler_iu/rennspiel" />
       <recent name="$PROJECT_DIR$/src/main/resources/de/rennspiel_01/rennspiel_01" />
@@ -375,7 +385,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727290609460</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Abgabe Phase 3&#10;ausführbare ordner erstellt und jdk herbgesetzt auf 11">
+      <option name="closed" value="true" />
+      <created>1728057948048</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1728057948048</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -425,7 +443,8 @@
     <MESSAGE value="Abgabe Phase 2" />
     <MESSAGE value="Abgabe Phase 2&#10;README.txt hinzugefügt" />
     <MESSAGE value="Abgabe Phase 3&#10;alle Klassen dokumentiert" />
-    <option name="LAST_COMMIT_MESSAGE" value="Abgabe Phase 3&#10;alle Klassen dokumentiert" />
+    <MESSAGE value="Abgabe Phase 3&#10;ausführbare ordner erstellt und jdk herbgesetzt auf 11" />
+    <option name="LAST_COMMIT_MESSAGE" value="Abgabe Phase 3&#10;ausführbare ordner erstellt und jdk herbgesetzt auf 11" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/rennspiel$rennspiel_1_0_SNAPSHOT_jar.ic" NAME="rennspiel-1.0-SNAPSHOT.jar Coverage Results" MODIFIED="1727280254200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
