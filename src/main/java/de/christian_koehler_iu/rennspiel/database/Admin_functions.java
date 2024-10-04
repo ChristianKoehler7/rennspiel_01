@@ -1,14 +1,15 @@
 package de.christian_koehler_iu.rennspiel.database;
 
-import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
+/**
+ * stellt verschiedene methoden bereit und admin aufgaben auszuführen, die mit dem normalen spielverlauf nichts zu tun haben
+ *  - custom rennstrecken können zu default gemacht werden
+ *  - db kann in csv-dateien umgeformt werden
+ */
 public class Admin_functions {
 
 

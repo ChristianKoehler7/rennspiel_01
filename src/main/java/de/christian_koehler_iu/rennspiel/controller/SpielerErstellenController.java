@@ -18,6 +18,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * FX-Controller der für die View spieler_erstellen_view verantwortlich ist
+ * hier hat der anwender die möglichkeit einen neuen spieler anzulegen
+ */
 public class SpielerErstellenController {
 
     @FXML

@@ -5,6 +5,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
 
+/**
+ * diese klasse ist für die sqlite tabelle Startlinie zuständig
+ * - die sichtbarkeit ist protected, damit diese klasse nur innerhalb des package database erreichbar ist
+ * - enthält den string, um die tabelle zu erstellen
+ * - enthält verschiedene methoden, um auf die db-tabelle zuzugreifen
+ */
 public class Startlinie_db_table {
 
     public final String DEFAULT_STRECKEN_STARTLINIEN_CSV_PATH = "/de/christian_koehler_iu/rennspiel/default_strecken_startlinien.csv";

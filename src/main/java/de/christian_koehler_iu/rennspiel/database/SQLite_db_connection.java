@@ -7,10 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/*
-SQLite_db_connection ist eine Singleton-Klasse, die sich um die Verbindung zur SQLite-Datenbank kümmert und
-die Tabellen erstellt, falls sie noch nicht vorhanden sind
+/**
+ * diese klasse ist eine Singleton-Klasse, die sich um die Verbindung zur SQLite-Datenbank kümmert
+ *  - initialisierung der datenbank beim ersten aufruf
+ *   - erstellen der datenbank tabellen
+ *   - laden der standart strecken aus csv-dateien
  */
+
 public class SQLite_db_connection {
 
     protected static SQLite_db_connection instance;

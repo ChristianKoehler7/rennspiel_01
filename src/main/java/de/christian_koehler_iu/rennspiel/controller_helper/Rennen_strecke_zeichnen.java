@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * FX-Controller-Hilfsklasse für den Controller RennenController
+ * diese klasse ist für das zeichen der gewählten strecke zuständig
+ */
 public class Rennen_strecke_zeichnen {
     // class attributes
 

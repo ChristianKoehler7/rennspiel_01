@@ -1,5 +1,12 @@
 package de.christian_koehler_iu.rennspiel.data_classes;
 
+/**
+ * die klasse Linie repräsentiert einen linie im 2d koordinatensystem
+ *  definiert wird eine linie durch einen start- und einen endpunkt
+ *  verwendung:
+ *   - startlinien
+ *   - streckenlinien
+ */
 public class Linie{
     private Punkt p0;
     private Punkt p1;

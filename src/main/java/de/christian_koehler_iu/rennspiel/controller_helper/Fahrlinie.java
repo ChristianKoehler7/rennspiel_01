@@ -11,6 +11,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * in dieser klasse wird die fahrlinie eines zugs eines spielers berechnet
+ *  durch die möglichkeit der randdurchgänge kann eine fahrlinie aus mehreren einzelnen linien bestehen
+ *  diese einzelnen linien werden hier gespeichert
+ *  zudem enthält diese klasse methoden um die nächsten möglichen fahrlinien zu berechnen und zu visualisieren
+ */
 public class Fahrlinie {
     // class attributes
 

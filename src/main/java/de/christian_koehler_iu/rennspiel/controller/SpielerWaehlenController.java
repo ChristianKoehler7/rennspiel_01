@@ -13,6 +13,10 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
+/**
+ * FX-Controller der für die View spieler_waehlen_view verantwortlich ist
+ * das ist die erste scene bei spielbeginn, hier wird der aktive spieler gewählt
+ */
 public class SpielerWaehlenController {
 
     @FXML

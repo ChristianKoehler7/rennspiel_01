@@ -9,29 +9,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
- * singelton klasse, die sich um scene-wechsel kümmert und methoden zum anzeigen von dialogen und toasts enthält
+ * singelton klasse, die sich um scene-wechsel kümmert und methoden zum anzeigen von dialogen und toasts bereitstellt
  */
 public class ScenesManager {
 

@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * FX-Controller der für die View rennen_beendet_view verantwortlich ist
+ * das rennen ist beendet und hier wird die rangliste und streckenrekorde dargestellt
+ */
 public class RennenBeendetController {
 
     // class attributes

@@ -16,6 +16,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 
+/**
+ * FX-Controller der für die View strecke_erstellen_view verantwortlich ist
+ * das ist der streckeneditor, in dem der anwender neue, eigene strecken erstellen kann
+ */
 public class StreckeErstellenController {
     @FXML
     private GridPane streckeErstellen_grid_root;
@@ -68,7 +72,7 @@ public class StreckeErstellenController {
     public enum Zeichnungszustand {
         STRECKENLINIE_ZEICHNEN,
         STARTLINIE_ZEICHNEN,
-        KEINS_GEWAEHLT;
+        KEINS_GEWAEHLT
     }
     private Zeichnungszustand zeichnungszustand = Zeichnungszustand.KEINS_GEWAEHLT;
 

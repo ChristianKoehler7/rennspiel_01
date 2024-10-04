@@ -2,6 +2,13 @@ package de.christian_koehler_iu.rennspiel.utility;
 
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * diese klasse ist die umrechnung von grid in pixel und umgekehrt zuständig
+ *  - berechnet anhand der rennstrecken-daten die größe des spielfelds
+ *  - definiert die toleranz, ab wann ein click noch zu einem kästchenkreuz zählt
+ *  - umrechnung grid -> pixel (getrennt für x und y-koordinaten)
+ *  - umrechnung pixel -> grid (getrennt für x und y-koordinaten)
+ */
 public class Umrechnung_grid_pixel {
 
     private final double B_RAND_GRID = 1.5; // breite des randes (in kästchen) im group

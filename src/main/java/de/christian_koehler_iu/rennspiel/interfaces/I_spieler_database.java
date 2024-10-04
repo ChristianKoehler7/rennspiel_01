@@ -4,6 +4,9 @@ import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 
 import java.util.ArrayList;
 
+/**
+ * schnittstelle, die methoden für die datenbank zugriffe definiert, was die spieler angeht
+ */
 public interface I_spieler_database {
     void save_new_spieler(String spieler_name);
     Spieler load_spieler_complete(String spieler_name);

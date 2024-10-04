@@ -4,6 +4,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * die klasse Rennstrecke repräsentiert einen strecke im spiel
+ *  sowohl die standart als auch die custom strecken
+ *  gespeichert werden alle nötigen daten um eine rennstrecke zu definieren
+ */
 public class Rennstrecke {
     private final String name;
     private boolean is_standartstrecke = false;

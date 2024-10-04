@@ -8,6 +8,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * diese klasse ist für die sqlite tabelle Spieler zuständig
+ * - die sichtbarkeit ist protected, damit diese klasse nur innerhalb des package database erreichbar ist
+ * - enthält den string, um die tabelle zu erstellen
+ * - enthält verschiedene methoden, um auf die db-tabelle zuzugreifen
+ */
 public class Spieler_db_table {
 
     protected final String TABELLENNAME = "Spieler";
@@ -56,7 +62,6 @@ public class Spieler_db_table {
     // fertig
     @Nullable
     protected Spieler get_spieler_complete(String spieler_name) throws SQLException {
-        // TODO durch transaction ersetzen
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
 

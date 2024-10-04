@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -22,6 +21,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * FX-Controller der für die View rennen_view verantwortlich ist
+ * hier wird sich um die koordination des rennens gekümmert und die teilaufgaben an die hilfklassen weiter geleitet
+ */
 public class RennenController {
     // class attributes
     public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/rennen_view.fxml";

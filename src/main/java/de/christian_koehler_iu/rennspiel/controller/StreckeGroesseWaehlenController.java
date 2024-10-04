@@ -14,6 +14,13 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FX-Controller der für die View strecke_groesse_waehlen_view verantwortlich ist
+ * diese scene wird vor dem streckeneditor angezeigt, der anwender hat hier die möglichkeit folgendes zu wählen
+ * - streckenname
+ * - strecken_breite
+ * - strecken_hoehe
+ */
 public class StreckeGroesseWaehlenController {
     // klassen attribute
     public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/strecke_groesse_waehlen_view.fxml";
@@ -52,7 +59,7 @@ public class StreckeGroesseWaehlenController {
 
 
     public void streckeGroesse_bn_zurueck_action(ActionEvent actionEvent) {
-        ScenesManager.getInstance().switch_to_strecke_waehlen(spieler);;
+        ScenesManager.getInstance().switch_to_strecke_waehlen(spieler);
     }
 
     public void streckeGroesse_bn_weiter_action(ActionEvent actionEvent) {

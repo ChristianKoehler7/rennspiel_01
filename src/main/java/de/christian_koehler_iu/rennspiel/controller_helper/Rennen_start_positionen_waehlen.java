@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * FX-Controller-Hilfsklasse für den Controller RennenController
+ * diese klasse ist dafür zuständig, dass alle spieler ihr startpositionen auf der startlinie wählen
+ *  dabei wird geprüft, ob bereits ein anderer spieler auf der gewählten position liegt und dass sich kein spieler auf eine streckenline setzt
+ */
 public class Rennen_start_positionen_waehlen {
     // class attributes
 

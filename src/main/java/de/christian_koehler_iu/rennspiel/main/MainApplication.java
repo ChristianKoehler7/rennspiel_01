@@ -6,6 +6,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Start der FX-Application
+ */
 public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {

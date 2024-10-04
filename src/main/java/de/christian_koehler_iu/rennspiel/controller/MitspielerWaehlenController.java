@@ -2,31 +2,26 @@ package de.christian_koehler_iu.rennspiel.controller;
 
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
-import de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection;
 import de.christian_koehler_iu.rennspiel.database.Spieler_database_connection;
-import de.christian_koehler_iu.rennspiel.interfaces.I_rennstrecke_database;
 import de.christian_koehler_iu.rennspiel.interfaces.I_spieler_database;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.skin.ListViewSkin;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-
+/**
+ * FX-Controller der für die View mitspieler_waehlen_view verantwortlich ist
+ * hier wählt der aktive spieler die mitspieler aus für die bereits gewählte strecke
+ */
 public class MitspielerWaehlenController {
     public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/mitspieler_waehlen_view.fxml";
     public static final String SCENE_NAME = "Mitspieler wählen";
@@ -45,8 +40,8 @@ public class MitspielerWaehlenController {
     @FXML
     ListView<String> mitspielerWaehlen_listview_mitspieler;
 
-    private Spieler spieler;
-    private Rennstrecke rennstrecke;
+    private Spieler spieler; // aktiver spieler
+    private Rennstrecke rennstrecke; // gewählte rennstrecke
 
     // speicher für die vorhandnen mitspieler
     private final ArrayList<String> mitspieler = new ArrayList<>();
@@ -119,11 +114,10 @@ public class MitspielerWaehlenController {
 
             // Wenn es Teil einer Zelle ist oder die Zelle selbst,
             // das Ereignis selbst handhaben, anstatt die Standardbehandlung zu verwenden
-            if (node instanceof ListCell) {
+            if (node instanceof ListCell cell) {
                 // Weitere Verarbeitung verhindern
                 evt.consume();
 
-                ListCell cell = (ListCell) node;
                 ListView lv = cell.getListView();
 
                 // Den Fokus auf das ListView setzen

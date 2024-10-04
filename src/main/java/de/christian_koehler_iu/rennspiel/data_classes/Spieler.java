@@ -2,9 +2,13 @@ package de.christian_koehler_iu.rennspiel.data_classes;
 
 import de.christian_koehler_iu.rennspiel.database.Spieler_database_connection;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.HashMap;
 
+/**
+ * die klasse Spieler repräsentiert einen spieler im rennspiel
+ *  sie speichert den namen
+ *  und für jede gefahrene strecke die persönliche bestzeit
+ */
 public class Spieler {
     private String name;
     private final HashMap<String, Double> strecken_bestzeiten = new HashMap<>();
@@ -56,7 +60,7 @@ public class Spieler {
      * gibt die bestzeit des spielers für die angegebene strecke zurück,
      *  wenn es für die strecke keinen wert gibt, dann wir null zurück gegeben
      * @param @Nullable strecken_name
-     * @return
+     * @return @Nullable strecken_bestzeit
      */
     @Nullable
     public Double get_bestzeit_von_strecke(String strecken_name){

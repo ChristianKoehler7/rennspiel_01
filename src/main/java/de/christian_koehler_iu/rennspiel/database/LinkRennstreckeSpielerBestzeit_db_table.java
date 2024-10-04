@@ -1,6 +1,5 @@
 package de.christian_koehler_iu.rennspiel.database;
 
-import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.PreparedStatement;
@@ -8,6 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * diese klasse ist für die sqlite tabelle Link_rennstrecke_spielerBestzeit zuständig
+ * - die sichtbarkeit ist protected, damit diese klasse nur innerhalb des package database erreichbar ist
+ * - enthält den string, um die tabelle zu erstellen
+ * - enthält verschiedene methoden, um auf die db-tabelle zuzugreifen
+ */
 public class LinkRennstreckeSpielerBestzeit_db_table {
 
     protected final String TABELLENNAME = "Link_rennstrecke_spielerBestzeit";
@@ -103,7 +108,6 @@ public class LinkRennstreckeSpielerBestzeit_db_table {
         return spieler_strecke_bestzeit;
     }
 
-    @Nullable
     protected void create_new_spieler_strecke_bestzeit(String strecken_name, String spieler_name, double bestzeit) throws SQLException{
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();
@@ -118,7 +122,6 @@ public class LinkRennstreckeSpielerBestzeit_db_table {
         }
     }
 
-    @Nullable
     protected void update_spieler_strecke_bestzeit(String strecken_name, String spieler_name, double bestzeit) throws SQLException{
         // datenbankverbindung holen
         SQLite_db_connection sqLiteDbConnection = SQLite_db_connection.getInstance();

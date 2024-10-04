@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--javaFX-layout-datei für die scene rennen_beendet
+- zugehörige controllerklasse: RennenBeendetController-->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>

@@ -15,6 +15,11 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
+/**
+ * FX-Controller der für die View strecke_waehlen_view verantwortlich ist
+ * hier hat der anwender die möglichkeit eine vorhande strecke (standart oder custom) zu wählen
+ * außerdem können hier eigene strecken gelöscht werden
+ */
 public class StreckeWaehlenController {
     // klassen attribute
     public static final String PATH_TO_FXML = "/de/christian_koehler_iu/rennspiel/strecke_waehlen_view.fxml";

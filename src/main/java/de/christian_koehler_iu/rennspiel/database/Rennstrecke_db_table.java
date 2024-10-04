@@ -1,15 +1,17 @@
 package de.christian_koehler_iu.rennspiel.database;
+
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Linie;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
 
+/**
+ * diese klasse ist für die sqlite tabelle Rennstrecke zuständig
+ * - die sichtbarkeit ist protected, damit diese klasse nur innerhalb des package database erreichbar ist
+ * - enthält den string, um die tabelle zu erstellen
+ * - enthält verschiedene methoden, um auf die db-tabelle zuzugreifen
+ */
 public class Rennstrecke_db_table {
 
     public final String DEFAULT_STRECKEN_RENNSTRECKEN_CSV_PATH = "/de/christian_koehler_iu/rennspiel/default_strecken_rennstrecken.csv";

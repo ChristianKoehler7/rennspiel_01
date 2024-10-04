@@ -4,7 +4,6 @@ import de.christian_koehler_iu.rennspiel.controller.ScenesManager;
 import de.christian_koehler_iu.rennspiel.data_classes.Punkt;
 import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 import de.christian_koehler_iu.rennspiel.data_classes.Spieler;
-import de.christian_koehler_iu.rennspiel.database.Rennstrecke_database_connection;
 import de.christian_koehler_iu.rennspiel.interfaces.I_aufgabe_beendet;
 import de.christian_koehler_iu.rennspiel.utility.Umrechnung_grid_pixel;
 import javafx.event.EventHandler;
@@ -12,11 +11,18 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Controller-Hilfsklasse für den FX-Controller RennenController
+ * diese klasse kümmert sich um den rennverlauf
+ * der rennverlauf beginnt nachdem alle spieler ihre startpositionen gewählt haben
+ * und endet wenn alle spieler raus sind (unfall oder regulär beendet)
+ * diese hilfklasse koordiniert den rennverlauf und hat als weitere hilfklassen instanzen der klasse Spieler_fahrverlauf,
+ *  in dem die fahrverläufe der jeweiligen spieler gespeichert und berechnet werden
+ */
 public class Rennen_renn_verlauf {
 
     // class attributes

@@ -4,6 +4,9 @@ import de.christian_koehler_iu.rennspiel.data_classes.Rennstrecke;
 
 import java.util.ArrayList;
 
+/**
+ * schnittstelle, die methoden für die datenbank zugriffe definiert, was die rennstrecke angeht
+ */
 public interface I_rennstrecke_database {
     void save_rennstrecke_complete(Rennstrecke rennstrecke);
     Rennstrecke load_rennstrecke_complete(String strecken_name);

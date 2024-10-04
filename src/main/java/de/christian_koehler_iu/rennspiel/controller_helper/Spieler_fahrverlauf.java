@@ -18,6 +18,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Hilfsklasse für die Controller-Hilfsklasse Rennen_renn_verlauf
+ * man befindet sich im rennverlauf und für jeden spieler wird ein objekt dieser klasse erstellt,
+ *  die sich dann um die speicherung berechnung der fahrverläufe des jeweiligen spielers kümmert
+ */
 public class Spieler_fahrverlauf {
     // class attributes
 
@@ -98,7 +103,7 @@ public class Spieler_fahrverlauf {
     }
 
     public void mouse_clicked(MouseEvent mouseEvent){
-        if(mouseEvent.getButton() == MouseButton.PRIMARY){ // TODO && this.sind_moegliche_pos_fx_nodes_angezeigt()){
+        if(mouseEvent.getButton() == MouseButton.PRIMARY){
             System.out.println("Click mit linker Maustaste und mögliche Positionen geladen");
             Integer pos_x_grid_nullable = umrechnung_grid_pixel.posXPixel_to_posXGrid_round(mouseEvent.getX());
             Integer pos_y_grid_nullable = umrechnung_grid_pixel.posYPixel_to_posYGrid_round(mouseEvent.getY());
@@ -253,7 +258,6 @@ public class Spieler_fahrverlauf {
             ScenesManager.getInstance().show_toast_warning("CRASH mit Streckenlinie!");
             // spieler crashed speichern
             is_crashed = true;
-            // TODO crash einzeichnen + links anzeigen, dass spieler raus ist
         }
 
         // test auf kollisionen mit anderen spielerpositionen
@@ -273,7 +277,6 @@ public class Spieler_fahrverlauf {
             ScenesManager.getInstance().show_toast_warning("CRASH mit anderem Spieler!");
             // spieler crashed speichern
             is_crashed = true;
-            // TODO crash einzeichnen+ links anzeigen, dass spieler raus ist
         }
     }
 

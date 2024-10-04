@@ -15,8 +15,9 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.*;
 
-/*
-    klasse um StreckeErstellenController und Rennstrecke zu koppeln
+/**
+ * Controller-Hilfsklasse für den FX-Controller StreckeErstellenController
+ * die klasse kümmert sich um das zeichnen der rennstreckenelemente
  */
 public class StreckeErstellen_helper {
 
@@ -125,18 +126,6 @@ public class StreckeErstellen_helper {
             // linie dem group-element hinzufügen
             this.i_linkStrErstControllerRennstrecke.get_group().getChildren().add(aktLine);
         }
-
-    }
-
-    private void init_streckenlinien(){
-
-    }
-
-    private void init_startlinie(){
-
-    }
-
-    private void init_startrichtung(){
 
     }
 
@@ -615,9 +604,9 @@ public class StreckeErstellen_helper {
 
 
     public interface I_Link_StrErstController_Rennstrecke {
-        public StreckeErstellenController.Zeichnungszustand get_zeichnungszustand();
-        public Group get_group();
-        public Rennstrecke get_rennstrecke();
+        StreckeErstellenController.Zeichnungszustand get_zeichnungszustand();
+        Group get_group();
+        Rennstrecke get_rennstrecke();
     }
 
 }

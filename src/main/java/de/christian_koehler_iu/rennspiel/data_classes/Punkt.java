@@ -1,5 +1,9 @@
 package de.christian_koehler_iu.rennspiel.data_classes;
 
+/**
+ * die klasse Punkt repräsentiert einen punkt im 2d koordinatensystem
+ *  zwei punkte werden verwendet um eine linie zu definieren
+ */
 public class Punkt{
     private double x;
     private double y;

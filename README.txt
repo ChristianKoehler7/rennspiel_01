@@ -4,25 +4,26 @@ Dies ist ein einfaches Rennspiel, das mit Java und JavaFX entwickelt wurde. Dies
 
 ## Voraussetzungen
 
-Um das Rennspiel auszuführen, benötigst du das folgende Softwarepaket:
+Um das Rennspiel auszuführen, benötigen Sie das folgende Softwarepaket:
 
-- **Java Development Kit (JDK)**: Stelle sicher, dass du mindestens JDK 11 installiert hast. Du kannst die neueste Version von [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) oder [OpenJDK](https://openjdk.java.net/install/) herunterladen und installieren.
+- **Java Development Kit (JDK)**: Stellen Sie sicher, dass Sie mindestens JDK 11 installiert haben. Sie können die neueste Version von [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) oder [OpenJDK](https://openjdk.java.net/install/) herunterladen und installieren.
 
 ## Spiel starten
 
-Um das Rennspiel zu starten, folge diesen Schritten:
+Um das Rennspiel zu starten, folgen Sie diesen Schritten:
 
 1. **Java installieren**:
-   - Stelle sicher, dass du das JDK (OpenJDK oder Oracle JDK) installiert hast.
+   - stellen Sie sicher, dass Sie das JDK (OpenJDK oder Oracle JDK) installiert haben
 
 2. **Ordner vorbereiten**:
-   - Kopiere den gesamten `rennspiel_starten`-Ordner auf deinen Computer.
+   - laden Sie sich das gesamte Repository herunter
+   - kopieren Sie den `rennspiel_starten`-Ordner in ein beliebiges Verzeichnis
 
-3. **Öffne eine Kommandozeile (Terminal)**:
-   - Navigiere in das Verzeichnis des `rennspiel_starten`-Ordners.
+3. **Öffnen Sie eine Kommandozeile (Terminal)**:
+   - navigieren Sie in das Verzeichnis des `rennspiel_starten`-Ordners
 
 4. **Spiel starten**:
-   - Führe den folgenden Befehl aus, um das Spiel zu starten:
+   - Führen Sie den folgenden Befehl aus, um das Spiel zu starten:
 
      ```bash
      java -jar rennspiel.jar
@@ -32,5 +33,5 @@ Das Spiel sollte nun starten und bereit sein, gespielt zu werden!
 
 ## Hinweise
 
-- Wenn du Probleme beim Starten des Spiels hast, überprüfe bitte, ob du die richtige Version von Java installiert hast.
-- Stelle sicher, dass alle erforderlichen Dateien im `rennspiel_starten`-Ordner vorhanden sind.
+- Wenn Sie Probleme beim Starten des Spiels haben, überprüfe Sie bitte, ob Sie die richtige Version von Java installiert haben.
+- Stellen Sie sicher, dass alle erforderlichen Dateien im `rennspiel_starten`-Ordner vorhanden sind.

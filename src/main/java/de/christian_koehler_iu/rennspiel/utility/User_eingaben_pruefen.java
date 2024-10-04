@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Diese Klasse prüft Benutzereingaben auf Validität, insbesondere auf sichere und
- * zulässige Spielernamen. Sie bietet Methoden zur Validierung und zum Erhalten
- * von Fehlermeldungen bei ungültigen Eingaben.
+ * diese klasse ist für die validierung von user-eingaben zuständig
+ *  - verwendung für die eingabe von spielernamen und rennstreckenname
+ *  - begrenzt die anzahl an zeichen
+ *  - unterbindet sql-befehle, um sql-injections zu verhindern
+ *  - stellt bei nicht erlaubten eingaben fehlermeldungen zur verfügung
  */
 public class User_eingaben_pruefen {
 

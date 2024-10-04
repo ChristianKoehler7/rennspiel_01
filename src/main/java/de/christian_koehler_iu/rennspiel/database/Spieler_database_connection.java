@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * klasse die die Verbindung zwischen den java-klassen und der datenbank herstellt, was die Spieler angeht.
+ * diese klasse dient als verbindung der klassen innerhalb dieses packages (database) nach außen
+ *  - stellt verschiedene methoden bereit, um datenbank operationen auszuführen, was die spieler angeht
+ *  - hat public sichtbarkeit, ist also nach außen hin zugänglich
  */
 public class Spieler_database_connection implements I_spieler_database {
 
